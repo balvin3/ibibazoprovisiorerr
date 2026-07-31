@@ -73,45 +73,49 @@ function previousQuestion() {
     }
 }
 
-// ================= FINISH QUIZ =================
+// ================= FINISH QUIZ (STATIC / LOCALSTORAGE) =================
 function finishQuiz() {
     clearInterval(timer);
     let score = 0;
+    let reviewData = [];
 
-    questions.forEach(function(q) {
+    questions.forEach(function(q, index) {
         let answer = q.querySelector("input[type=radio]:checked");
-        if (answer) {
-            // Kugenzura niba igisubizo cyatowe gihuye n'icyo muri Database (data-correct)
-            if (answer.value === answer.dataset.correct) {
-                score++;
+        let questionTitle = q.querySelector(".question-title") ? q.querySelector(".question-title").innerText : `Ikibazo ${index + 1}`;
+        let selectedValue = answer ? answer.value : null;
+        
+        // Shakisha igisubizo nyacyo muri buri radio yo muri icyo kibazo
+        let actualCorrect = null;
+        let allRadios = q.querySelectorAll("input[type=radio]");
+        allRadios.forEach(function(r) {
+            if (r.dataset.correct) {
+                actualCorrect = r.dataset.correct;
             }
+        });
+
+        let isCorrect = false;
+        if (answer && selectedValue === actualCorrect) {
+            score++;
+            isCorrect = true;
         }
+
+        reviewData.push({
+            questionNumber: index + 1,
+            questionText: questionTitle,
+            userAnswer: selectedValue,
+            correctAnswer: actualCorrect,
+            isCorrect: isCorrect
+        });
     });
 
-    // Kohereza amanota kuri Flask Backend ukoresheje AJAX (Fetch API)
-    fetch('/save_result', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ score: score })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.saved) {
-            // Kwerekeza kuri paji y'amanota (result.html)
-            window.location.href = "/result";
-        } else {
-            alert("Habaye ikibazo mu kubika amanota, ariko urahita ujyanwa ku ntsinzi.");
-            window.location.href = "/result";
-        }
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        window.location.href = "/result";
-    });
+    // 1. Bika amanota n'ibisubizo muri localStorage kugira ngo result.html izabisome
+    localStorage.setItem('quiz_score', score);
+    localStorage.setItem('quiz_total', questions.length);
+    localStorage.setItem('current_quiz_questions', JSON.stringify(reviewData));
+
+    // 2. Kwerekeza ku paji y'amanota (result.html)
+    window.location.href = "./result.html";
 }
-
 // ================= TIMER CONFIGURATION =================
 function startTimer() {
     const timerBox = document.getElementById("timer");
