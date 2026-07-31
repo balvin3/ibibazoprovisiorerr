@@ -134,7 +134,7 @@ function startTimer() {
             finishQuiz();
         }
     }, 1000);
-}
+} 
 
 // ================= CREATE QUESTION PALETTE =================
 function createPalette() {
