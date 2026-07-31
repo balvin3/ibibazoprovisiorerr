@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Provisiore Rwanda | Admin Dashboard</title>
+    <title>Provisiore Rwanda | Only Admin Login</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="https://fav.farm/🚗" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- Script z'amamenyekamaza (Ad Scripts) -->
+    <script src="https://pl30600128.effectivecpmnetwork.com/00/35/04/00350429f691455db5156209d1c06794.js"></script>
+    <script src="https://quge5.com/88/tag.min.js" data-zone="265417" async data-cfasync="false"></script>
+
     <style>
         :root {
             --primary-color: #0066ff;
@@ -21,9 +27,6 @@
             --danger-bg: #fff5f5;
             --danger-text: #e53e3e;
             --danger-border: #fed7d7;
-            --success-bg: #f0fff4;
-            --success-text: #38a169;
-            --success-border: #c6f6d5;
         }
 
         * {
@@ -43,17 +46,18 @@
             padding: 20px;
         }
 
-        .dashboard-container {
+        .login-container {
             width: 100%;
-            max-width: 800px;
+            max-width: 420px;
         }
 
         .card {
             background: var(--card-bg);
-            padding: 30px;
+            padding: 40px 30px;
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             border: 1px solid rgba(0, 0, 0, 0.02);
+            text-align: center;
         }
 
         h1 {
@@ -61,7 +65,6 @@
             font-weight: 700;
             margin-bottom: 5px;
             color: var(--text-dark);
-            text-align: center;
         }
 
         h2 {
@@ -70,12 +73,46 @@
             color: var(--primary-color);
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 25px;
-            text-align: center;
+            margin-bottom: 30px;
         }
 
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background-color: #f8fafc;
+            color: var(--text-dark);
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+        }
+
+        /* Ubutumwa bw'amakosa (Alert) ushobora gukoresha muri JavaScript niba bibaye ngombwa */
         .alert {
-            display: none;
+            display: none; /* Byashyizweho hato na hato, bishobora gukoreshwa na JS */
+            background-color: var(--danger-bg);
+            color: var(--danger-text);
+            border: 1px solid var(--danger-border);
             padding: 12px;
             border-radius: 10px;
             font-size: 14px;
@@ -84,65 +121,27 @@
             text-align: center;
         }
 
-        .alert.danger {
-            background-color: var(--danger-bg);
-            color: var(--danger-text);
-            border: 1px solid var(--danger-border);
-            display: block;
-        }
-
-        .alert.success {
-            background-color: var(--success-bg);
-            color: var(--success-text);
-            border: 1px solid var(--success-border);
-            display: block;
-        }
-
-        .questions-list {
-            margin-top: 20px;
-            max-height: 500px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
-        .question-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        .question-card img {
-            max-width: 150px;
-            height: auto;
-            border-radius: 8px;
-            margin: 10px 0;
-            display: block;
-        }
-
-        .btn-delete {
-            background-color: var(--danger-bg);
-            color: var(--danger-text);
-            border: 1px solid var(--danger-border);
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 650;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            margin-top: 12px;
-        }
-
-        .btn-delete:hover {
-            background-color: var(--danger-text);
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: var(--primary-color);
             color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: var(--primary-hover);
         }
 
         .back-link {
             display: inline-block;
-            margin-top: 20px;
+            margin-top: 25px;
             font-size: 14px;
             color: var(--text-light);
             text-decoration: none;
@@ -156,109 +155,44 @@
 </head>
 <body>
 
-<div class="dashboard-container">
+<div class="login-container">
     <div class="card">
         <h1>🚗 Provisiore Rwanda</h1>
-        <h2>Admin Dashboard - Urutonde rw'Ibibazo</h2>
+        <h2>Admin Dashboard</h2>
 
-        <!-- Ubutumwa bugaragaza uko igikorwa cyagenze -->
-        <div id="alert-box" class="alert"></div>
-
-        <!-- Aho urutonde rw'ibibazo ruzajya rwerekwa -->
-        <div id="questions-container" class="questions-list">
-            <!-- Ibibazo bizajya byinjira hano na JavaScript -->
+        <!-- Ahantu hagenewe ubutumwa bw'amakosa bwa Static (Niba bikenewe gukoreshwa na JavaScript) -->
+        <div id="error-alert" class="alert">
+            ⚠️ Izina cyangwa ijambo ry'ibanga si byo!
         </div>
 
-        <a href="index.html" class="back-link">← Subira ahabanza</a>
+        <!-- Form yahinduwe ya static ikoresha "#" cyangwa aho yohereza -->
+        <form id="login-form" action="#" method="POST">
+            <div class="form-group">
+                <label for="username">Izina ry'ukoresha (Username)</label>
+                <input 
+                    type="text" 
+                    id="username"
+                    name="username" 
+                    placeholder="Andika username yawe" 
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Ijambo ry'ibanga (Password)</label>
+                <input 
+                    type="password" 
+                    id="password"
+                    name="password" 
+                    placeholder="••••••••••••" 
+                    required>
+            </div>
+
+            <button type="submit">Injira Mu Dashibodi 🔐</button>
+        </form>
+
+        <a href="./index.html" class="back-link">← Subira ahabanza</a>
     </div>
 </div>
-
-<script>
-    // Ingero z'ibibazo (Byakura muri Database cyangwa localStorage)
-    let questionsData = [
-        {
-            question: "Ni ryagati umuyoboke w'imodoka agomba kwitwararika ku cyapa cy'ahatagenderwa?",
-            image: "",
-            answer1: "Gukomeza ntabwoba",
-            answer2: "Guhagarara byanze bikunze",
-            answer3: "Gutambuka vuba na vuba",
-            answer4: "Kuyoboka mu rundi ruhande",
-            correct: 2
-        },
-        {
-            question: "Icyapa cyerekana umuvuduko ntarengwa gisobanura iki?",
-            image: "https://fav.farm/🚗",
-            answer1: "Umuvuduko muto ushoboka",
-            answer2: "Umuvuduko ntarengwa wemewe",
-            answer3: "Nta muvuduko wagenwe",
-            answer4: "Nta na kimwe",
-            correct: 2
-        }
-    ];
-
-    const lettersMap = { 1: 'A', 2: 'B', 3: 'C', 4: 'D' };
-    const container = document.getElementById('questions-container');
-    const alertBox = document.getElementById('alert-box');
-
-    // Funisiyo yo kwerekana ubutumwa bw'amakuru
-    function showAlert(message, type = 'success') {
-        alertBox.className = `alert ${type}`;
-        alertBox.textContent = message;
-        setTimeout(() => {
-            alertBox.className = "alert";
-            alertBox.textContent = "";
-        }, 3000);
-    }
-
-    // Funisiyo yo kugaragaza ibibazo byose muri HTML
-    function renderQuestions() {
-        container.innerHTML = "";
-
-        if (questionsData.length === 0) {
-            container.innerHTML = `<p style="text-align: center; color: var(--text-light);">Nta bibazo bihari.</p>`;
-            return;
-        }
-
-        questionsData.forEach((q, index) => {
-            const correctLetter = lettersMap[q.correct] || q.correct;
-            
-            const card = document.createElement('div');
-            card.className = 'question-card';
-            
-            card.innerHTML = `
-                <p><strong>${index + 1}. ${q.question}</strong></p>
-                ${q.image ? `<img src="${q.image}" alt="Ifoto y'ikibazo">` : ''}
-                <ul style="margin: 8px 0 8px 20px; font-size: 14px; color: #475569;">
-                    <li>A. ${q.answer1}</li>
-                    <li>B. ${q.answer2}</li>
-                    ${q.answer3 ? `<li>C. ${q.answer3}</li>` : ''}
-                    ${q.answer4 ? `<li>D. ${q.answer4}</li>` : ''}
-                </ul>
-                <p style="font-size: 13px; color: #198754; font-weight: 600;">Nyacyo: Igisubizo cya ${q.correct} (${correctLetter})</p>
-                <button type="button" class="btn-delete" data-index="${index}">🗑️ Sisiba</button>
-            `;
-
-            // Gushyiraho Event Listener ku buto yo gusiba kugira ngo twirinde Error ya Scope
-            card.querySelector('.btn-delete').addEventListener('click', function() {
-                deleteQuestion(index);
-            });
-
-            container.appendChild(card);
-        });
-    }
-
-    // Funisiyo yo gusiba ikibazo
-    function deleteQuestion(index) {
-        if (confirm("Uremye ko ushaka gusiba iki kibazo?")) {
-            const removedQuestion = questionsData.splice(index, 1);
-            renderQuestions();
-            showAlert(`Ikibazo cya ${index + 1} cyasibwe neza!`, 'success');
-        }
-    }
-
-    // Gutangira kwerekana ibibazo page ikimara gufunguka
-    renderQuestions();
-</script>
 
 </body>
 </html>
