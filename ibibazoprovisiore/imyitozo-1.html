@@ -137,16 +137,28 @@
         .btn-back:hover {
             color: var(--text);
         }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            margin: 0 5px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>✍️ Imyitozo 1 (Ibibazo 10)</h2>
+    <h2 style="margin-bottom: 20px;">✍️ Imyitozo 1 (Ibibazo 10)</h2>
 
     <div class="quiz-box">
         
-        <!-- Ikibazo 1 -->
         <div class="box-item">
             <p><strong>1. Amatara y'urubyiruko (feux de position) akoreshwa ryari?</strong></p>
             <div class="options">
@@ -156,10 +168,9 @@
                 <label><input type="radio" name="q1" value="D"> D. Igihe hose</label>
             </div>
             <button onclick="checkAnswer('q1', 'A')" class="btn-check">Reba igisubizo</button>
-            <p class="answer" id="answer-q1" style="display:none;"><strong>Igisubizo: A</strong> - Akoreshwa igihe hari umwijima muke cyangwa igihe imvura igwa buhoro.</p>
+            <p class="answer" id="answer-q1" style="display:none; color: green;"><strong>Igisubizo: A</strong> - Akoreshwa igihe hari umwijima muke cyangwa igihe imvura igwa buhoro.</p>
         </div>
 
-        <!-- Ikibazo 2 -->
         <div class="box-item">
             <p><strong>2. Ni iki kigomba gukorwa mbere yo kurenga insanganyamatsiko (intersection)?</strong></p>
             <div class="options">
@@ -169,10 +180,9 @@
                 <label><input type="radio" name="q2" value="D"> D. Guhagarara buri gihe</label>
             </div>
             <button onclick="checkAnswer('q2', 'B')" class="btn-check">Reba igisubizo</button>
-            <p class="answer" id="answer-q2" style="display:none;"><strong>Igisubizo: B</strong> - Kugabanya umuvuduko no kureba iburyo n'ibumoso.</p>
+            <p class="answer" id="answer-q2" style="display:none; color: green;"><strong>Igisubizo: B</strong> - Kugabanya umuvuduko no kureba iburyo n'ibumoso.</p>
         </div>
 
-        <!-- Ikibazo 3 -->
         <div class="box-item">
             <p><strong>3. Niki ukwiriye gukora ubonye ikimenyetso cy'umwanya uteganyirijwe abanyamaguru?</strong></p>
             <div class="options">
@@ -182,10 +192,9 @@
                 <label><input type="radio" name="q3" value="D"> D. Gufata feri cyane</label>
             </div>
             <button onclick="checkAnswer('q3', 'C')" class="btn-check">Reba igisubizo</button>
-            <p class="answer" id="answer-q3" style="display:none;"><strong>Igisubizo: C</strong> - Kwitegura guhagarara.</p>
+            <p class="answer" id="answer-q3" style="display:none; color: green;"><strong>Igisubizo: C</strong></p>
         </div>
 
-        <!-- Ikibazo 4 -->
         <div class="box-item">
             <p><strong>4. Niki wakwirinda mugihe ushaka kunyuranaho?</strong></p>
             <div class="options">
@@ -195,10 +204,9 @@
                 <label><input type="radio" name="q4" value="D"> D. Ugeze mumuhanda utaringaniye</label>
             </div>
             <button onclick="checkAnswer('q4', 'A')" class="btn-check">Reba igisubizo</button>
-            <p class="answer" id="answer-q4" style="display:none;"><strong>Igisubizo: A</strong> - Nyuma y'ikona ugategereza kubona uburyo bwo kunyuranaho.</p>
+            <p class="answer" id="answer-q4" style="display:none; color: green;"><strong>Igisubizo: A</strong></p>
         </div>
 
-        <!-- Ikibazo 5 -->
         <div class="box-item">
             <p><strong>5. Niki wakora mbere y'uko uhindura icyerekezo?</strong></p>
             <div class="options">
@@ -207,10 +215,9 @@
                 <label><input type="radio" name="q5" value="C"> C. A na B n'ibisubizo by'ukuri</label>
             </div>
             <button onclick="checkAnswer('q5', 'C')" class="btn-check">Reba igisubizo</button>
-            <p class="answer" id="answer-q5" style="display:none;"><strong>Igisubizo: C</strong> - A na B n'ibisubizo by'ukuri.</p>
+            <p class="answer" id="answer-q5" style="display:none; color: green;"><strong>Igisubizo: C</strong></p>
         </div>
 
-        <!-- Ikibazo 6 -->
         <div class="box-item">
             <p><strong>6. Iyo ugiye kwinjira mu muhanda mukuru uturutse mu muto, ukora iki?</strong></p>
             <div class="options">
@@ -219,10 +226,9 @@
                 <label><input type="radio" name="q6" value="C"> C. Gukomeza utarebye</label>
             </div>
             <button onclick="checkAnswer('q6', 'B')" class="btn-check">Reba igisubizo</button>
-            <p class="answer" id="answer-q6" style="display:none;"><strong>Igisubizo: B</strong> - Guhagarara ukareba niba nta modoka irimo kuza.</p>
+            <p class="answer" id="answer-q6" style="display:none; color: green;"><strong>Igisubizo: B</strong></p>
         </div>
 
-        <!-- Ikibazo 7 -->
         <div class="box-item">
             <p><strong>7. Iyo ubonye ikimenyetso cy'abanyamaguru bambuka, ukora iki?</strong></p>
             <div class="options">
@@ -231,10 +237,9 @@
                 <label><input type="radio" name="q7" value="C"> C. Kubashishikariza kwihuta</label>
             </div>
             <button onclick="checkAnswer('q7', 'A')" class="btn-check">Reba igisubizo</button>
-            <p class="answer" id="answer-q7" style="display:none;"><strong>Igisubizo: A</strong> - Guha inzira abanyamaguru bari ku muhanda.</p>
+            <p class="answer" id="answer-q7" style="display:none; color: green;"><strong>Igisubizo: A</strong></p>
         </div>
 
-        <!-- Ikibazo 8 -->
         <div class="box-item">
             <p><strong>8. Amatara y'inzira (feux tricolores) iyo acanira umuhondo, ukora iki?</strong></p>
             <div class="options">
@@ -243,10 +248,9 @@
                 <label><input type="radio" name="q8" value="C"> C. Kongera umuvuduko</label>
             </div>
             <button onclick="checkAnswer('q8', 'B')" class="btn-check">Reba igisubizo</button>
-            <p class="answer" id="answer-q8" style="display:none;"><strong>Igisubizo: B</strong> - Guhagarara niba bishoboka utabaye imbogamizi.</p>
+            <p class="answer" id="answer-q8" style="display:none; color: green;"><strong>Igisubizo: B</strong></p>
         </div>
 
-        <!-- Ikibazo 9 -->
         <div class="box-item">
             <p><strong>9. Iyo imodoka yawe igize ikibazo, ugomba gukora iki?</strong></p>
             <div class="options">
@@ -255,10 +259,9 @@
                 <label><input type="radio" name="q9" value="C"> C. Kuguma mu modoka</label>
             </div>
             <button onclick="checkAnswer('q9', 'B')" class="btn-check">Reba igisubizo</button>
-            <p class="answer" id="answer-q9" style="display:none;"><strong>Igisubizo: B</strong> - Gucana amatara y'ubutabazi no gushyira ikimenyetso inyuma.</p>
+            <p class="answer" id="answer-q9" style="display:none; color: green;"><strong>Igisubizo: B</strong></p>
         </div>
 
-        <!-- Ikibazo 10 -->
         <div class="box-item">
             <p><strong>10. Gukoresha telefone mu gihe utwaye imodoka bifite iyihe ngaruka?</strong></p>
             <div class="options">
@@ -267,21 +270,32 @@
                 <label><input type="radio" name="q10" value="C"> C. Ntabwo bigira ingaruka</label>
             </div>
             <button onclick="checkAnswer('q10', 'A')" class="btn-check">Reba igisubizo</button>
-            <p class="answer" id="answer-q10" style="display:none;"><strong>Igisubizo: A</strong> - Bibuza umushoferi kwibanda ku muhanda.</p>
+            <p class="answer" id="answer-q10" style="display:none; color: green;"><strong>Igisubizo: A</strong></p>
         </div>
 
     </div>
 
-    <!-- Akabuto ko kurangiza no kohereza kuri result.html -->
+    <!-- Akabuto ko kohereza amanota muri result.html -->
     <button type="button" onclick="finishQuiz()" class="btn-submit">📥 Ohereza Ibisubizo urebe Amanota</button>
 
-    <div style="margin-top: 20px; text-align: center;">
+    <div style="margin-top: 20px;">
         <a href="./index.html" class="btn-back">⬅️ Garuka ahabanza</a>
     </div>
 </div>
 
+<footer>
+    <div class="footer-links">
+        <a href="./about.html">About</a> • 
+        <a href="./contact.html">Contact</a> • 
+        <a href="./privacy.html">Privacy</a> • 
+        <a href="./terms.html">Terms</a> • 
+        <a href="./disclaimer.html">Disclaimer</a> • 
+        <a href="./faq.html">FAQ</a>
+    </div>
+    <p>© 2026 Provisoire Rwanda | All Rights Reserved.</p>
+</footer>
+
 <script>
-// Imiterere y'ibisubizo nyabyo ku kibazo cya buri kimwe
 const correctAnswers = {
     q1: 'A',
     q2: 'B',
@@ -312,13 +326,15 @@ function checkAnswer(questionName, correctValue) {
         return;
     }
     
-    answerDiv.style.display = 'block';
     if (selectedValue === correctValue) {
+        answerDiv.style.display = 'block';
         answerDiv.style.color = 'green';
-        answerDiv.innerHTML = '<strong>✅ Igisubizo cyawe ni cyo!</strong> ' + answerDiv.innerHTML.replace(/<strong>.*?<\/strong>/, '');
+        answerDiv.innerHTML = '<strong>✅ Igisubizo cyawe ni cyo!</strong> ' + answerDiv.innerHTML.replace('Igisubizo:', '');
     } else {
+        answerDiv.style.display = 'block';
         answerDiv.style.color = 'red';
-        answerDiv.innerHTML = '❌ Igisubizo cyawe si cyo. ' + answerDiv.innerHTML.replace(/<strong>.*?<\/strong>/, '');
+        var correctAnswerText = answerDiv.innerHTML;
+        answerDiv.innerHTML = '❌ Igisubizo cyawe si cyo. ' + correctAnswerText;
     }
 }
 
@@ -328,7 +344,6 @@ function finishQuiz() {
     let reviewData = [];
 
     for (let i = 1; i <= total; i++) {
-        let qName = 'qq' || ('q' + i); // Kwirinda amakosa
         let qBoxName = 'q' + i;
         let radios = document.getElementsByName(qBoxName);
         let selectedValue = null;
@@ -340,7 +355,6 @@ function finishQuiz() {
         let isCorrect = (selectedValue === correctAnswers[qBoxName]);
         if (isCorrect) score++;
 
-        // Guhuza n'ibyo 'result.html' isoma muri LocalStorage
         reviewData.push({
             questionNumber: i,
             questionText: document.querySelector(`input[name="${qBoxName}"]`).closest('.box-item').querySelector('p strong').innerText,
@@ -350,12 +364,10 @@ function finishQuiz() {
         });
     }
 
-    // Kubika muri LocalStorage kugira ngo result.html izabisome
     localStorage.setItem('quiz_score', score);
     localStorage.setItem('quiz_total', total);
     localStorage.setItem('current_quiz_questions', JSON.stringify(reviewData));
 
-    // Kwerekeza kuri result.html
     window.location.href = './result.html';
 }
 </script>
