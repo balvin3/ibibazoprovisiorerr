@@ -84,14 +84,16 @@
         .review-box p {
             font-size: 16px;
             margin-bottom: 12px;
+            font-weight: 600;
         }
 
         .question-img {
-            max-width: 200px;
-            max-height: 180px;
+            max-width: 100%;
+            max-height: 250px;
             border-radius: 8px;
             display: block;
             margin: 12px 0;
+            object-fit: contain;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
@@ -102,20 +104,27 @@
         }
 
         .options-list li {
-            padding: 8px 12px;
-            margin-bottom: 6px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
             background: #f8fafc;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 15px;
             border: 1px solid #edf2f7;
+        }
+
+        .options-list li.correct-highlight {
+            background: #e8f5e9;
+            border-color: #c8e6c9;
+            color: var(--success-color);
+            font-weight: 600;
         }
 
         .correct-ans {
             color: var(--success-color);
             font-weight: 600;
             background: #e8f5e9;
-            padding: 6px 12px;
-            border-radius: 6px;
+            padding: 8px 14px;
+            border-radius: 8px;
             display: inline-block;
             font-size: 14px;
             margin-top: 5px;
@@ -151,7 +160,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         let reviewContainer = document.getElementById("reviewContainer");
         
-        // Dufata ibibazo biri muri localStorage (cyangwa byakozweho review)
+        // Dufata amakuru y'ibibazo muri localStorage
         let reviewData = JSON.parse(localStorage.getItem("adminQuestions")) || JSON.parse(localStorage.getItem("quizQuestions")) || [];
 
         reviewContainer.innerHTML = "";
@@ -165,10 +174,9 @@
             let box = document.createElement("div");
             box.className = "review-box";
             
-            // Reba niba ifoto ihari (yaba Cloudinary link cyangwa Base64)
+            // Gutunganya ifoto y'ikibazo (niba ihari)
             let imageTag = "";
             if (item.image && item.image !== "None" && item.image.trim() !== "") {
-                // Niba ari link isanzwe ya http cyangwa base64
                 let imgSrc = item.image.startsWith("http") || item.image.startsWith("data:") 
                     ? item.image 
                     : `https://res.cloudinary.com/du7r7iqwf/image/upload/${item.image}`;
@@ -176,18 +184,32 @@
                 imageTag = `<img src="${imgSrc}" class="question-img" alt="Ifoto y'ikibazo">`;
             }
 
+            // Gutegura lisiti y'uburyo bw'ibisubizo (Options)
+            let optionsHtml = "";
+            let answersList = [item.answer1, item.answer2, item.answer3, item.answer4];
+            
+            answersList.forEach((ans, i) => {
+                if (ans && ans.trim() !== "") {
+                    let optionNumber = i + 1;
+                    // Reba niba iki gisubizo ari cyo cy'ukuri (uhereye kuri item.correct)
+                    let isCorrectOption = (String(item.correct) === String(optionNumber)) || (String(item.correct).toLowerCase() === String(optionNumber));
+                    
+                    let liClass = isCorrectOption ? "correct-highlight" : "";
+                    let checkIcon = isCorrectOption ? " ✅" : "";
+                    
+                    optionsHtml += `<li class="${liClass}">${optionNumber}. ${ans}${checkIcon}</li>`;
+                }
+            });
+
             box.innerHTML = `
-                <p><strong>${index + 1}. Ikibazo:</strong> ${item.question}</p>
+                <p>${index + 1}. ${item.question || item.questionText || "Ikibazo kitagira mutwe"}</p>
                 ${imageTag}
                 <ul class="options-list">
-                    <li>1: ${item.answer1}</li>
-                    <li>2: ${item.answer2}</li>
-                    ${item.answer3 ? `<li>3: ${item.answer3}</li>` : ''}
-                    ${item.answer4 ? `<li>4: ${item.answer4}</li>` : ''}
+                    ${optionsHtml}
                 </ul>
-                <span class="correct-ans">
+                <div class="correct-ans">
                     ✅ Igisubizo cy'ukuri: Option ${item.correct}
-                </span>
+                </div>
             `;
 
             reviewContainer.appendChild(box);
