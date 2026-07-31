@@ -5,87 +5,44 @@ let timer;
 
 // ================= START INITIALIZATION =================
 document.addEventListener("DOMContentLoaded", function() {
-    loadQuizQuestions();
-});
+    questions = document.querySelectorAll(".question");
 
-// Gukurura ibibazo muri localStorage cyangwa se ibiba biri muri paji
-function loadQuizQuestions() {
-    // Reba niba hari ibibazo byashyizweho na admin muri localStorage
-    let storedQuestions = JSON.parse(localStorage.getItem("quizQuestions")) || JSON.parse(localStorage.getItem("adminQuestions"));
-    
-    const container = document.getElementById("quizContainer") || document.body;
-
-    if (storedQuestions && storedQuestions.length > 0) {
-        // Niba bihari muri localStorage, tubibyaze HTML muri dynamic
-        let htmlContent = "";
-        storedQuestions.forEach((q, index) => {
-            let imageTag = "";
-            if (q.image && q.image !== "None" && q.image.trim() !== "") {
-                let imgSrc = q.image.startsWith("http") || q.image.startsWith("data:") 
-                    ? q.image 
-                    : `https://res.cloudinary.com/du7r7iqwf/image/upload/${q.image}`;
-                imageTag = `<img src="${imgSrc}" class="question-img" alt="Ifoto y'ikibazo" style="max-width:200px; display:block; margin:10px 0;">`;
-            }
-
-            htmlContent += `
-                <div class="question" data-index="${index}" style="display: none;">
-                    <h3>Ikibazo ${index + 1}: ${q.question}</h3>
-                    ${imageTag}
-                    <div class="options-group">
-                        <label><input type="radio" name="q_${index}" value="1" data-correct="${q.correct}"> A. ${q.answer1}</label><br>
-                        <label><input type="radio" name="q_${index}" value="2" data-correct="${q.correct}"> B. ${q.answer2}</label><br>
-                        ${q.answer3 ? `<label><input type="radio" name="q_${index}" value="3" data-correct="${q.correct}"> C. ${q.answer3}</label><br>` : ''}
-                        ${q.answer4 ? `<label><input type="radio" name="q_${index}" value="4" data-correct="${q.correct}"> D. ${q.answer4}</label>` : ''}
-                    </div>
-                </div>
-            `;
-        });
-        
-        // Injiza ibibazo muri container (ukeneye kuba ufite <div id="quizContainer"></div> muri quiz.html yawe)
-        let quizBox = document.getElementById("quizContainer");
-        if (quizBox) {
-            quizBox.innerHTML = htmlContent;
-        }
-    }
-
-    // Fata ibibazo byose bihari kuri paji
-    window.questionsList = document.querySelectorAll(".question");
-    
-    if (window.questionsList.length > 0) {
+    if (questions.length > 0) {
         createPalette();
         showQuestion();
         startTimer();
         setupRadioListeners();
     } else {
-        alert("Nta bibazo bibonetse muri Quiz! Banza wongeremo ibibazo kuri Dashboard.");
+        console.warn("Nta bibazo bibonetse kuri iyi paji.");
     }
-}
+});
 
 // ================= SHOW QUESTION =================
 function showQuestion() {
-    const questions = document.querySelectorAll(".question");
     if (questions.length === 0) return;
 
     questions.forEach(function(q) {
-        q.style.display = "none";
+        q.classList.remove("active");
+        q.style.display = "none"; // Hemeza ko ibibazo bitagaragara icyarimwe
     });
 
+    questions[current].classList.add("active");
     questions[current].style.display = "block";
 
-    // Guhindura umubare w'ikibazo kigezweho
+    // Guhindura umubare w'ikibazo kigezwe호 (Counter)
     const counter = document.getElementById("counter");
     if (counter) {
         counter.innerHTML = `Ikibazo ${current + 1} / ${questions.length}`;
     }
 
-    // Gucunga utubuto tw'icyerekezo
+    // Gucunga utubuto tw'icyerekezo (Previous, Next, Finish)
     let prevBtn = document.getElementById("prevBtn");
     let nextBtn = document.getElementById("nextBtn");
     let finishBtn = document.getElementById("finishBtn");
 
-    if (prevBtn) prevBtn.style.display = (current === 0) ? "none" : "inline-block";
-    if (nextBtn) nextBtn.style.display = (current === questions.length - 1) ? "none" : "inline-block";
-    if (finishBtn) finishBtn.style.display = (current === questions.length - 1) ? "inline-block" : "none";
+    if (prevBtn) prevBtn.style.display = (current === 0) ? "none" : "block";
+    if (nextBtn) nextBtn.style.display = (current === questions.length - 1) ? "none" : "block";
+    if (finishBtn) finishBtn.style.display = (current === questions.length - 1) ? "block" : "none";
 
     updatePalette();
     updateProgress();
@@ -93,7 +50,6 @@ function showQuestion() {
 
 // ================= NEXT QUESTION =================
 function nextQuestion() {
-    const questions = document.querySelectorAll(".question");
     let answer = questions[current].querySelector("input[type=radio]:checked");
 
     if (!answer) {
@@ -115,40 +71,41 @@ function previousQuestion() {
     }
 }
 
-// ================= FINISH QUIZ =================
+// ================= FINISH QUIZ (STATIC VERSION) =================
 function finishQuiz() {
     clearInterval(timer);
     let score = 0;
-    const questions = document.querySelectorAll(".question");
-    let reviewData = [];
+    let totalQuestions = questions.length;
 
-    questions.forEach(function(q, index) {
+    questions.forEach(function(q) {
         let answer = q.querySelector("input[type=radio]:checked");
-        let correctVal = q.querySelector("input[type=radio]").dataset.correct;
-        let questionText = q.querySelector("h3").innerText;
-        let imgEl = q.querySelector("img");
-        let imgSrc = imgEl ? imgEl.src : "";
-
+        
         if (answer) {
-            if (answer.value === correctVal) {
+            // Shakisha niba igisubizo cyatowe gifite dataset.correct cyangwa niba cyubahiriza uburyo bw'ukuri
+            let isCorrectValue = answer.value;
+            let correctAttr = answer.dataset.correct || answer.getAttribute("data-correct");
+            
+            // Reba niba agaciro kacyo gahuye n'aho ikibazo cyagenewe ko ari cyo cy'ukuri
+            if (correctAttr === "true" || correctAttr === "1" || isCorrectValue === correctAttr) {
                 score++;
+            } else {
+                // Ubundi buryo bwo kugenzura binyuze muri parent cyangwa radio zose z'icyo kibazo
+                let allRadios = q.querySelectorAll("input[type=radio]");
+                allRadios.forEach(function(r) {
+                    if (r.checked && (r.dataset.correct === "true" || r.dataset.correct === "1")) {
+                        score++;
+                    }
+                });
             }
         }
-
-        // Kubika amakuru yo gukorera review nyuma
-        reviewData.push({
-            question: questionText,
-            image: imgSrc,
-            correct: correctVal
-        });
     });
 
-    localStorage.setItem("score", score);
-    localStorage.setItem("totalQuestions", questions.length);
-    localStorage.setItem("reviewData", JSON.stringify(reviewData));
+    // Kubika amanota neza muri LocalStorage (Byoherezwa muri result.html)
+    localStorage.setItem("quiz_score", score);
+    localStorage.setItem("quiz_total", totalQuestions);
 
     // Kwerekeza kuri paji y'amanota (result.html)
-    window.location.href = "result.html";
+    window.location.href = "./result.html";
 }
 
 // ================= TIMER CONFIGURATION =================
@@ -178,7 +135,6 @@ function startTimer() {
 // ================= CREATE QUESTION PALETTE =================
 function createPalette() {
     const palette = document.getElementById("palette");
-    const questions = document.querySelectorAll(".question");
     if (!palette) return;
     
     palette.innerHTML = "";
@@ -187,7 +143,7 @@ function createPalette() {
         let btn = document.createElement("button");
         btn.innerHTML = i + 1;
         btn.className = "notAnswered";
-        btn.type = "button";
+        btn.type = "button"; // Birinda ko form yokoherezwa mu buryo butunguranye
 
         btn.onclick = function() {
             current = i;
@@ -201,7 +157,6 @@ function createPalette() {
 // ================= UPDATE PALETTE STATUS =================
 function updatePalette() {
     const buttons = document.querySelectorAll("#palette button");
-    const questions = document.querySelectorAll(".question");
     if (buttons.length === 0) return;
 
     questions.forEach(function(q, index) {
@@ -216,6 +171,7 @@ function updatePalette() {
         }
     });
 
+    // Gushyira ibara ryihariye ku kibazo umukoresha ariho ubu
     if (buttons[current]) {
         buttons[current].classList.add("current");
     }
@@ -223,7 +179,6 @@ function updatePalette() {
 
 // ================= UPDATE PROGRESS BAR =================
 function updateProgress() {
-    const questions = document.querySelectorAll(".question");
     let answered = 0;
 
     questions.forEach(function(q) {
