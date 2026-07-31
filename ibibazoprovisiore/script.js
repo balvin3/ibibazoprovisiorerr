@@ -116,6 +116,7 @@ function finishQuiz() {
     // 2. Kwerekeza ku paji y'amanota (result.html)
     window.location.href = "./result.html";
 }
+}
 // ================= TIMER CONFIGURATION =================
 function startTimer() {
     const timerBox = document.getElementById("timer");
