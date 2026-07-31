@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Ikizamini Kirangiye | Provisoire Rwanda</title>
     <meta name="description" content="Reba amanota yawe ya Provisoire Rwanda. Witoze ibizamini by'uruhushya rwo gutwara ku buntu.">
 
@@ -13,6 +12,10 @@
 
     <link rel="icon" href="https://fav.farm/🚗" />
     <link rel="stylesheet" href="./style.css">
+
+    <!-- Script z'amamenyekamaza (Ad Scripts) -->
+    <script src="https://pl30600128.effectivecpmnetwork.com/00/35/04/00350429f691455db5156209d1c06794.js"></script>
+    <script src="https://quge5.com/88/tag.min.js" data-zone="265417" async data-cfasync="false"></script>
 
     <style>
         :root {
@@ -79,6 +82,7 @@
             border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
+            text-align: center;
         }
 
         .btn-primary {
@@ -91,20 +95,8 @@
             color: var(--text);
         }
 
-        .btn-review {
-            display: block;
-            padding: 14px;
-            margin: 10px 0;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            background: #e0f2fe;
-            color: #0369a1;
-        }
-
         .btn-primary:hover { background: #0052cc; }
         .btn-secondary:hover { background: #e2e8f0; }
-        .btn-review:hover { background: #bae6fd; }
 
         .whatsapp {
             margin-top: 20px;
@@ -130,6 +122,11 @@
             margin: 0 5px;
         }
 
+        footer a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
         /* Uduce tw'ibisubizo byagaragajwe */
         .review-section {
             text-align: left;
@@ -151,19 +148,18 @@
 <body>
 
 <div class="container">
-
     <div class="card">
 
         <h1>🎉 Ikizamini Kirangiye</h1>
         <p>Reba amanota wagize:</p>
 
-        <!-- Aha niho amanota azajya yinjira binyuze muri JavaScript -->
+        <!-- Amanota azajya yinjira hano -->
         <div class="score" id="scoreDisplay">
             0 / 20
         </div>
 
         <div class="feedback" id="feedbackDisplay">
-            <!-- Feedback izajya yihita yinjira hano -->
+            Utegereje amanota...
         </div>
 
         <!-- Utubuto (Buttons) -->
@@ -172,7 +168,7 @@
 
         <!-- WhatsApp SHARE -->
         <a class="whatsapp"
-           href="https://wa.me/?text=Ese watsinze Provisoire? Jya kuri https://ibibazoprovisiorerr.nezabalvin5.workers.dev"
+           href="https://wa.me/?text=Ese watsinze Provisoire? Jya kwitoreza ku rubuga rwa Provisoire Rwanda."
            target="_blank">
             📱 Tumira inshuti kuri WhatsApp
         </a>
@@ -183,58 +179,74 @@
         </div>
 
     </div>
-
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // 1. Fata amanota na total muri localStorage
-        const score = parseInt(localStorage.getItem('quiz_score')) || 0;
-        const total = parseInt(localStorage.getItem('quiz_total')) || 0;
+        // 1. Fata amanota na total muri localStorage (Ushyireho umutekano w'uko niba nta bihari bifata 0)
+        let score = parseInt(localStorage.getItem('quiz_score'));
+        let total = parseInt(localStorage.getItem('quiz_total'));
 
-        // 2. Shyira amanota mu mwanya wayo
+        // Niba zitabonetse cyangwa ari NaN, shyiraho default (nka 20 cyangwa 30 bitewe n'ibibazo byawe)
+        if (isNaN(score)) score = 0;
+        if (isNaN(total) || total === 0) total = 20;
+
+        // 2. Shyira amanota mu mwanya wayo neza cyane
         const scoreDisplay = document.getElementById('scoreDisplay');
         if (scoreDisplay) {
             scoreDisplay.innerText = `${score} / ${total}`;
         }
 
-        // 3. Hitamo ubutumwa bwa feedback n'ibara ryabyo (Urugero: Watsinze niba ari >= 12 cyangwa bitewe n'umubare w'ibibazo)
+        // 3. Kubara niba yatsinze (Ubusanzwe muri Provisoire bisaba 60% cyangwa kurenza)
         const feedbackDisplay = document.getElementById('feedbackDisplay');
-        let passingMark = Math.ceil(total * 0.6); // Bitwara nka 60% cyangwa nk'uko wabiteguye
-        if (total === 0) passingMark = 12;
+        let passingMark = Math.ceil(total * 0.6); // 60% yo gutsinda
 
         if (feedbackDisplay) {
             if (score >= passingMark) {
                 feedbackDisplay.className = "feedback pass";
-                feedbackDisplay.innerHTML = "🎉 Watsinze neza! Uratandukanye cyane!";
+                feedbackDisplay.innerHTML = "🎉 Watsinze neza cyane! Uratandukanye!";
             } else {
                 feedbackDisplay.className = "feedback fail";
-                feedbackDisplay.innerHTML = "❌ Ntibyakunze. Ongera witoze ube better!";
+                feedbackDisplay.innerHTML = "❌ Ntibyakunze ku nshuro ya mbere. Ongera witoze uzatsinda!";
             }
         }
 
         // 4. Kurura no kwerekana review data y'ibibazo byose wakoze
-        const reviewData = JSON.parse(localStorage.getItem('current_quiz_questions')) || [];
+        let reviewData = [];
+        try {
+            reviewData = JSON.parse(localStorage.getItem('current_quiz_questions')) || [];
+        } catch (e) {
+            reviewData = [];
+        }
+
         const reviewContainer = document.getElementById('reviewContainer');
 
         if (reviewData.length > 0 && reviewContainer) {
             let htmlContent = `<h3 style="margin-bottom: 15px; color: #334155; text-align: center;">Ibisubizo byose n'uko wabyitwayemo:</h3>`;
             
-            reviewData.forEach((item) => {
-                let statusColor = item.isCorrect ? '#198754' : '#dc3545';
-                let statusText = item.isCorrect ? 'Nibyo (Neza) ✅' : 'Si byo ❌';
+            reviewData.forEach((item, index) => {
+                let isCorrect = item.isCorrect;
+                let statusColor = isCorrect ? '#198754' : '#dc3545';
+                let statusText = isCorrect ? 'Nibyo (Neza) ✅' : 'Si byo ❌';
+
+                let qNum = item.questionNumber || (index + 1);
+                let qText = item.questionText || "Ikibazo cy'amategeko y'umuhanda";
+                let userAns = item.userAnswer ? item.userAnswer : 'Nta gisubizo watanze';
+                let correctAns = item.correctAnswer ? item.correctAnswer : 'Nta cyatanzwe';
 
                 htmlContent += `
                     <div class="review-item">
-                        <p style="font-weight: 600; color: #1e293b; margin-bottom: 8px;">Ikibazo ${item.questionNumber}: ${item.questionText}</p>
-                        <p style="margin: 4px 0; color: #475569;">Igisubizo cyawe: <strong>${item.userAnswer ? item.userAnswer : 'Nta gisubizo watanze'}</strong></p>
-                        <p style="margin: 4px 0; color: #475569;">Igisubizo nyacyo: <strong style="color: #0066ff;">${item.correctAnswer ? item.correctAnswer : 'Nta cyatanzwe'}</strong></p>
+                        <p style="font-weight: 600; color: #1e293b; margin-bottom: 8px;">Ikibazo ${qNum}: ${qText}</p>
+                        <p style="margin: 4px 0; color: #475569;">Igisubizo cyawe: <strong>${userAns}</strong></p>
+                        <p style="margin: 4px 0; color: #475569;">Igisubizo nyacyo: <strong style="color: #0066ff;">${correctAns}</strong></p>
                         <p style="margin-top: 6px; font-weight: 600; color: ${statusColor};">Uko wabyitwaye: ${statusText}</p>
                     </div>
                 `;
             });
             
             reviewContainer.innerHTML = htmlContent;
+        } else if (reviewContainer) {
+            reviewContainer.innerHTML = `<p style="text-align: center; color: #718096; font-size: 14px;">Nta bisubizo by'ubushakashatsi byabitswe. Kora ikizamini bushya kugira ngo ubirebe hano.</p>`;
         }
     });
 </script>
@@ -245,8 +257,7 @@
         <a href="./contact.html">Contact</a> • 
         <a href="./privacy.html">Privacy</a> • 
         <a href="./terms.html">Terms</a> • 
-        <a href="./disclaimer.html">Disclaimer</a> • 
-        <a href="./faq.html">FAQ</a>
+        <a href="./disclaimer.html">Disclaimer</a>
     </div>
     <p>© 2026 Provisoire Rwanda | All Rights Reserved.</p>
 </footer>
