@@ -1,273 +1,205 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="rw">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard | Provisiore Rwanda</title>
-    <link rel="stylesheet" href="style.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Provisoire Rwanda</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://fav.farm/🚗" />
+
+  
+
     <style>
-      body {
-        font-family: "Inter", sans-serif;
-        background: #f4f7fc;
-        padding: 20px;
-        color: #2d3748;
-      }
-      .admin-container {
-        max-width: 800px;
-        margin: 0 auto;
-        background: #fff;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      }
-      .form-group {
-        margin-bottom: 15px;
-      }
-      .form-group label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: 5px;
-      }
-      .form-group input,
-      .form-group select {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #cbd5e1;
-        border-radius: 8px;
-        box-sizing: border-box;
-      }
-      .btn-add {
-        background: #0066ff;
-        color: white;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: bold;
-        width: 100%;
-      }
-      .btn-add:hover {
-        background: #0052cc;
-      }
-      .question-list {
-        margin-top: 30px;
-      }
-      .question-item {
-        background: #f8fafc;
-        padding: 15px;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border: 1px solid #e2e8f0;
-      }
-      .question-item img {
-        max-width: 80px;
-        height: auto;
-        border-radius: 6px;
-        margin-right: 15px;
-      }
-      .question-content {
-        display: flex;
-        align-items: center;
-      }
-      .btn-delete {
-        background: #dc3545;
-        color: white;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 6px;
-        cursor: pointer;
-      }
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f4f7fc;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #475569;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .admin-card {
+            background: var(--card);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: var(--text);
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--muted);
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        button[type="submit"] {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background: var(--primary-hover);
+        }
+
+        .question-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px 0;
+            font-size: 14px;
+            color: var(--muted);
+            border-top: 1px solid #e2e8f0;
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            margin: 0 8px;
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
     </style>
-  </head>
-  <body>
-    <div class="admin-container">
-      <h2>🛠️ Admin Panel - Gucunga Ibibazo</h2>
+</head>
+<body>
 
-      <!-- Umubare w'ibibazo -->
-      <div
-        style="
-          background-color: #e2f0ff;
-          border-left: 5px solid #007bff;
-          padding: 15px;
-          margin: 20px 0;
-          border-radius: 4px;
-        "
-      >
-        <h3 style="margin: 0; color: #0056b3">
-          📊 Umubare w'ibibazo byose biri muri sisitemu:
-          <span
-            id="total-questions-count"
-            style="font-size: 24px; font-weight: bold; color: #000"
-            >0</span
-          >
+<div class="container">
+
+    <!-- Umubare w'ibibazo byose (Total Questions Counter Box) -->
+    <div style="background-color: #e2f0ff; border-left: 5px solid #007bff; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+        <h3 style="margin: 0; color: #0056b3;">
+            📊 Umubare w'ibibazo byose biri muri sisitemu: 
+            <span id="total-questions-count" style="font-size: 24px; font-weight: bold; color: #000;">0</span>
         </h3>
-      </div>
-
-      <!-- Form yo kongerera ikibazo gishya n'ifoto -->
-      <form id="addQuestionForm" onsubmit="addNewQuestion(event)">
-        <div class="form-group">
-          <label>Andika Ikibazo:</label>
-          <input
-            type="text"
-            id="qText"
-            required
-            placeholder="Andika ikibazo hano..."
-          />
-        </div>
-
-        <div class="form-group">
-          <label>Hitamo Ifoto (PNG, JPG):</label>
-          <input type="file" id="qImageFile" accept="image/png, image/jpeg" />
-        </div>
-
-        <div class="form-group">
-          <label>Igisubizo A:</label><input type="text" id="ans1" required />
-        </div>
-        <div class="form-group">
-          <label>Igisubizo B:</label><input type="text" id="ans2" required />
-        </div>
-        <div class="form-group">
-          <label>Igisubizo C:</label><input type="text" id="ans3" required />
-        </div>
-        <div class="form-group">
-          <label>Igisubizo D:</label><input type="text" id="ans4" required />
-        </div>
-
-        <div class="form-group">
-          <label>Igisubizo cy'ukuri:</label>
-          <select id="correctAns">
-            <option value="1">A</option>
-            <option value="2">B</option>
-            <option value="3">C</option>
-            <option value="4">D</option>
-          </select>
-        </div>
-
-        <button type="submit" class="btn-add">➕ Ongeraho Ikibazo</button>
-      </form>
-
-      <!-- Aho urutonde rw'ibibazo rwerekana -->
-      <div class="question-list">
-        <h3>📋 Urutonde rw'ibibazo bihari:</h3>
-        <div id="questionsContainer"></div>
-      </div>
     </div>
 
-    <script>
-      // 1. Gusoma ibibazo biri muri LocalStorage cyangwa gushyiramo ibifatizo (Default) niba nta bihari
-      let storedQuestions = JSON.parse(
-        localStorage.getItem("adminQuestions"),
-      ) || [
-        {
-          question: "Ikimenyetso cy'umuhanda cyerekana iki?",
-          image: "",
-          answer1: "Kubuza guhagarara",
-          answer2: "Gutanga inzira",
-          answer3: "Ahanyurwa n'abanyamaguru",
-          answer4: "Nta na kimwe cyayo",
-          correct: "2",
-        },
-      ];
+    <!-- Form yo kongera ikibazo (Yahinduwe ya static cyangwa yohereza ahandi hagenewe) -->
+    <div class="admin-card">
+        <h2>➕ Ongera Ikibazo Gishya</h2>
+        
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="question_text">Ikibazo:</label>
+                <textarea id="question_text" name="question_text" rows="3" required></textarea>
+            </div>
 
-      document.addEventListener("DOMContentLoaded", function () {
-        renderQuestions();
-      });
+            <div class="form-group">
+                <label>Amahitamo (Options):</label>
+                <input type="text" name="option_a" placeholder="Hitamo A" required style="margin-bottom: 8px;">
+                <input type="text" name="option_b" placeholder="Hitamo B" required style="margin-bottom: 8px;">
+                <input type="text" name="option_c" placeholder="Hitamo C" required style="margin-bottom: 8px;">
+                <input type="text" name="option_d" placeholder="Hitamo D" required style="margin-bottom: 8px;">
+            </div>
 
-      // 2. Gukora rendering y'ibibazo no kubara umubare wabyo
-      function renderQuestions() {
-        let container = document.getElementById("questionsContainer");
-        container.innerHTML = "";
+            <div class="form-group">
+                <label for="correct_answer">Igisubizo Nyacyo (Urugero: A, B, C, cyangwa D):</label>
+                <input type="text" id="correct_answer" name="correct_answer" maxlength="1" required style="width: 100px; text-transform: uppercase;">
+            </div>
 
-        storedQuestions.forEach((q, index) => {
-          let item = document.createElement("div");
-          item.className = "question-item";
+            <button type="submit">💾 Bika Ikibazo</button>
+        </form>
+    </div>
 
-          let imageTag = q.image
-            ? `<img src="${q.image}" alt="Ifoto y'ikibazo">`
-            : "";
+    <!-- Urutonde rw'ibibazo (Aho JavaScript ibarira ifashishije class yiswe 'question-item') -->
+    <div class="admin-card">
+        <h2>📋 Urutonde rw'Ibibazo Bihari</h2>
+        
+        <div class="question-item">
+            <span>1. Uburenganzira bw'ibanze ku muhanda niubuhe?</span>
+            <span style="font-size: 0.85rem; color: #64748b;">ID: #01</span>
+        </div>
 
-          item.innerHTML = `
-                <div class="question-content">
-                    ${imageTag}
-                    <div>
-                        <strong>${index + 1}. ${q.question}</strong><br>
-                        <small style="color: #64748b;">Nyacyo: Igisubizo cya ${q.correct}</small>
-                    </div>
-                </div>
-                <button class="btn-delete" onclick="deleteQuestion(${index})">🗑️ Sisiba</button>
-            `;
-          container.appendChild(item);
-        });
+        <div class="question-item">
+            <span>2. Ni ryari umushoferi agomba kwitwararika ku cyapa cy'umuvuduko?</span>
+            <span style="font-size: 0.85rem; color: #64748b;">ID: #02</span>
+        </div>
+    </div>
 
-        // Vugurura umubare wose w'ibibazo
-        document.getElementById("total-questions-count").innerText =
-          storedQuestions.length;
-      }
+</div>
 
-      // 3. Kongerera ikibazo gishya no guhindura ifoto ikaba Base64 yo kubika muri LocalStorage
-      function addNewQuestion(event) {
-        event.preventDefault();
-
-        let imageInput = document.getElementById("qImageFile");
-        let file = imageInput.files[0];
-
-        if (file) {
-          let reader = new FileReader();
-          reader.onload = function (e) {
-            saveQuestionData(e.target.result);
-          };
-          reader.readAsDataURL(file);
-        } else {
-          saveQuestionData("");
+<!-- JavaScript yo kubara ibibazo yashyizwe ku murongo -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Hano JavaScript iri gushaka ibintu byose bifite class yitwa 'question-item', 'question-block' cyangwa 'tr.question-row'
+        const questions = document.querySelectorAll('.question-block, .question-item, tr.question-row');
+        
+        const totalCount = questions.length;
+        
+        // Gushyira umubare mu gasanduku twakoze haruguru
+        const counterElement = document.getElementById('total-questions-count');
+        if (counterElement) {
+            counterElement.innerText = totalCount;
         }
-      }
+    });
+</script>
 
-      function saveQuestionData(imageUrl) {
-        let newQ = {
-          question: document.getElementById("qText").value,
-          image: imageUrl,
-          answer1: document.getElementById("ans1").value,
-          answer2: document.getElementById("ans2").value,
-          answer3: document.getElementById("ans3").value,
-          answer4: document.getElementById("ans4").value,
-          correct: document.getElementById("correctAns").value,
-        };
+<footer>
+    <a href="./about.html">About</a> | 
+    <a href="./contact.html">Contact</a> | 
+    <a href="./privacy.html">Privacy Policy</a> | 
+    <a href="./terms.html">Terms & Conditions</a> | 
+    <a href="./disclaimer.html">Disclaimer</a>
+</footer>
 
-        storedQuestions.push(newQ);
-        localStorage.setItem("adminQuestions", JSON.stringify(storedQuestions));
-        localStorage.setItem("quizQuestions", JSON.stringify(storedQuestions));
-
-        // Isukure form nyuma y'uko yiyanditse
-        document.getElementById("addQuestionForm").reset();
-        renderQuestions();
-        alert("Ikibazo cyongerewe neza!");
-      }
-
-      // 4. Gusiba ikibazo
-      function deleteQuestion(index) {
-        if (confirm("Uremeye ko ushaka gusiba iki kibazo?")) {
-          storedQuestions.splice(index, 1);
-          localStorage.setItem(
-            "adminQuestions",
-            JSON.stringify(storedQuestions),
-          );
-          localStorage.setItem(
-            "quizQuestions",
-            JSON.stringify(storedQuestions),
-          );
-          renderQuestions();
-        }
-      }
-    </script>
-
-    <footer style="text-align: center; margin-top: 40px; color: #718096">
-      <a href="about.html">About</a> | <a href="contact.html">Contact</a> |
-      <a href="privacy.html">Privacy Policy</a> |
-      <a href="terms.html">Terms & Conditions</a> |
-      <a href="disclaimer.html">Disclaimer</a>
-    </footer>
-  </body>
+</body>
 </html>
