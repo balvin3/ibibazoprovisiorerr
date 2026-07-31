@@ -82,11 +82,24 @@ function finishQuiz() {
     questions.forEach(function(q, index) {
         let answer = q.querySelector("input[type=radio]:checked");
         let questionTitle = q.querySelector(".question-title") ? q.querySelector(".question-title").innerText : `Ikibazo ${index + 1}`;
+        
+        // Fata igisubizo cyose cyagenewe iki kibazo (data-correct) n'icyatowe n'umukoresha
+        let correctAnswer = q.querySelector("input[type=radio]") ? q.querySelector("input[type=radio]").dataset.correct : null;
+        
+        // Ubundi buryo bwo gufata data-correct niba iri kuri input yose cyangwa kuri radio yatoranyijwe
         let selectedValue = answer ? answer.value : null;
-        let correctAnswer = answer ? answer.dataset.correct : null;
-        let isCorrect = false;
+        let actualCorrect = null;
+        
+        // Shakisha igisubizo nyacyo muri buri radio yo muri icyo kibazo
+        let allRadios = q.querySelectorAll("input[type=radio]");
+        allRadios.forEach(function(r) {
+            if (r.dataset.correct) {
+                actualCorrect = r.dataset.correct;
+            }
+        });
 
-        if (answer && selectedValue === correctAnswer) {
+        let isCorrect = false;
+        if (answer && answer.value === actualCorrect) {
             score++;
             isCorrect = true;
         }
@@ -95,7 +108,7 @@ function finishQuiz() {
             questionNumber: index + 1,
             questionText: questionTitle,
             userAnswer: selectedValue,
-            correctAnswer: correctAnswer,
+            correctAnswer: actualCorrect,
             isCorrect: isCorrect
         });
     });
