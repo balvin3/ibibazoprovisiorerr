@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gerageza ubumenyi bwawe ku mategeko y'umuhanda mu Rwanda unyuze muri iyi quiz yihuse. Yitegurire ikizamini cya provisoire neza.">
+    
+    <title>Provisiore Rwanda Online Training | Ikizamini</title>
+    
+    <link rel="icon" href="https://fav.farm/🚗" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Guhindura url_for igahinduka link isanzwe ya CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root {
+            --primary-color: #0066ff;
+            --primary-hover: #0052cc;
+            --bg-color: #f4f7fc;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --card-bg: #ffffff;
+            --success-color: #198754;
+            --danger-color: #dc3545;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            width: 100%;
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        .quiz-box {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #edf2f7;
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), #00d2ff);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        #counter {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        #timer {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--danger-color);
+            background: #fff5f5;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid #fed7d7;
+        }
+
+        .question {
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question h2 {
+            font-size: 19px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            max-height: 250px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            padding: 16px;
+            margin: 12px 0;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 2px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 15px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+        }
+
+        .option-label.selected {
+            background: #eff6ff;
+            border-color: var(--primary-color);
+        }
+
+        .palette-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin: 25px 0 10px 0;
+        }
+
+        .palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .palette-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .palette-btn.answered {
+            background: #e0f2fe;
+            border-color: #7dd3fc;
+            color: #0369a1;
+        }
+
+        .palette-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        button.nav-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        #prevBtn {
+            background: #edf2f7;
+            color: var(--text-dark);
+        }
+
+        #prevBtn:hover { background: #e2e8f0; }
+
+        #nextBtn {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        #nextBtn:hover { background: var(--primary-hover); }
+
+        #finishBtn {
+            background: var(--success-color);
+            color: white;
+            display: none;
+        }
+
+        #finishBtn:hover { background: #146c43; }
+        
+        @media (max-width: 480px) {
+            .quiz-box { padding: 20px; }
+            .quiz-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+            #timer { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div class="quiz-box">
+        <h1>🚗 Provisiore Exam Online</h1>
+        
+        <div class="progress-container">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+
+        <div class="quiz-header">
+            <div id="counter">Ikibazo 1 / 1</div>
+            <div id="timer">⏱️ Igihe: 20:00</div>
+        </div>
+
+        <!-- Ikibazo cyashyizweho mu buryo bwa Static HTML cyangwa kizajya cyuzuzwa na JavaScript -->
+        <form id="quizForm" onsubmit="return false;">
+            <div class="question active" data-index="0">
+                <h2>1. Icyapa cyerekana iki mu mategeko y'umuhanda?</h2>
+
+                <div class="image-container">
+                    <img src="https://res.cloudinary.com/du7r7iqwf/image/upload/sample_sign.png" alt="Quiz Image">
+                </div>
+
+                <label class="option-label">
+                    <span><input type="radio" name="q1" value="1" data-correct="2" onchange="optionSelected(this)"> A. Gutanga inzira</span>
+                </label>
+
+                <label class="option-label">
+                    <span><input type="radio" name="q1" value="2" data-correct="2" onchange="optionSelected(this)"> B. Guhagarara akanya gato</span>
+                </label>
+
+                <label class="option-label">
+                    <span><input type="radio" name="q1" value="3" data-correct="2" onchange="optionSelected(this)"> C. Ahantu haremewe kunyuranaho</span>
+                </label>
+
+                <label class="option-label">
+                    <span><input type="radio" name="q1" value="4" data-correct="2" onchange="optionSelected(this)"> D. Umuhanda w'icyerekezo kimwe</span>
+                </label>
+            </div>
+        </form>
+
+        <div class="palette-title">📋 Gushakisha Ibibazo (Navigation)</div>
+        <div id="palette" class="palette"></div>
+
+        <div class="buttons">
+            <button id="prevBtn" class="nav-btn" onclick="previousQuestion()">⬅ Nyuma</button>
+            <button id="nextBtn" class="nav-btn" onclick="nextQuestion()">Ibikurikira ➡</button>
+            <button id="finishBtn" class="nav-btn" onclick="finishQuiz()">Kurangiza ✅</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let current = 0;
+    let questions = document.querySelectorAll(".question");
+    let totalTime = questions.length * 60; 
+    let timer;
+
+    document.addEventListener("DOMContentLoaded", function() {
+        initPalette();
+        showQuestion();
+        startTimer();
+    });
+
+    function initPalette() {
+        let palette = document.getElementById("palette");
+        palette.innerHTML = "";
+        questions.forEach((q, index) => {
+            let btn = document.createElement("button");
+            btn.className = "palette-btn";
+            btn.id = "palette-btn-" + index;
+            btn.innerText = index + 1;
+            btn.onclick = function() {
+                current = index;
+                showQuestion();
+            };
+            palette.appendChild(btn);
+        });
+    }
+
+    function startTimer() {
+        let timerBox = document.getElementById("timer");
+        timer = setInterval(function() {
+            let minutes = Math.floor(totalTime / 60);
+            let seconds = totalTime % 60;
+
+            if (seconds < 10) seconds = "0" + seconds;
+            if (minutes < 10) minutes = "0" + minutes;
+
+            timerBox.innerHTML = `⏱️ Igihe: ${minutes}:${seconds}`;
+            totalTime--;
+
+            if (totalTime < 0) {
+                clearInterval(timer);
+                alert("Igihe cyo gukora ikizamini kirangiye!");
+                finishQuiz();
+            }
+        }, 1000);
+    }
+
+    function showQuestion() {
+        questions.forEach((item, index) => {
+            item.classList.remove("active");
+            let paletteBtn = document.getElementById("palette-btn-" + index);
+            if (paletteBtn) {
+                paletteBtn.classList.remove("active");
+                if (item.querySelector("input[type=radio]:checked")) {
+                    paletteBtn.classList.add("answered");
+                }
+            }
+        });
+
+        questions[current].classList.add("active");
+        let activePaletteBtn = document.getElementById("palette-btn-" + current);
+        if (activePaletteBtn) activePaletteBtn.classList.add("active");
+
+        document.getElementById("counter").innerHTML = `Ikibazo ${current + 1} / ${questions.length}`;
+        
+        let progressPercent = ((current + 1) / questions.length) * 100;
+        document.getElementById("progressBar").style.width = progressPercent + "%";
+
+        document.getElementById("prevBtn").style.display = (current === 0) ? "none" : "block";
+
+        if (current === questions.length - 1) {
+            document.getElementById("nextBtn").style.display = "none";
+            document.getElementById("finishBtn").style.display = "block";
+        } else {
+            document.getElementById("nextBtn").style.display = "block";
+            document.getElementById("finishBtn").style.display = "none";
+        }
+    }
+
+    function optionSelected(input) {
+        let currentQuestionBlock = questions[current];
+        currentQuestionBlock.querySelectorAll(".option-label").forEach(label => {
+            label.classList.remove("selected");
+        });
+        input.parentElement.parentElement.classList.add("selected");
+        
+        let paletteBtn = document.getElementById("palette-btn-" + current);
+        if (paletteBtn) paletteBtn.classList.add("answered");
+    }
+
+    function nextQuestion() {
+        let answer = questions[current].querySelector("input[type=radio]:checked");
+        if (!answer) {
+            alert("Banza uhitemo igisubizo kimwe mbere yo gukomeza.");
+            return;
+        }
+
+        if (current < questions.length - 1) {
+            current++;
+            showQuestion();
+        }
+    }
+
+    function previousQuestion() {
+        if (current > 0) {
+            current--;
+            showQuestion();
+        }
+    }
+
+    function finishQuiz() {
+        clearInterval(timer);
+        let score = 0;
+
+        questions.forEach(function(q) {
+            let answer = q.querySelector("input[type=radio]:checked");
+            if (answer) {
+                if (answer.value === answer.dataset.correct) {
+                    score++;
+                }
+            }
+        });
+
+        localStorage.setItem("score", score);
+
+        // Kubera ko ari static site, twerekeza kuri page ya result.html aho gukoresha backend route
+        window.location.href = "result.html";
+    }
+</script>
+
+<footer>
+    <div style="margin-bottom: 12px; text-align: center;">
+        <a href="https://api.whatsapp.com/send?text=Reba%20izi%20quiz%20nziza%20z'amategeko%20y'umuhanda%20https://ibibazoprovisoire.com" target="_blank" style="color: #4ade80 !important; font-weight: 600; text-decoration: none;">📱 Share kuri WhatsApp</a>
+    </div>
+    <div style="margin-bottom: 12px; font-size: 13px; text-align: center;">
+        <a href="about.html">About</a> • 
+        <a href="contact.html">Contact</a> • 
+        <a href="privacy.html">Privacy</a> • 
+        <a href="terms.html">Terms</a> • 
+        <a href="disclaimer.html">Disclaimer</a> • 
+        <a href="faq.html">FAQ</a>
+    </div>
+    <p style="text-align: center; color: #718096; font-size: 14px;">&copy; 2026 Provisiore Rwanda 🚗 All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

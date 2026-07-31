@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="rw">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ibyerekeye Urubuga - Provisoire Rwanda</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f0f2f5;
+        color: #2d3748;
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .about-card {
+        background: white;
+        border-radius: 16px;
+        padding: 40px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      }
+
+      .about-title {
+        font-size: 32px;
+        margin-bottom: 20px;
+        color: #2d3748;
+      }
+
+      .about-title .highlight {
+        color: #0066ff;
+      }
+
+      .intro-text {
+        font-size: 17px;
+        line-height: 1.8;
+        color: #4a5568;
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin: 30px 0;
+      }
+
+      .about-grid-item {
+        background: #f7fafc;
+        padding: 25px;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .about-grid-item h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: #2d3748;
+      }
+
+      .about-grid-item ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .about-grid-item ul li {
+        padding: 8px 0;
+        border-bottom: 1px solid #edf2f7;
+        line-height: 1.6;
+      }
+
+      .about-grid-item ul li:last-child {
+        border-bottom: none;
+      }
+
+      .highlight-text {
+        background: #ebf8ff;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #0066ff;
+        margin-top: 15px;
+      }
+
+      .about-section {
+        margin: 30px 0;
+      }
+
+      .about-section h2 {
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: #2d3748;
+      }
+
+      .about-section p {
+        line-height: 1.8;
+        color: #4a5568;
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .step {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #f7fafc;
+        padding: 12px 18px;
+        border-radius: 10px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .step-number {
+        background: #0066ff;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .step-text {
+        font-weight: 500;
+        color: #2d3748;
+      }
+
+      .contact-section {
+        background: #f7fafc;
+        padding: 25px;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .contact-info {
+        margin-top: 15px;
+      }
+
+      .contact-info p {
+        margin: 8px 0;
+      }
+
+      .contact-info a {
+        color: #0066ff;
+        text-decoration: none;
+      }
+
+      .contact-info a:hover {
+        text-decoration: underline;
+      }
+
+      .disclaimer {
+        background: #fff5f5;
+        padding: 25px;
+        border-radius: 12px;
+        border: 1px solid #fed7d7;
+      }
+
+      .disclaimer p {
+        color: #742a2a;
+      }
+
+      @media (max-width: 768px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .steps {
+          grid-template-columns: 1fr;
+        }
+
+        .about-card {
+          padding: 20px;
+        }
+
+        .about-title {
+          font-size: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="about-card">
+        <h1 class="about-title">
+          🚗 Ibyerekeye Urubuga:
+          <span class="highlight">Provisoire Rwanda</span>
+        </h1>
+
+        <div class="about-section">
+          <p class="intro-text">
+            Ikaze kuri <strong>Provisoire Rwanda</strong>, urubuga rwambere
+            rw'imyitozo y'ibizamini by'amategeko y'umuhanda mu Rwanda. Intego
+            yacu nyamukuru ni ugufasha buri Munyarwanda wese wifuza gutwara
+            ikinyabiziga kugera ku ntego ye binyuze mu myitozo y'ibibazo
+            byizewe.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-grid-item">
+            <h2>🎯 Kuki wakoresha urubuga rwacu?</h2>
+            <ul>
+              <li>
+                <strong>✅ Imyitozo yuzuye:</strong> Duha abakoresha urubuga
+                amahirwe yo kwitoza ibibazo byose bikunze kubazwa mu bizamini
+                bya Provisoire.
+              </li>
+              <li>
+                <strong>🏆 Kumenya amanota:</strong> Urubuga rwacu rufite uburyo
+                bwo kwerekana amanota (Leaderboard) kugira ngo ubashe kwipima
+                n'abandi bari kwitegura.
+              </li>
+              <li>
+                <strong>💰 Kubuntu 100%:</strong> Serivisi zacu zose ni ubuntu.
+                Twizera ko kumenya amategeko y'umuhanda ari uburenganzira
+                bw'abanyarwanda bose.
+              </li>
+              <li>
+                <strong>📱 Byoroshye gukoresha:</strong> Urubuga rukora neza
+                kuri telefoni, tablet, na kompyuta.
+              </li>
+            </ul>
+          </div>
+
+          <div class="about-grid-item">
+            <h2>🌟 Intego zacu</h2>
+            <p>
+              Umuhanda ni ubuzima. Twashyizeho uru rubuga kugira ngo dufatanye
+              na Polisi y'u Rwanda mu kurwanya impanuka z'umuhanda, binyuze mu
+              gufasha abashoferi b'ejo hazaza kumenya amategeko neza mbere y'uko
+              bajya mu muhanda.
+            </p>
+            <p class="highlight-text">
+              <strong
+                >🎯 Twifuza ko buri Munyarwanda yose aza gutsinda ikizamini ku
+                nshuro ya mbere!</strong
+              >
+            </p>
+          </div>
+        </div>
+
+        <div class="about-section">
+          <h2>⚙️ Uko urubuga rukora</h2>
+          <p>
+            Urubuga rwa Provisoire Rwanda rwakozwe mu buryo bw'ikoranabuhanga
+            rigezweho. Ujya ku rupapuro rw'ibanze, ukandika amazina yawe,
+            hanyuma ugatangira gukora ikizamini. Ibibazo byose bifite ibisubizo
+            byerekanwa nyuma y'ikizamini, bityo ukabasha kwikosora mu gihe
+            wakoze amakosa.
+          </p>
+          <div class="steps">
+            <div class="step">
+              <span class="step-number">1</span>
+              <span class="step-text">Andika amazina yawe</span>
+            </div>
+            <div class="step">
+              <span class="step-number">2</span>
+              <span class="step-text">Tangira ikizamini</span>
+            </div>
+            <div class="step">
+              <span class="step-number">3</span>
+              <span class="step-text">Subiza ibibazo 30</span>
+            </div>
+            <div class="step">
+              <span class="step-number">4</span>
+              <span class="step-text">Reba amanota yawe</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-section contact-section">
+          <h2>📧 Twandikire</h2>
+          <p>
+            Niba ufite igitekerezo, ikibazo, cyangwa icyifuzo cyo kongera
+            ibibazo bishya kuri uru rubuga, watwandikira kuri email yacu.
+            Duharanira ko amakuru ari ku rubuga aba ari ay'ukuri kandi ajyanye
+            n'amategeko mashya agenga imihanda mu Rwanda.
+          </p>
+          <div class="contact-info">
+            <p>
+              📧 <strong>Email:</strong>
+              <a href="mailto:nezabalvin3@gmail.com">nezabalvin3@gmail.com</a>
+            </p>
+            <p>
+              📱 <strong>WhatsApp:</strong>
+              <a href="https://wa.me/250793120649">+250793120649</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="about-section disclaimer">
+          <h2>⚠️ Icyitonderwa</h2>
+          <p>
+            <strong>Uru rubuga ni urw'imyitozo gusa (Practice purpose).</strong>
+            Twizera ko imyitozo myinshi ari yo nkingi ya mwamba yo gutsinda
+            ikizamini cya Polisi. Nta n'ubwo dufite isano na Polisi y'u Rwanda,
+            ariko dushishikaye no gufasha abanyarwanda kwiga amategeko.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

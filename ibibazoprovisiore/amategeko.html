@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="rw">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Iga amategeko y'umuhanda mu Rwanda. Sobanukirwa ibyapa, umuvuduko, abanyamaguru, n'ibindi kugira ngo utsinde ikizamini cya Provisoire."
+    />
+
+    <title>Amategeko y'Umuhanda - Provisoire Rwanda</title>
+
+    <link rel="icon" href="https://fav.farm/🚗" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS isanzwe -->
+    <link rel="stylesheet" href="./style.css" />
+
+    <style>
+      :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1e40af;
+        --bg-color: #f4f7fc;
+        --text-dark: #2d3748;
+        --text-light: #718096;
+        --card-bg: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-dark);
+        line-height: 1.6;
+        padding: 20px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 900px;
+        margin: 20px auto;
+      }
+
+      .header {
+        text-align: center;
+        padding: 40px 20px;
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        border-radius: 20px;
+        color: white;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+      }
+
+      .header h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        font-size: 16px;
+        opacity: 0.9;
+      }
+
+      .stats-bar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-bottom: 40px;
+      }
+
+      .stat-item {
+        background: white;
+        padding: 20px;
+        border-radius: 14px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e2e8f0;
+      }
+
+      .stat-item .number {
+        font-weight: 800;
+        font-size: 1.8rem;
+        color: var(--primary-color);
+        margin-bottom: 5px;
+      }
+
+      .stat-item .label {
+        color: var(--text-light);
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+      }
+
+      .card {
+        background: white;
+        padding: 28px;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border-left: 6px solid #2563eb;
+        transition: transform 0.2s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-3px);
+      }
+
+      .card h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: var(--text-dark);
+      }
+
+      .card p {
+        color: var(--text-light);
+        font-size: 14px;
+      }
+
+      .card.warning {
+        border-left-color: #f59e0b;
+      }
+      .card.success {
+        border-left-color: #22c55e;
+      }
+      .card.danger {
+        border-left-color: #ef4444;
+      }
+      .card.purple {
+        border-left-color: #8b5cf6;
+      }
+
+      .extra-section {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 40px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .extra-section h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: var(--text-dark);
+      }
+
+      .extra-section ul {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+      }
+
+      .extra-section ul li {
+        padding: 14px;
+        background: #f0f4ff;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+        color: var(--text-dark);
+        font-size: 14px;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 40px;
+        color: var(--text-light);
+        padding: 20px 0;
+        font-size: 14px;
+      }
+
+      footer a {
+        color: #2563eb;
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 10px;
+        }
+        .header {
+          padding: 30px 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>🚗 Amategeko y'Umuhanda</h1>
+        <p>Iga amategeko y'ingenzi kugira ngo utsinde Provisoire yawe</p>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="number">6+</div>
+          <div class="label">Amategeko</div>
+        </div>
+        <div class="stat-item">
+          <div class="number">100%</div>
+          <div class="label">Ubuntu</div>
+        </div>
+        <div class="stat-item">
+          <div class="number">✅</div>
+          <div class="label">Byizewe</div>
+        </div>
+      </div>
+
+      <!-- Main Cards -->
+      <div class="grid">
+        <div class="card danger">
+          <h3>🛑 Ibyapa bya STOP</h3>
+          <p>
+            Guhagarara byanze bikunze ukareba neza mbere yo gukomeza urugendo.
+          </p>
+        </div>
+        <div class="card warning">
+          <h3>⚠️ Umuvuduko</h3>
+          <p>Umuvuduko mu mujyi ni 40 km/h usibye ahandi hagaragajwe ibyapa.</p>
+        </div>
+        <div class="card">
+          <h3>🛣️ Gusiga imodoka</h3>
+          <p>
+            Gusica cyangwa kunyura ku yindi modoka bikorwa epfo cyangwa ibumoso.
+          </p>
+        </div>
+        <div class="card success">
+          <h3>🚶 Abanyamaguru</h3>
+          <p>Bafite uburenganzira bwose bwo kwambuka kuri Zebra Crossing.</p>
+        </div>
+        <div class="card purple">
+          <h3>🚦 Amatara y'Umuhanda</h3>
+          <p>Red=Hagarara, Yellow=Tegereza/Witegure, Green=Genda.</p>
+        </div>
+        <div class="card warning">
+          <h3>🔄 Insangano y'Amazira (Roundabout)</h3>
+          <p>Uza uturutse iburyo aba afite uburenganzira bwo gutanga inzira.</p>
+        </div>
+      </div>
+
+      <!-- Extra Tips -->
+      <div class="extra-section">
+        <h2>💡 Ibyo wongera kumenya</h2>
+        <ul>
+          <li>📏 Komeza intera nziza n'imodoka iri imbere</li>
+          <li>🔗 Koresha umukandara w'umutekano igihe cyose</li>
+          <li>📱 Ntukoreshe telefoni utwaye imodoka</li>
+          <li>🚫 Ntunywe inzoga cyangwa ibiyobyabwenge utwaye</li>
+        </ul>
+      </div>
+    </div>
+
+    <footer>
+      <div style="margin-bottom: 12px">
+        <a
+          href="https://api.whatsapp.com/send?text=Reba%20izi%20quiz%20nziza%20z'amategeko%20y'umuhanda%20https://ibibazoprovisoire.com"
+          target="_blank"
+          style="color: #22c55e !important; font-weight: 600"
+          >📱 Share kuri WhatsApp</a
+        >
+      </div>
+      <div style="margin-bottom: 12px; font-size: 13px">
+        <a href="./index.html">Ahabanza</a> • <a href="./quiz.html">Quiz</a> •
+        <a href="./about.html">About</a> •
+        <a href="./contact.html">Contact</a> •
+        <a href="./privacy.html">Privacy</a>
+      </div>
+      <p>&copy; 2026 Provisiore Rwanda 🚗 All Rights Reserved.</p>
+    </footer>
+  </body>
+</html>

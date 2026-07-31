@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shyiraho Ifoto n'Ikibazo</title>
+    <style>
+        :root {
+            --primary-color: #0066ff;
+            --success-color: #28a745;
+            --bg-color: #f4f7fc;
+            --text-dark: #2d3748;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="text"], input[type="file"], select {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            outline: none;
+            background-color: #f8fafc;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: var(--primary-color);
+            background-color: #fff;
+        }
+
+        .preview-container {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            max-height: 180px;
+            border-radius: 8px;
+            display: none;
+            margin-top: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>➕ Ongeraho Ikibazo n'Ifoto</h2>
+        
+        <form id="uploadForm" onsubmit="saveQuestionWithImage(event)">
+            <div class="form-group">
+                <label for="question">Andika Ikibazo:</label>
+                <input type="text" id="question" name="question" required placeholder="Urugero: Ni ikihe kimenyetso cyerekana... ">
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="ans1" placeholder="Igisubizo A" required style="margin-bottom: 10px;">
+                <input type="text" id="ans2" placeholder="Igisubizo B" required style="margin-bottom: 10px;">
+                <input type="text" id="ans3" placeholder="Igisubizo C (Ona)" style="margin-bottom: 10px;">
+                <input type="text" id="ans4" placeholder="Igisubizo D (Ona)">
+            </div>
+
+            <div class="form-group">
+                <label for="correct">Igisubizo cy'ukuri:</label>
+                <select id="correct">
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">C</option>
+                    <option value="4">D</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="image">Hitamo Ifoto (PNG, JPG):</label>
+                <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
+                <div class="preview-container">
+                    <img id="imagePreview" alt="Ifoto yatoranyijwe">
+                </div>
+            </div>
+            
+            <button type="submit">💾 Bika Muri LocalStorage</button>
+        </form>
+
+        <a href="dashboard.html" class="back-link">← Subira kuri Dashboard</a>
+    </div>
+
+<script>
+    let uploadedImageBase64 = "";
+
+    // Gufata ifoto uyihindure Base64 kugira ngo ibikwe neza muri LocalStorage
+    function previewImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                uploadedImageBase64 = e.target.result; // Base64 string y'ifoto
+                const imgPreview = document.getElementById("imagePreview");
+                imgPreview.src = uploadedImageBase64;
+                imgPreview.style.display = "inline-block";
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // Kubika ikibazo n'ifoto mu bubiko bwabrowser (localStorage)
+    function saveQuestionWithImage(event) {
+        event.preventDefault();
+
+        let questionText = document.getElementById("question").value;
+        let ans1 = document.getElementById("ans1").value;
+        let ans2 = document.getElementById("ans2").value;
+        let ans3 = document.getElementById("ans3").value;
+        let ans4 = document.getElementById("ans4").value;
+        let correct = document.getElementById("correct").value;
+
+        // Kwakira ibibazo bisanzwe bihari cyangwa gukora array nshya
+        let questions = JSON.parse(localStorage.getItem("adminQuestions")) || [];
+
+        let newQuestion = {
+            question: questionText,
+            image: uploadedImageBase64, // Ifoto iri muri base64 cyangwa ubusa
+            answer1: ans1,
+            answer2: ans2,
+            answer3: ans3,
+            answer4: ans4,
+            correct: correct
+        };
+
+        questions.push(newQuestion);
+
+        // Kubika muri localStorage bombi (adminQuestions na quizQuestions)
+        localStorage.setItem("adminQuestions", JSON.stringify(questions));
+        localStorage.setItem("quizQuestions", JSON.stringify(questions));
+
+        alert("Ikibazo n'ifoto byasevedwe neza!");
+        
+        // Gusukura form nyuma yo kubika
+        document.getElementById("uploadForm").reset();
+        document.getElementById("imagePreview").style.display = "none";
+        uploadedImageBase64 = "";
+    }
+</script>
+
+</body>
+</html>

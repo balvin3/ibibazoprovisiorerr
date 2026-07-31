@@ -1,0 +1,1450 @@
+<!doctype html>
+<html lang="rw">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+    <meta
+      name="description"
+      content="Ibibazo 30 bya Provisoire mu Rwanda. Witoze ibibazo by'amategeko y'umuhanda kugira ngo utsinde ikizamini cya permis."
+    />
+    <meta
+      name="keywords"
+      content="ibibazo bya provisoire, provisoire rwanda, amategeko y'umuhanda, ibizamini by'uruhushya"
+    />
+    <title>Ibibazo bya Provisoire - Provisoire Rwanda</title>
+
+    <link rel="icon" href="https://fav.farm/🚗" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --primary-light: #dbeafe;
+        --success: #10b981;
+        --success-light: #d1fae5;
+        --danger: #ef4444;
+        --danger-light: #fee2e2;
+        --bg: #f0f4ff;
+        --card-bg: #ffffff;
+        --text-dark: #0f172a;
+        --text-light: #475569;
+        --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        --shadow-hover: 0 20px 40px rgba(37, 99, 235, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Inter", "Segoe UI", sans-serif;
+        background-color: var(--bg);
+        color: var(--text-dark);
+        padding: 20px;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        padding: 40px 20px 30px;
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        border-radius: 20px;
+        color: white;
+        margin-bottom: 40px;
+        box-shadow: 0 15px 30px rgba(37, 99, 235, 0.3);
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      .header .badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 6px 20px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-top: 12px;
+        backdrop-filter: blur(10px);
+      }
+
+      /* Stats */
+      .stats-bar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 15px;
+        margin-bottom: 35px;
+      }
+
+      .stat-item {
+        background: var(--card-bg);
+        padding: 18px 15px;
+        border-radius: 14px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        border: 1px solid #e2e8f0;
+      }
+
+      .stat-item .number {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--primary);
+      }
+
+      .stat-item .label {
+        font-size: 0.85rem;
+        color: var(--text-light);
+        font-weight: 500;
+      }
+
+      /* Question Card */
+      .question-card {
+        background: var(--card-bg);
+        padding: 25px 30px;
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        border: 1px solid #e2e8f0;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+      }
+
+      .question-card:hover {
+        box-shadow: var(--shadow-hover);
+      }
+
+      .question-number {
+        display: inline-block;
+        background: var(--primary-light);
+        color: var(--primary);
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .question-card h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 12px;
+      }
+
+      .options {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      .option {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 15px;
+        background: #f8fafc;
+        border-radius: 10px;
+        border: 2px solid #e2e8f0;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+
+      .option:hover {
+        border-color: var(--primary);
+        background: var(--primary-light);
+      }
+
+      .option .letter {
+        font-weight: 700;
+        color: var(--primary);
+        min-width: 24px;
+      }
+
+      .option.correct {
+        border-color: var(--success);
+        background: var(--success-light);
+      }
+
+      .option.correct .letter {
+        color: var(--success);
+      }
+
+      .option.wrong {
+        border-color: var(--danger);
+        background: var(--danger-light);
+      }
+
+      .option.wrong .letter {
+        color: var(--danger);
+      }
+
+      .answer-box {
+        background: var(--primary-light);
+        padding: 12px 18px;
+        border-radius: 10px;
+        margin-top: 10px;
+        display: none;
+      }
+
+      .answer-box.show {
+        display: block;
+      }
+
+      .answer-box .correct-answer {
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .toggle-btn {
+        padding: 8px 20px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+      }
+
+      .toggle-btn:hover {
+        background: var(--primary-dark);
+      }
+
+      .toggle-btn.show-answer {
+        background: var(--success);
+      }
+
+      .toggle-btn.show-answer:hover {
+        background: #059669;
+      }
+
+      /* Buttons */
+      .btn-container {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+      }
+
+      .btn-primary {
+        display: inline-block;
+        padding: 12px 30px;
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .question-card {
+          padding: 20px;
+        }
+
+        .stats-bar {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .question-card {
+        animation: fadeInUp 0.4s ease forwards;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>📝 Ibibazo bya Provisoire</h1>
+        <p>Imyitozo 30 ifasha gutsinda ikizamini cya Permis</p>
+        <span class="badge">📚 30 Ibibazo</span>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-bar" id="statsBar">
+        <div class="stat-item">
+          <div class="number" id="totalQuestions">30</div>
+          <div class="label">Ibibazo byose</div>
+        </div>
+        <div class="stat-item">
+          <div class="number" id="answeredQuestions">0</div>
+          <div class="label">Byasubijwe</div>
+        </div>
+        <div class="stat-item">
+          <div class="number" id="correctQuestions">0</div>
+          <div class="label">Byakozwe neza</div>
+        </div>
+        <div class="stat-item">
+          <div class="number" id="wrongQuestions">0</div>
+          <div class="label">Byakozwe nabi</div>
+        </div>
+      </div>
+
+      <!-- Questions Container -->
+      <div id="questionsContainer">
+        <!-- Question 1 -->
+        <div class="question-card" data-index="0">
+          <span class="question-number">Ikibazo 1</span>
+          <h3>Iyo ubonye ikimenyetso cya STOP ugomba gukora iki?</h3>
+          <div class="options">
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">A.</span> Guhagarara burundu (imodoka
+              ntigende)
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">B.</span> Gucisha gato nk'abandi
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Kugenda mbere ya bagenzi
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Kongera umuvuduko
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: A</span> - Ugomba
+            guhagarara burundu mbere y'umurongo w'abanyamaguru cyangwa w'inzira.
+          </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-card" data-index="1">
+          <span class="question-number">Ikibazo 2</span>
+          <h3>
+            Umuvuduko ntarengwa mu mujyi ku modoka zitwara abagenzi ni uwuhe?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> 60 km/h
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> 40 km/h
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> 80 km/h
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> 30 km/h
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Umuvuduko
+            ntarengwa mu mujyi rusange ni 40 km/h.
+          </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-card" data-index="2">
+          <span class="question-number">Ikibazo 3</span>
+          <h3>
+            Gusiga cyangwa kunyura ku yindi modoka (overtaking) bikorerwa ku
+            ruhe ruhande?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Iburyo
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Ibumoso
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Aho ubonye hose
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Inyuma
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Kunyura ku
+            yindi modoka bikorerwa ibumoso nyuma yo kureba ko inzira ifunguye.
+          </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-card" data-index="3">
+          <span class="question-number">Ikibazo 4</span>
+          <h3>
+            Abanyamaguru bafite uburenganzira bw'ibanze ku mirongo y'ibihe byapa
+            cyangwa y'inzira?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Stop
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Zebra Crossing
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Roundabout
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Parking
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Abanyamaguru
+            bafite uburenganzira bwuzuye kuri "Zebra Crossing".
+          </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-card" data-index="4">
+          <span class="question-number">Ikibazo 5</span>
+          <h3>Taa y'umutuku (Red light) ku binyabiziga isobanura iki?</h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Genda
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Hagarara
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Tegura
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Komeza gahoro
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Taa y'umutuku
+            isobanura guhagarara burundu.
+          </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-card" data-index="5">
+          <span class="question-number">Ikibazo 6</span>
+          <h3>
+            Mu nsangano (intersection) idafite ibyapa cyangwa abapolisi, ni nde
+            ufite inzira?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Uza uturutse ibumoso
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Uza uturutse iburyo
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Uza wihuta cyane
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Ufite imodoka nini
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Mu Rwanda,
+            amategeko agenga insangano zidasinyanye ateganya ko uza uturutse
+            iburyo aba abanje.
+          </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-card" data-index="6">
+          <span class="question-number">Ikibazo 7</span>
+          <h3>
+            Iyo ubonye imodoka zitabaza ziri mu kazi (Ambulance cyangwa Polisi
+            zifite amatara yaka), ugomba gukora iki?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Kwihuta ngo zitagufata
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Guha inzira ukwegera iburyo cyangwa
+              ugahagarara
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Kugendera inyuma yazo vuba
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Kutazitaho na gato
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Ugomba guhita
+            uzorohereza inzira no guhagarara niba bibaye ngombwa.
+          </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-card" data-index="7">
+          <span class="question-number">Ikibazo 8</span>
+          <h3>
+            Mbere yo guhindukira cyangwa kugenda ibumoso, umushoferi asabwa
+            gukora iki?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Gukandira hato
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Gutanga icyerekana cy'ibumoso
+              (Indicator) no kureba mu madirishya y'inyuma
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Guhagarara umunya
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Gukoresha feri y'intoki gusa
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Gutanga
+            ikimenyetso cy'ibumoso mbere y'igihe ni ngombwa.
+          </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question-card" data-index="8">
+          <span class="question-number">Ikibazo 9</span>
+          <h3>
+            Umukandara w'umutekano (Seatbelt) ugomba kwambarwa nande mu modoka?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Umushoferi gusa
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">B.</span> Abicaye imbere gusa
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">C.</span> Umushoferi n'abagenzi bose bicaye
+              aho bikwiriye
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Abagenzi b'inyuma gusa
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: C</span> - Umukandara
+            w'umutekano ni ngombwa ku mushoferi n'abagenzi bose.
+          </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question-card" data-index="9">
+          <span class="question-number">Ikibazo 10</span>
+          <h3>
+            Ibyapa bigabanyijwemo ibihe byiciro by'ingenzi mu mategeko
+            y'umuhanda?
+          </h3>
+          <div class="options">
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">A.</span> Ibyago/Ibyemezo, Kubuza, Gukurikiza
+              n'Ibisobanuro
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">B.</span> Amabara gusa
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Ibyapa by'imitako
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Ibyapa byo mu mujyi gusa
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: A</span> - Ibyapa
+            bigabanwa mu byerekana ibibazo, ibibuza, n'ibitegeka.
+          </div>
+        </div>
+
+        <!-- Question 11 -->
+        <div class="question-card" data-index="10">
+          <span class="question-number">Ikibazo 11</span>
+          <h3>Taa y'umuhondo iyo ihindutse nyuma y'icyatsi isobanura iki?</h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Komeza wihuse
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Tegura guhagarara keretse niba uri
+              hafi cyane ku buryo guhagarara byateza impanuka
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Hagarara ako kanya niyo waba uri
+              hagati y'inzira
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Zimya imodoka
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Umuhondo
+            uburira abashoferi kwitegura guhagarara.
+          </div>
+        </div>
+
+        <!-- Question 12 -->
+        <div class="question-card" data-index="11">
+          <span class="question-number">Ikibazo 12</span>
+          <h3>
+            Ni irihe ruhande rwo gutwara ibinyabiziga rukoreshwa mu Rwanda?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Ibumoso
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Iburyo
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Hagati
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Nta ruhande rwihariye
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Mu Rwanda,
+            uruhande rw'iburyo ni rwo rwitabwaho mu kugendera mu muhanda.
+          </div>
+        </div>
+
+        <!-- Question 13 -->
+        <div class="question-card" data-index="12">
+          <span class="question-number">Ikibazo 13</span>
+          <h3>
+            Iyo ikimenyetso cy'umuhanda cyerekana umuvuduko ntarengwa wa 50
+            km/h, bivuze iki?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Ugomba kugenda 50 km/h gusa nta
+              munsi cyangwa hejuru
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Ntushobora kurenza umuvuduko wa 50
+              km/h
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Ugomba kugenda hejuru ya 50 km/h
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Umuvuduko ntacyo utwaye
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Ntushobora
+            kurenza umuvuduko wagenwe.
+          </div>
+        </div>
+
+        <!-- Question 14 -->
+        <div class="question-card" data-index="13">
+          <span class="question-number">Ikibazo 14</span>
+          <h3>
+            Gukoresha telefoni igendanwa utwaye ikinyabiziga bitandukanye
+            n'itegeko bigateza iki?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Ahembo y'amafaranga
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Ibihano by'amafaranga no gutesha
+              umutwe biteza impanuka
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Nta ngaruka
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Guhabwa uruhushya rw'agateganyo
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Birabujijwe
+            kandi bihanishwa amande kubera ko bitera uburangare.
+          </div>
+        </div>
+
+        <!-- Question 15 -->
+        <div class="question-card" data-index="14">
+          <span class="question-number">Ikibazo 15</span>
+          <h3>
+            Ahantu hemewe ko imodoka ishobora guhagarara igihe kirekire cyangwa
+            gito (Parking) ni hehe?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Ku murongo utanyeganyeza w'umuhondo
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Ahantu hagenewe na parikingi
+              cyangwa ku nkengero z'umuhanda hatabujijwe n'ibyapa
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Hagati mu masangano
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Imbere y'ibitaro cyangwa aho
+              kwinjira habujijwe
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Parikingi
+            yemewe ni ahagaragara neza hatari mu nzira z'abanyamaguru cyangwa
+            amasangano.
+          </div>
+        </div>
+
+        <!-- Question 16 -->
+        <div class="question-card" data-index="15">
+          <span class="question-number">Ikibazo 16</span>
+          <h3>
+            Ibyapa bifite amabara y'umweru n'atukura bifite ishusho y'uruziga
+            bikunze gusobanura iki?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Ibitegeka gusa
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Ibibuza cyangwa ibireba ibihano
+              by'amategeko
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Amabwiriza y'ubwishingizi
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Amakuru y'ubuzima
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Ibiyaga
+            by'uruziga bifite umutuku n'umweru bikunze kuba ibibuza cyangwa
+            birinda ibikorwa runaka.
+          </div>
+        </div>
+
+        <!-- Question 17 -->
+        <div class="question-card" data-index="16">
+          <span class="question-number">Ikibazo 17</span>
+          <h3>
+            Umushoferi ashobora kunyura ku yindi modoka iburyo mu yihe
+            migenderano?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Igihe cyose abishakiye
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Iyo imodoka iri imbere yitegura
+              guca ibumoso kandi ifite inzira yagutse iburyo
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Nta na rimwe byemewe
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Mu cyaro gusa
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Bikorerwa mu
+            bihe bike byateganyijwe nko iyo uw'imbere agiye gukata ibumoso.
+          </div>
+        </div>
+
+        <!-- Question 18 -->
+        <div class="question-card" data-index="17">
+          <span class="question-number">Ikibazo 18</span>
+          <h3>
+            Iyo ugeze ku cyapa cy'inzira y'abanyamaguru (Zebra Crossing)
+            n'abanyamaguru bari hafi kwambuka, wakora iki?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Kwihuta ngo ubanyureho mbere
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Guhagarara no kubaha uburenganzira
+              bwabo
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Gukubita ihoni
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Kugenda gahoro cyane utahagaritswe
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Ugomba
+            guhagarara ukabaha inzira yo kwambuka neza.
+          </div>
+        </div>
+
+        <!-- Question 19 -->
+        <div class="question-card" data-index="18">
+          <span class="question-number">Ikibazo 19</span>
+          <h3>
+            Umuvuduko ntarengwa wemewe hanze y'umujyi (mu cyaro) ku modoka
+            zisanzwe ni uwuhe?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> 40 km/h
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> 80 km/h cyangwa 100 km/h bitewe
+              n'ubwoko bw'umuhanda
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> 30 km/h
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> 150 km/h
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Hanze y'umujyi
+            umuvuduko uba uri hejuru ugereranyije n'imbere mu mijyi.
+          </div>
+        </div>
+
+        <!-- Question 20 -->
+        <div class="question-card" data-index="19">
+          <span class="question-number">Ikibazo 20</span>
+          <h3>
+            Buri gihe iyo utwaye ikinyabiziga, ugomba kugendera kure y'imodoka
+            iri imbere kugira ngo:
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Utaza kuyigonga igihe ihagaritse
+              gitunguranye
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Kubona uko uyisiga vuba cyane
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Kutayibona neza
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Kugabanya lisansi
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: A</span> - Intera ihagije
+            hagati y'ibinyabiziga yirinda impanuka zo gukubitana imbere.
+          </div>
+        </div>
+
+        <!-- Question 21 -->
+        <div class="question-card" data-index="20">
+          <span class="question-number">Ikibazo 21</span>
+          <h3>
+            Iyo ubonye amatara yo ku modoka yaka cyane (High beams) ateye mu
+            maso yawe uturutse ahandi, ugomba gukora iki?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Kwaka nawe ibyawe byose cyane
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Kwitegereza iburyo bw'umuhanda no
+              kugabanya umuvuduko wirinda guhumishwa n'urumuri
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Gufunga amaso ukagenda
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Gukubita feri y'imbaraga
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Reba iburyo
+            bw'umuhanda kugira ngo wirinde kurara amaso n'urumuri rw'undi.
+          </div>
+        </div>
+
+        <!-- Question 22 -->
+        <div class="question-card" data-index="21">
+          <span class="question-number">Ikibazo 22</span>
+          <h3>
+            Iyo urimo kugenda mu muhanda kandi ukaba ubona amavuta cyangwa amazi
+            y'imvura menshi yatumye umuhanda unyerera, ugomba gukora iki?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Kongera umuvuduko
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Kugabanya umuvuduko no kwirinda
+              gukandira cyane kuri feri
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Gusohoka mu modoka
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Kuzimya amatara
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Kugabanya
+            umuvuduko bituma imodoka idasohoka mu muhanda.
+          </div>
+        </div>
+
+        <!-- Question 23 -->
+        <div class="question-card" data-index="22">
+          <span class="question-number">Ikibazo 23</span>
+          <h3>Ni ryari byemewe gukoresha ihoni (Horn) mu nzira nyabagenda?</h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Igihe wifuza ko uwimbere yihuta mu
+              modoka
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Mu rwego rwo kwirinda impanuka
+              zitunguranye cyangwa kuburira abandi
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Igihe cyose uri mu mujyi
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Nta na rimwe ryemewe
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Ihoni
+            rikoreshwa gusa mu kwirinda impanuka.
+          </div>
+        </div>
+
+        <!-- Question 24 -->
+        <div class="question-card" data-index="23">
+          <span class="question-number">Ikibazo 24</span>
+          <h3>
+            Amategeko y'umuhanda ateganya ko uburyo bwo gusuzuma ubuziranenge
+            bw'ikinyabiziga (Control technique) bukorerwa he?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Aho ari ho hose mu muhanda
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Mu bigo byemewe na Leta by'igenzura
+              ry'ibinyabiziga
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Mu rugo rwawe
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Ku masangano y'imihanda
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Igenzura
+            ry'ubuziranenge rikorerwa mu bigo byabugenewe.
+          </div>
+        </div>
+
+        <!-- Question 25 -->
+        <div class="question-card" data-index="24">
+          <span class="question-number">Ikibazo 25</span>
+          <h3>
+            Iyo ufite uruhushya rwo gutwara ibinyabiziga rw'agateganyo
+            (Provisoire), wemerewe gutwara wenyine mu muhanda?
+          </h3>
+          <div class="options">
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">A.</span> Oya, ugomba kuba uri kumwe n'umuntu
+              ufite uruhushya rwa burundu (Permis définitive) rutwara
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">B.</span> Yego, nta kibazo
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Mu ijoro gusa
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Mu cyaro gusa
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: A</span> - Provisoire
+            isaba ko uwiga gutwara aba ari kumwe n'umutoza cyangwa umuntu ufite
+            permis ya burundu.
+          </div>
+        </div>
+
+        <!-- Question 26 -->
+        <div class="question-card" data-index="25">
+          <span class="question-number">Ikibazo 26</span>
+          <h3>
+            Iyo ikinyabiziga gihagaritswe n'ifungwa ry'umuhanda cyangwa imodoka
+            nyinshi, bigenda bite ku cyerekezo cy'aho unyura?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Unyura mu nzira y'abanyamaguru
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Uguma mu murongo wawe utabangamiye
+              abandi
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Usohoka mu muhanda ukagenda
+              n'amaguru
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Uhindura icyerekezo mu buryo
+              bunyuranyije n'amategeko
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Ugomba kuguma
+            mu murongo wawe wihanganye.
+          </div>
+        </div>
+
+        <!-- Question 27 -->
+        <div class="question-card" data-index="26">
+          <span class="question-number">Ikibazo 27</span>
+          <h3>
+            Ibyapa by'ubururu bifite ishusho y'uruziga cyangwa se urukiramende
+            bikunze gutanga ubuhe bwoko bw'amakuru?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Ibibuza bikomeye
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Amabwiriza ategetswe cyangwa
+              amakuru y'ingenzi y'aho unyura (Mandatory/Information)
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Ibyago gusa
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Ibihano bya polisi
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Ibyapa
+            by'ubururu bitanga amabwiriza agomba gukurikizwa cyangwa amakuru
+            y'aho unyura.
+          </div>
+        </div>
+
+        <!-- Question 28 -->
+        <div class="question-card" data-index="27">
+          <span class="question-number">Ikibazo 28</span>
+          <h3>
+            Ni ryari umushoferi aba afite uburenganzira bwo kunyura ku yindi
+            modoka ku buryo bunyuranyije n'amategeko?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Igihe ari mu kiraka
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Nta na rimwe byemewe
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Niba nta muntu uri kureba
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Igihe bukeye bw'ijoro
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Kunyura nabi
+            ntibitangwa n'amategeko na rimwe.
+          </div>
+        </div>
+
+        <!-- Question 29 -->
+        <div class="question-card" data-index="28">
+          <span class="question-number">Ikibazo 29</span>
+          <h3>
+            Iyo habaye impanuka yo mu muhanda yoroheje, abashoferi basabwa
+            gukora iki mbere y'uko bakuraho ibinyabiziga?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Kurwana
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Gufata amafoto y'aho ikibazo kiri
+              kugira ngo hatagira uwihakana uruhare, maze bakimura ibinyabiziga
+              ngo bitabangamira umumuhanda
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Kubireka aho iminsi yose
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Guhunga ahantu
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Mu mpanuka
+            zoroheje, ni byiza kwirinda gutera umubyigano mu muhanda nyuma yo
+            kwerekana ibimenyetso by'impanuka.
+          </div>
+        </div>
+
+        <!-- Question 30 -->
+        <div class="question-card" data-index="29">
+          <span class="question-number">Ikibazo 30</span>
+          <h3>
+            Gutsinda ikizamini cya Provisoire mu Rwanda bisabaamanotaangana iki?
+          </h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">A.</span> Amanota 10 kuri 20
+            </div>
+            <div
+              class="option"
+              data-correct="true"
+              onclick="selectOption(this)"
+            >
+              <span class="letter">B.</span> Kugira nibura amanota 18 kuri 20
+              (cyangwa 90%)
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">C.</span> Amanota 5 gusa
+            </div>
+            <div class="option" onclick="selectOption(this)">
+              <span class="letter">D.</span> Gutsinda ikibazo kimwe gusa
+            </div>
+          </div>
+          <button class="toggle-btn" onclick="toggleAnswer(this)">
+            🔍 Reba igisubizo
+          </button>
+          <div class="answer-box">
+            <span class="correct-answer">✅ Igisubizo: B</span> - Bisaba
+            gutsinda ibibazo byinshi cyane (akenshi 18/20 cyangwa 19/20 bitewe
+            n'amabwiriza y'ikigo cy'igihugu gishinzwe ibizamini) kugira ngo
+            utsinde.
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="btn-container">
+        <a href="https://ibibazoprovisoire.com" class="btn-primary"
+          >🌐 Garukira ku Rubuga Nyirizina</a
+        >
+      </div>
+    </div>
+
+    <script>
+      let answeredCount = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+
+      function selectOption(element) {
+        const card = element.closest(".question-card");
+        const options = card.querySelectorAll(".option");
+
+        // Check if already answered
+        if (card.classList.contains("answered")) return;
+        card.classList.add("answered");
+        answeredCount++;
+
+        const isCorrect = element.getAttribute("data-correct") === "true";
+
+        options.forEach((opt) => {
+          if (opt.getAttribute("data-correct") === "true") {
+            opt.classList.add("correct");
+          }
+        });
+
+        if (!isCorrect) {
+          element.classList.add("wrong");
+          wrongCount++;
+        } else {
+          correctCount++;
+        }
+
+        updateStats();
+      }
+
+      function showAnswer(button) {
+        const card = button.closest(".question-card");
+        const answerBox = card.querySelector(".answer-box");
+
+        if (answerBox.classList.contains("show")) {
+          answerBox.classList.remove("show");
+          button.textContent = "🔍 Reba igisubizo";
+          button.classList.remove("show-answer");
+        } else {
+          answerBox.classList.add("show");
+          button.textContent = "🙈 Hisha igisubizo";
+          button.classList.add("show-answer");
+
+          // Highlight correct option automatically if revealed
+          const options = card.querySelectorAll(".option");
+          options.forEach((opt) => {
+            if (opt.getAttribute("data-correct") === "true") {
+              opt.classList.add("correct");
+            }
+          });
+        }
+      }
+
+      function updateStats() {
+        document.getElementById("answeredQuestions").textContent =
+          answeredCount;
+        document.getElementById("correctQuestions").textContent = correctCount;
+        document.getElementById("wrongQuestions").textContent = wrongCount;
+      }
+    </script>
+  </body>
+</html>
