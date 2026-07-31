@@ -5,7 +5,6 @@ let questions = [];
 
 // ================= START INITIALIZATION =================
 document.addEventListener("DOMContentLoaded", function() {
-    // Fata ibibazo byose biri muri paji (byoherejwe na Flask binyuze kuri Jinja)
     questions = document.querySelectorAll(".question");
 
     if (questions.length > 0) {
@@ -24,20 +23,17 @@ function showQuestion() {
 
     questions.forEach(function(q) {
         q.classList.remove("active");
-        q.style.display = "none"; // Guhisha ibibazo byose
+        q.style.display = "none";
     });
 
-    // Kwerekana ikibazo kigezweho gusa
     questions[current].classList.add("active");
     questions[current].style.display = "block";
 
-    // Guhindura umubare w'ikibazo kigezweho
     const counter = document.getElementById("counter");
     if (counter) {
         counter.innerHTML = `Ikibazo ${current + 1} / ${questions.length}`;
     }
 
-    // Gucunga utubuto tw'icyerekezo (Previous, Next, Finish)
     let prevBtn = document.getElementById("prevBtn");
     let nextBtn = document.getElementById("nextBtn");
     let finishBtn = document.getElementById("finishBtn");
@@ -84,7 +80,6 @@ function finishQuiz() {
         let questionTitle = q.querySelector(".question-title") ? q.querySelector(".question-title").innerText : `Ikibazo ${index + 1}`;
         let selectedValue = answer ? answer.value : null;
         
-        // Shakisha igisubizo nyacyo muri buri radio yo muri icyo kibazo
         let actualCorrect = null;
         let allRadios = q.querySelectorAll("input[type=radio]");
         allRadios.forEach(function(r) {
@@ -108,15 +103,13 @@ function finishQuiz() {
         });
     });
 
-    // 1. Bika amanota n'ibisubizo muri localStorage kugira ngo result.html izabisome
     localStorage.setItem('quiz_score', score);
     localStorage.setItem('quiz_total', questions.length);
     localStorage.setItem('current_quiz_questions', JSON.stringify(reviewData));
 
-    // 2. Kwerekeza ku paji y'amanota (result.html)
     window.location.href = "./result.html";
 }
-}
+
 // ================= TIMER CONFIGURATION =================
 function startTimer() {
     const timerBox = document.getElementById("timer");
@@ -152,7 +145,7 @@ function createPalette() {
         let btn = document.createElement("button");
         btn.innerHTML = i + 1;
         btn.className = "notAnswered";
-        btn.type = "button"; // Birinda ko form yokoherezwa mu buryo butunguranye
+        btn.type = "button";
 
         btn.onclick = function() {
             current = i;
@@ -180,7 +173,6 @@ function updatePalette() {
         }
     });
 
-    // Gushyira ibara ryihariye ku kibazo umukoresha ariho ubu
     if (buttons[current]) {
         buttons[current].classList.add("current");
     }
