@@ -1,222 +1,257 @@
-let current = 0;
-let totalTime = 20 * 60; // Iminota 20 y'ikizamini
-let timer;
-let questions = [];
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-// ================= START INITIALIZATION =================
-document.addEventListener("DOMContentLoaded", function() {
-    // Fata ibibazo byose biri muri paji (DOM)
-    questions = document.querySelectorAll(".question");
+    <title>Ikizamini Kirangiye | Provisoire Rwanda</title>
+    <meta name="description" content="Reba amanota yawe ya Provisoire Rwanda. Witoze ibizamini by'uruhushya rwo gutwara ku buntu.">
 
-    if (questions.length > 0) {
-        createPalette();
-        showQuestion();
-        startTimer();
-        setupRadioListeners();
-    } else {
-        console.warn("Nta bibazo bibonetse kuri iyi paji.");
-    }
-});
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-// ================= SHOW QUESTION =================
-function showQuestion() {
-    if (questions.length === 0) return;
+    <link rel="icon" href="https://fav.farm/🚗" />
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://pl30600128.effectivecpmnetwork.com/00/35/04/00350429f691455db5156209d1c06794.js"></script>
+    <script src="https://quge5.com/88/tag.min.js" data-zone="265417" async data-cfasync="false"></script>  
 
-    questions.forEach(function(q) {
-        q.classList.remove("active");
-        q.style.display = "none"; // Guhisha ibibazo byose
-    });
-
-    // Kwerekana ikibazo kigezweho gusa
-    questions[current].classList.add("active");
-    questions[current].style.display = "block";
-
-    // Guhindura umubare w'ikibazo kigezweho
-    const counter = document.getElementById("counter");
-    if (counter) {
-        counter.innerHTML = `Ikibazo ${current + 1} / ${questions.length}`;
-    }
-
-    // Gucunga utubuto tw'icyerekezo (Previous, Next, Finish)
-    let prevBtn = document.getElementById("prevBtn");
-    let nextBtn = document.getElementById("nextBtn");
-    let finishBtn = document.getElementById("finishBtn");
-
-    if (prevBtn) prevBtn.style.display = (current === 0) ? "none" : "block";
-    if (nextBtn) nextBtn.style.display = (current === questions.length - 1) ? "none" : "block";
-    if (finishBtn) finishBtn.style.display = (current === questions.length - 1) ? "block" : "none";
-
-    updatePalette();
-    updateProgress();
-}
-
-// ================= NEXT QUESTION =================
-function nextQuestion() {
-    let answer = questions[current].querySelector("input[type=radio]:checked");
-
-    if (!answer) {
-        alert("Banza uhitemo igisubizo cy'iki kibazo.");
-        return;
-    }
-
-    if (current < questions.length - 1) {
-        current++;
-        showQuestion();
-    }
-}
-
-// ================= PREVIOUS QUESTION =================
-function previousQuestion() {
-    if (current > 0) {
-        current--;
-        showQuestion();
-    }
-}
-
-// ================= FINISH QUIZ (STATIC / LOCALSTORAGE) =================
-function finishQuiz() {
-    clearInterval(timer);
-    let score = 0;
-    let reviewData = [];
-
-    questions.forEach(function(q, index) {
-        let answer = q.querySelector("input[type=radio]:checked");
-        let questionTitle = q.querySelector(".question-title") ? q.querySelector(".question-title").innerText : `Ikibazo ${index + 1}`;
-        
-        // Fata igisubizo cyose cyagenewe iki kibazo (data-correct) n'icyatowe n'umukoresha
-        let correctAnswer = q.querySelector("input[type=radio]") ? q.querySelector("input[type=radio]").dataset.correct : null;
-        
-        // Ubundi buryo bwo gufata data-correct niba iri kuri input yose cyangwa kuri radio yatoranyijwe
-        let selectedValue = answer ? answer.value : null;
-        let actualCorrect = null;
-        
-        // Shakisha igisubizo nyacyo muri buri radio yo muri icyo kibazo
-        let allRadios = q.querySelectorAll("input[type=radio]");
-        allRadios.forEach(function(r) {
-            if (r.dataset.correct) {
-                actualCorrect = r.dataset.correct;
-            }
-        });
-
-        let isCorrect = false;
-        if (answer && answer.value === actualCorrect) {
-            score++;
-            isCorrect = true;
+    <style>
+        :root {
+            --primary: #0066ff;
+            --success: #198754;
+            --danger: #dc3545;
+            --bg: #f4f7fc;
+            --card: #ffffff;
+            --text: #2d3748;
+            --muted: #718096;
         }
 
-        reviewData.push({
-            questionNumber: index + 1,
-            questionText: questionTitle,
-            userAnswer: selectedValue,
-            correctAnswer: actualCorrect,
-            isCorrect: isCorrect
-        });
-    });
-
-    // 1. Bika amanota n'ibisubizo muri localStorage
-    localStorage.setItem('quiz_score', score);
-    localStorage.setItem('quiz_total', questions.length);
-    localStorage.setItem('current_quiz_questions', JSON.stringify(reviewData));
-
-    // 2. Kwerekeza ku paji y'amanota (result.html)
-    window.location.href = "./result.html";
-}
-
-// ================= TIMER CONFIGURATION =================
-function startTimer() {
-    const timerBox = document.getElementById("timer");
-
-    timer = setInterval(function() {
-        let minutes = Math.floor(totalTime / 60);
-        let seconds = totalTime % 60;
-
-        if (seconds < 10) seconds = "0" + seconds;
-        if (minutes < 10) minutes = "0" + minutes;
-
-        if (timerBox) {
-            timerBox.innerHTML = `⏱️ Igihe gisigaye: ${minutes}:${seconds}`;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
         }
-        totalTime--;
 
-        if (totalTime < 0) {
-            clearInterval(timer);
-            alert("Igihe cyo gukora ikizamini kirangiye!");
-            finishQuiz();
+        body {
+            background: var(--bg);
+            color: var(--text);
+            padding: 20px;
         }
-    }, 1000);
-}
 
-// ================= CREATE QUESTION PALETTE =================
-function createPalette() {
-    const palette = document.getElementById("palette");
-    if (!palette) return;
-    
-    palette.innerHTML = "";
+        .container {
+            max-width: 650px;
+            margin: 40px auto;
+        }
 
-    for (let i = 0; i < questions.length; i++) {
-        let btn = document.createElement("button");
-        btn.innerHTML = i + 1;
-        btn.className = "notAnswered";
-        btn.type = "button";
+        .card {
+            background: var(--card);
+            padding: 35px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
 
-        btn.onclick = function() {
-            current = i;
-            showQuestion();
-        };
+        h1 {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
 
-        palette.appendChild(btn);
-    }
-}
+        .score {
+            font-size: 55px;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 20px 0;
+        }
 
-// ================= UPDATE PALETTE STATUS =================
-function updatePalette() {
-    const buttons = document.querySelectorAll("#palette button");
-    if (buttons.length === 0) return;
+        .feedback {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
 
-    questions.forEach(function(q, index) {
-        let checked = q.querySelector("input[type=radio]:checked");
+        .pass { color: var(--success); }
+        .fail { color: var(--danger); }
 
-        if (buttons[index]) {
-            if (checked) {
-                buttons[index].className = "answered";
+        .btn {
+            display: block;
+            padding: 14px;
+            margin: 10px 0;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #edf2f7;
+            color: var(--text);
+        }
+
+        .btn-review {
+            display: block;
+            padding: 14px;
+            margin: 10px 0;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .btn-primary:hover { background: #0052cc; }
+        .btn-secondary:hover { background: #e2e8f0; }
+        .btn-review:hover { background: #bae6fd; }
+
+        .whatsapp {
+            margin-top: 20px;
+            display: inline-block;
+            background: #25d366;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        /* Uduce tw'ibisubizo byagaragajwe */
+        .review-section {
+            text-align: left;
+            margin-top: 30px;
+            border-top: 2px solid #edf2f7;
+            padding-top: 20px;
+        }
+
+        .review-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>🎉 Ikizamini Kirangiye</h1>
+        <p>Reba amanota wagize:</p>
+
+        <!-- Aha niho amanota azajya yinjira binyuze muri JavaScript -->
+        <div class="score" id="scoreDisplay">
+            0 / 0
+        </div>
+
+        <div class="feedback" id="feedbackDisplay">
+            <!-- Feedback izajya yihita yinjira hano -->
+        </div>
+
+        <!-- Utubuto (Buttons) -->
+        <a href="./quiz.html" class="btn btn-primary">🔄 Subiramo Ikizamini</a>
+        <a href="./index.html" class="btn btn-secondary">🏠 Subira Ahabanza</a>
+
+        <!-- WhatsApp SHARE -->
+        <a class="whatsapp"
+           href="https://wa.me/?text=Ese watsinze Provisoire? Jya kuri https://ibibazoprovisiorerr.nezabalvin5.workers.dev"
+           target="_blank">
+            📱 Tumira inshuti kuri WhatsApp
+        </a>
+
+        <!-- Aho ibisubizo byose n'ibyo wibeshyeho bizajya -->
+        <div id="reviewContainer" class="review-section">
+            <h3 style="margin-bottom: 15px; color: #334155; text-align: center;">Ibisubizo byose n'uko wabyitwayemo:</h3>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // 1. Fata amanota na total muri localStorage
+        const score = parseInt(localStorage.getItem('quiz_score')) || 0;
+        const total = parseInt(localStorage.getItem('quiz_total')) || 0;
+
+        // 2. Shyira amanota mu mwanya wayo
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        if (scoreDisplay) {
+            scoreDisplay.innerText = `${score} / ${total}`;
+        }
+
+        // 3. Hitamo ubutumwa bwa feedback n'ibara ryabyo (Urugero: Watsinze niba ari >= 12 cyangwa bitewe n'umubare w'ibibazo)
+        const feedbackDisplay = document.getElementById('feedbackDisplay');
+        let passingMark = Math.ceil(total * 0.6); // Bitwara nka 60% cyangwa nk'uko wabiteguye
+        if (total === 0) passingMark = 12;
+
+        if (feedbackDisplay) {
+            if (score >= passingMark) {
+                feedbackDisplay.className = "feedback pass";
+                feedbackDisplay.innerHTML = "🎉 Watsinze neza! Uratandukanye cyane!";
             } else {
-                buttons[index].className = "notAnswered";
+                feedbackDisplay.className = "feedback fail";
+                feedbackDisplay.innerHTML = "❌ Ntibyakunze. Ongera witoze ube better!";
             }
         }
-    });
 
-    // Gushyira ibara ryihariye ku kibazo umukoresha ariho ubu
-    if (buttons[current]) {
-        buttons[current].classList.add("current");
-    }
-}
+        // 4. Kurura no kwerekana review data y'ibibazo byose wakoze
+        const reviewData = JSON.parse(localStorage.getItem('current_quiz_questions')) || [];
+        const reviewContainer = document.getElementById('reviewContainer');
 
-// ================= UPDATE PROGRESS BAR =================
-function updateProgress() {
-    let answered = 0;
+        if (reviewData.length > 0 && reviewContainer) {
+            let htmlContent = `<h3 style="margin-bottom: 15px; color: #334155; text-align: center;">Ibisubizo byose n'uko wabyitwayemo:</h3>`;
+            
+            reviewData.forEach((item) => {
+                let statusColor = item.isCorrect ? '#198754' : '#dc3545';
+                let statusText = item.isCorrect ? 'Nibyo (Neza) ✅' : 'Si byo ❌';
 
-    questions.forEach(function(q) {
-        if (q.querySelector("input[type=radio]:checked")) {
-            answered++;
+                htmlContent += `
+                    <div class="review-item">
+                        <p style="font-weight: 600; color: #1e293b; margin-bottom: 8px;">Ikibazo ${item.questionNumber}: ${item.questionText}</p>
+                        <p style="margin: 4px 0; color: #475569;">Igisubizo cyawe: <strong>${item.userAnswer ? item.userAnswer : 'Nta gisubizo watanze'}</strong></p>
+                        <p style="margin: 4px 0; color: #475569;">Igisubizo nyacyo: <strong style="color: #0066ff;">${item.correctAnswer ? item.correctAnswer : 'Nta cyatanzwe'}</strong></p>
+                        <p style="margin-top: 6px; font-weight: 600; color: ${statusColor};">Uko wabyitwaye: ${statusText}</p>
+                    </div>
+                `;
+            });
+            
+            reviewContainer.innerHTML = htmlContent;
         }
     });
+</script>
 
-    let percent = (answered / questions.length) * 100;
-    
-    const progressBar = document.getElementById("progressBar");
-    const progressText = document.getElementById("progressText");
+<footer>
+    <div class="footer-links">
+        <a href="./about.html">About</a> • 
+        <a href="./contact.html">Contact</a> • 
+        <a href="./privacy.html">Privacy</a> • 
+        <a href="./terms.html">Terms</a> • 
+        <a href="./disclaimer.html">Disclaimer</a> • 
+        <a href="./faq.html">FAQ</a>
+    </div>
+    <p>© 2026 Provisoire Rwanda | All Rights Reserved.</p>
+</footer>
 
-    if (progressBar) progressBar.style.width = percent + "%";
-    if (progressText) progressText.innerHTML = `${answered} / ${questions.length} Byasubijwe`;
-}
-
-// ================= AUTOMATED LISTENERS FOR RADIO BUTTONS =================
-function setupRadioListeners() {
-    const radios = document.querySelectorAll("input[type=radio]");
-    radios.forEach(function(radio) {
-        radio.addEventListener("change", function() {
-            updatePalette();
-            updateProgress();
-        });
-    });
-}
+</body>
+</html>
