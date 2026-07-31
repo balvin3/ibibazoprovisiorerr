@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Icyitonderwa (Disclaimer) - Provisoire Rwanda</title>
+    <meta name="description" content="Soma neza ibyanditswe hano mbere yo gukoresha urubuga rwa Provisoire Rwanda. Amakuru atangwa ku bw'imyitozo gusa.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="icon" href="https://fav.farm/🚗" />
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- Script z'amamenyekamaza (Ad Scripts) -->
+    <script src="https://pl30600128.effectivecpmnetwork.com/00/35/04/00350429f691455db5156209d1c06794.js"></script>
+    <script src="https://quge5.com/88/tag.min.js" data-zone="265417" async data-cfasync="false"></script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f4f7fc;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #475569;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Header */
+        .disclaimer-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header-icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .disclaimer-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .disclaimer-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--muted);
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .disclaimer-header .subtitle strong {
+            color: var(--text);
+        }
+
+        /* Intro Box */
+        .intro-box {
+            background: #f1f5f9;
+            padding: 25px 30px;
+            border-radius: 16px;
+            margin-bottom: 35px;
+            border-left: 6px solid var(--primary);
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .intro-text .highlight {
+            background: #dbeafe;
+            padding: 2px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            color: var(--primary-hover);
+        }
+
+        .intro-text strong {
+            color: var(--text);
+        }
+
+        /* Grid */
+        .disclaimer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .disclaimer-card {
+            background: var(--card);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .disclaimer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-icon {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+
+        .disclaimer-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .disclaimer-card p {
+            color: var(--muted);
+            line-height: 1.8;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .disclaimer-card p strong {
+            color: var(--text);
+        }
+
+        /* Agreement Box */
+        .agreement-box {
+            background: #f0fdf4;
+            padding: 25px 30px;
+            border-radius: 16px;
+            border: 1px solid #bbf7d0;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .agreement-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .agreement-text h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #166534;
+            margin-bottom: 8px;
+        }
+
+        .agreement-text p {
+            color: #14532d;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .agreement-text p strong {
+            color: var(--text);
+        }
+
+        /* Info Boxes */
+        .info-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .info-box {
+            background: var(--card);
+            padding: 18px 22px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .info-box:hover {
+            background: #f8fafc;
+            border-color: var(--primary);
+        }
+
+        .info-icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .info-box strong {
+            display: block;
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .info-box p {
+            margin: 3px 0 0;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .info-box a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .info-box a:hover {
+            text-decoration: underline;
+        }
+
+        /* Buttons */
+        .back-section {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #f1f5f9;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .disclaimer-header h1 {
+                font-size: 2rem;
+            }
+            .disclaimer-grid {
+                grid-template-columns: 1fr;
+            }
+            .agreement-box {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .info-boxes {
+                grid-template-columns: 1fr;
+            }
+            .back-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+            .intro-box {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .disclaimer-header h1 {
+                font-size: 1.6rem;
+            }
+            .disclaimer-card {
+                padding: 20px;
+            }
+            .disclaimer-header .subtitle {
+                font-size: 1rem;
+            }
+            .intro-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="disclaimer-wrapper">
+        <!-- Header -->
+        <div class="disclaimer-header">
+            <span class="header-icon">⚖️</span>
+            <h1>Icyitonderwa (Disclaimer)</h1>
+            <p class="subtitle">
+                Soma neza ibyanditswe hano mbere yo gukoresha urubuga rwa <strong>Provisoire Rwanda</strong>
+            </p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="disclaimer-content">
+            <div class="intro-box">
+                <p class="intro-text">
+                    Amakuru ari kuri <strong>Provisoire Rwanda</strong> atangwa ku bw'<span class="highlight">imyitozo gusa</span>. 
+                    Nta nshingano twemera ku bijyanye n'ikoreshwa ry'aya makuru.
+                </p>
+            </div>
+
+            <div class="disclaimer-grid">
+                <!-- Card 1 -->
+                <div class="disclaimer-card">
+                    <div class="card-icon">🚫</div>
+                    <h3>Nta sano na Polisi</h3>
+                    <p>
+                        Uru rubuga <strong>ntiruhagarariye</strong> Polisi y'u Rwanda cyangwa ikindi kigo cya Leta 
+                        gitegura ibizamini byo gutwara ibinyabiziga. Ni urubuga rw'<strong>imyitozo</strong> gusa.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="disclaimer-card">
+                    <div class="card-icon">📝</div>
+                    <h3>Imyitozo gusa</h3>
+                    <p>
+                        Ibibazo n'ibisubizo bitangwa hano bigenewe gufasha abakoresha <strong>kwitegura</strong>. 
+                        Ntitwemeza ko aya ari yo bibazo bizabazwa mu bizamini bya Leta <strong>100%</strong>.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="disclaimer-card">
+                    <div class="card-icon">🔍</div>
+                    <h3>Kwirinda amakosa</h3>
+                    <p>
+                        Nubwo dukora ibishoboka byose kugira ngo amakuru abe ari ay'ukuri, 
+                        <strong>ntibigukuraho</strong> inshingano yo gusoma amategeko y'umuhanda y'umwimerere 
+                        yatanzwe n'inzego zibifitiye ububasha.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Agreement Box -->
+            <div class="agreement-box">
+                <div class="agreement-icon">✅</div>
+                <div class="agreement-text">
+                    <h3>Ukwemera</h3>
+                    <p>
+                        Mu gukoresha uru rubuga, <strong>wemeye</strong> ko utazatubaza ku makosa ayo ari yo yose 
+                        ashobora kuva ku myitozo ikoze hano.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="info-boxes">
+                <div class="info-box">
+                    <span class="info-icon">📅</span>
+                    <div>
+                        <strong>Itariki y'ivugurura:</strong>
+                        <p>Kuwa 04/07/2026</p>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <span class="info-icon">📧</span>
+                    <div>
+                        <strong>Kutuvugisha:</strong>
+                        <p><a href="./contact.html">Twandikire</a> niba ufite ikibazo</p>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <span class="info-icon">📖</span>
+                    <div>
+                        <strong>Soma nanone:</strong>
+                        <p><a href="./terms.html">Terms & Conditions</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="back-section">
+            <a href="./index.html" class="btn-primary">🏠 Subira ahabanza</a>
+            <a href="./about.html" class="btn-secondary">ℹ️ Ibyerekeye</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="./about.html">About</a> • 
+        <a href="./contact.html">Contact</a> • 
+        <a href="./privacy.html">Privacy</a> • 
+        <a href="./terms.html">Terms</a> • 
+        <a href="./disclaimer.html">Disclaimer</a> • 
+        <a href="./faq.html">FAQ</a>
+    </div>
+    <p>© 2026 Provisoire Rwanda | All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
