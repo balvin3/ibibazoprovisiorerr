@@ -77,16 +77,45 @@ function finishQuiz() {
 
     questions.forEach(function(q, index) {
         let answer = q.querySelector("input[type=radio]:checked");
-        let questionTitle = q.querySelector(".question-title") ? q.querySelector(".question-title").innerText : `Ikibazo ${index + 1}`;
+        
+        // Fata umutwe w'ikibazo neza
+        let titleEl = q.querySelector(".question-title") || q.querySelector("h3") || q.querySelector("p");
+        let questionTitle = titleEl ? titleEl.innerText : `Ikibazo ${index + 1}`;
+        
         let selectedValue = answer ? answer.value : null;
         
-        let actualCorrect = null;
+        // Shakisha inyandiko y'igisubizo umukoresha yahisemo (Label text) kugira ngo byandikwe neza kuri Result
+        let userAnsweringText = null;
+        let actualCorrectText = null;
+
         let allRadios = q.querySelectorAll("input[type=radio]");
+        let actualCorrect = null;
+
         allRadios.forEach(function(r) {
-            if (r.dataset.correct) {
-                actualCorrect = r.dataset.correct;
+            // Reba aho label cyangwa text y'igisubizo iri hafi y'uyu radio button
+            let labelEl = q.querySelector(`label[for='${r.id}']`) || r.parentElement;
+            let labelText = labelEl ? labelEl.innerText.trim() : r.value;
+
+            if (r.checked) {
+                userAnsweringText = labelText;
+            }
+
+            if (r.dataset.correct === "true" || r.hasAttribute("data-correct") || r.dataset.correct === "1") {
+                actualCorrect = r.value;
+                actualCorrectText = labelText;
             }
         });
+
+        // Niba data-correct itabonetse kuri dataset, shyiraho uburyo bwo kuyisesengura niba ihari
+        if (!actualCorrect) {
+            allRadios.forEach(function(r) {
+                if (r.dataset.correct) {
+                    actualCorrect = r.dataset.correct;
+                    let labelEl = q.querySelector(`label[for='${r.id}']`) || r.parentElement;
+                    actualCorrectText = labelEl ? labelEl.innerText.trim() : r.value;
+                }
+            });
+        }
 
         let isCorrect = false;
         if (answer && selectedValue === actualCorrect) {
@@ -97,8 +126,8 @@ function finishQuiz() {
         reviewData.push({
             questionNumber: index + 1,
             questionText: questionTitle,
-            userAnswer: selectedValue,
-            correctAnswer: actualCorrect,
+            userAnswer: userAnsweringText ? userAnsweringText : (selectedValue ? selectedValue : 'Nta gisubizo watanze'),
+            correctAnswer: actualCorrectText ? actualCorrectText : (actualCorrect ? actualCorrect : 'Nta cyatanzwe'),
             isCorrect: isCorrect
         });
     });
