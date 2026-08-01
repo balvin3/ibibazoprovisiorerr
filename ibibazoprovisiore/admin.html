@@ -5,63 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Provisoire Rwanda</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
-        .container { max-width: 600px; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: auto; }
-        h2 { color: #2c3e50; text-align: center; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; color: #34495e; }
-        input[type="text"], textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
-        textarea { resize: vertical; height: 80px; }
-        button { background: #27ae60; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 10px; }
-        button:hover { background: #219653; }
-        .json-box { background: #2d3748; color: #fff; padding: 15px; border-radius: 6px; font-family: monospace; white-space: pre-wrap; margin-top: 20px; max-height: 200px; overflow-y: auto; }
+        body { font-family: Arial, sans-serif; background-color: #1a1d24; color: #fff; margin: 0; padding: 20px; }
+        .container { max-width: 800px; background: #212529; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); margin: auto; }
+        h2 { color: #fff; text-align: center; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: bold; margin-bottom: 8px; color: #adb5bd; }
+        input[type="text"], textarea, select { width: 100%; padding: 12px; background: #2b3035; border: 1px solid #373b3e; color: #fff; border-radius: 6px; box-sizing: border-box; }
+        textarea { resize: vertical; height: 90px; }
+        .btn-green { background: #198754; color: white; border: none; padding: 14px 20px; font-size: 16px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
+        .btn-green:hover { background: #157347; }
+        .btn-blue { background: #0d6efd; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; font-weight: bold; }
+        .btn-blue:hover { background: #0b5ed7; }
+        .json-box { background: #111315; color: #00ffcc; padding: 15px; border-radius: 6px; font-family: monospace; white-space: pre-wrap; margin-top: 20px; max-height: 250px; overflow-y: auto; border: 1px solid #373b3e; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Kongeramo Ikibazo Provisoire</h2>
+    <h2>➕ Ongeramo Ikibazo Gishya</h2>
     
     <div class="form-group">
-        <label>Ikibazo (Question):</label>
-        <textarea id="qText" placeholder="Andika ikibazo hano..."></textarea>
+        <label>Andika umubiri w'ikibazo hano...</label>
+        <textarea id="qText" placeholder="Andika ikibazo..."></textarea>
     </div>
 
     <div class="form-group">
-        <label>Izina ry'ifoto kuri Cloudinary (Urugero: ikibazo1.jpg cyangwa ubyireke niba nta yo):</label>
-        <input type="text" id="qImage" placeholder="ikibazo1.jpg">
+        <label>Ifoto y'ikibazo (Andika izina ryayo ryiganze kuri Cloudinary cyangwa link):</label>
+        <input type="text" id="qImage" placeholder="ikibazo1.jpg (cyangwa ubyireke niba nta yo)">
     </div>
 
     <div class="form-group">
-        <label>Igisubizo 1 (A):</label>
-        <input type="text" id="ans1" placeholder="Igisubizo cya 1">
+        <label>Igisubizo A</label>
+        <input type="text" id="ans1" placeholder="Igisubizo A">
     </div>
 
     <div class="form-group">
-        <label>Igisubizo 2 (B):</label>
-        <input type="text" id="ans2" placeholder="Igisubizo cya 2">
+        <label>Igisubizo B</label>
+        <input type="text" id="ans2" placeholder="Igisubizo B">
     </div>
 
     <div class="form-group">
-        <label>Igisubizo 3 (C):</label>
-        <input type="text" id="ans3" placeholder="Igisubizo cya 3 (Niba gihari)">
+        <label>Igisubizo C (Ona)</label>
+        <input type="text" id="ans3" placeholder="Igisubizo C">
     </div>
 
     <div class="form-group">
-        <label>Igisubizo 4 (D):</label>
-        <input type="text" id="ans4" placeholder="Igisubizo cya 4 (Niba gihari)">
+        <label>Igisubizo D (Ona)</label>
+        <input type="text" id="ans4" placeholder="Igisubizo D">
     </div>
 
     <div class="form-group">
-        <label>Nimero y'igisubizo cy'ukuri (Urugero: 1 cyangwa 2 cyangwa 3 cyangwa 4):</label>
-        <input type="text" id="qCorrect" placeholder="1">
+        <label>Igisubizo cy'ukuri nikihe?</label>
+        <select id="qCorrect">
+            <option value="1">A</option>
+            <option value="2">B</option>
+            <option value="3">C</option>
+            <option value="4">D</option>
+        </select>
     </div>
 
-    <button onclick="addQuestion()">Ongeraho Ikibazo & Kurura JSON</button>
+    <button class="btn-green" onclick="addQuestion()">💾 Bika Ikibazo muri JSON</button>
 
-    <h3>Ibisubizo bya JSON biri muri Memory:</h3>
+    <h3 style="margin-top: 30px;">Ibibazo byakozwe (JSON Code):</h3>
     <div id="jsonOutput" class="json-box">[ ]</div>
-    <button onclick="downloadJSON()" style="background: #2980b9;">📥 Manura Fayili ya questions.json</button>
+    
+    <button class="btn-blue" onclick="downloadJSON()">📥 Manura Fayili ya questions.json</button>
 </div>
 
 <script>
@@ -74,10 +82,10 @@
         let answer2 = document.getElementById("ans2").value.trim();
         let answer3 = document.getElementById("ans3").value.trim();
         let answer4 = document.getElementById("ans4").value.trim();
-        let correct = document.getElementById("qCorrect").value.trim();
+        let correct = document.getElementById("qCorrect").value;
 
-        if (!question || !answer1 || !answer2 || !correct) {
-            alert("Banza wuzuze byibuze ikibazo, ibisubizo bibiri bya mbere, n'igisubizo cy'ukuri!");
+        if (!question || !answer1 || !answer2) {
+            alert("Banza wuzuze byibuze ikibazo n'ibisubizo bibiri bya mbere!");
             return;
         }
 
@@ -95,16 +103,15 @@
         questionsList.push(newQ);
         document.getElementById("jsonOutput").innerText = JSON.stringify(questionsList, null, 4);
         
-        // Hrica iforose ngo wongere wandike ikindi
+        // Gusukura iforose kugira ngo wandikemo ikindi
         document.getElementById("qText").value = "";
         document.getElementById("qImage").value = "";
         document.getElementById("ans1").value = "";
         document.getElementById("ans2").value = "";
         document.getElementById("ans3").value = "";
         document.getElementById("ans4").value = "";
-        document.getElementById("qCorrect").value = "";
 
-        alert("Ikibazo cyongewe neza muri list!");
+        alert("Ikibazo cyongewe neza mu murongo wa JSON!");
     }
 
     function downloadJSON() {
