@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Provisiore Rwanda | Only Admin Login</title>
+    <title>Provisiore Rwanda |Only Admin Login</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="https://fav.farm/🚗" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="./style.css">
-
-    <!-- Script z'amamenyekamaza (Ad Scripts) -->
-  
+    <link rel="stylesheet" href="style.css">
 
     <style>
         :root {
@@ -106,9 +103,8 @@
             box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
         }
 
-        /* Ubutumwa bw'amakosa (Alert) ushobora gukoresha muri JavaScript niba bibaye ngombwa */
+        /* Flash Messages (Amakosa) */
         .alert {
-            display: none; /* Byashyizweho hato na hato, bishobora gukoreshwa na JS */
             background-color: var(--danger-bg);
             color: var(--danger-text);
             border: 1px solid var(--danger-border);
@@ -118,6 +114,7 @@
             font-weight: 600;
             margin-bottom: 20px;
             text-align: center;
+            display: none; /* Hide by default on static site, show via JS if needed */
         }
 
         button {
@@ -159,13 +156,12 @@
         <h1>🚗 Provisiore Rwanda</h1>
         <h2>Admin Dashboard</h2>
 
-        <!-- Ahantu hagenewe ubutumwa bw'amakosa bwa Static (Niba bikenewe gukoreshwa na JavaScript) -->
-        <div id="error-alert" class="alert">
-            ⚠️ Izina cyangwa ijambo ry'ibanga si byo!
+        <!-- Flash messages replaced with static structure -->
+        <div class="alert" id="error-alert">
+            ⚠️ Izina cyangwa ijambo ry'ibanga sibyo!
         </div>
 
-        <!-- Form yahinduwe ya static ikoresha "#" cyangwa aho yohereza -->
-        <form id="login-form" action="#" method="POST">
+        <form action="dashboard.html" method="POST">
             <div class="form-group">
                 <label for="username">Izina ry'ukoresha (Username)</label>
                 <input 
@@ -189,7 +185,7 @@
             <button type="submit">Injira Mu Dashibodi 🔐</button>
         </form>
 
-        <a href="./index.html" class="back-link">← Subira ahabanza</a>
+        <a href="index.html" class="back-link">← Subira ahabanza</a>
     </div>
 </div>
 
