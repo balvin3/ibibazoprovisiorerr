@@ -1,33 +1,127 @@
-<form action="index.html" method="POST">
-<div style="background-color: #e2f0ff; border-left: 5px solid #007bff; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
-    <h3 style="margin: 0; color: #0056b3;">
-        📊 Umubare w'ibibazo byose biri muri sisitemu: 
-        <span id="total-questions-count" style="font-size: 24px; font-weight: bold; color: #000;">0</span>
-    </h3>
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Provisoire Rwanda</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
+        .container { max-width: 600px; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: auto; }
+        h2 { color: #2c3e50; text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; color: #34495e; }
+        input[type="text"], textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        textarea { resize: vertical; height: 80px; }
+        button { background: #27ae60; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 10px; }
+        button:hover { background: #219653; }
+        .json-box { background: #2d3748; color: #fff; padding: 15px; border-radius: 6px; font-family: monospace; white-space: pre-wrap; margin-top: 20px; max-height: 200px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Kongeramo Ikibazo Provisoire</h2>
+    
+    <div class="form-group">
+        <label>Ikibazo (Question):</label>
+        <textarea id="qText" placeholder="Andika ikibazo hano..."></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Izina ry'ifoto kuri Cloudinary (Urugero: ikibazo1.jpg cyangwa ubyireke niba nta yo):</label>
+        <input type="text" id="qImage" placeholder="ikibazo1.jpg">
+    </div>
+
+    <div class="form-group">
+        <label>Igisubizo 1 (A):</label>
+        <input type="text" id="ans1" placeholder="Igisubizo cya 1">
+    </div>
+
+    <div class="form-group">
+        <label>Igisubizo 2 (B):</label>
+        <input type="text" id="ans2" placeholder="Igisubizo cya 2">
+    </div>
+
+    <div class="form-group">
+        <label>Igisubizo 3 (C):</label>
+        <input type="text" id="ans3" placeholder="Igisubizo cya 3 (Niba gihari)">
+    </div>
+
+    <div class="form-group">
+        <label>Igisubizo 4 (D):</label>
+        <input type="text" id="ans4" placeholder="Igisubizo cya 4 (Niba gihari)">
+    </div>
+
+    <div class="form-group">
+        <label>Nimero y'igisubizo cy'ukuri (Urugero: 1 cyangwa 2 cyangwa 3 cyangwa 4):</label>
+        <input type="text" id="qCorrect" placeholder="1">
+    </div>
+
+    <button onclick="addQuestion()">Ongeraho Ikibazo & Kurura JSON</button>
+
+    <h3>Ibisubizo bya JSON biri muri Memory:</h3>
+    <div id="jsonOutput" class="json-box">[ ]</div>
+    <button onclick="downloadJSON()" style="background: #2980b9;">📥 Manura Fayili ya questions.json</button>
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Hano JavaScript iri gushaka ibintu byose bifite class yitwa 'question-item' cyangwa 'question-block'
-        // Changwa niba ukoresha Table, ushobora gushyiramo ibisebe byose bya Table (rows)
-        // Kuri iyi nshuro, reba niba ibibazo byawe bishya bifite aho bihuriye nka class:
-        const questions = document.querySelectorAll('.question-block, .question-item, tr.question-row');
-        
-        // Niba nta class ziriho, niba ibibazo biza bimeze nka <h3>, twabara ama <h3> yose:
-        // const questions = document.querySelectorAll('h3'); 
+    let questionsList = [];
 
-        const totalCount = questions.length;
+    function addQuestion() {
+        let question = document.getElementById("qText").value.trim();
+        let image = document.getElementById("qImage").value.trim();
+        let answer1 = document.getElementById("ans1").value.trim();
+        let answer2 = document.getElementById("ans2").value.trim();
+        let answer3 = document.getElementById("ans3").value.trim();
+        let answer4 = document.getElementById("ans4").value.trim();
+        let correct = document.getElementById("qCorrect").value.trim();
+
+        if (!question || !answer1 || !answer2 || !correct) {
+            alert("Banza wuzuze byibuze ikibazo, ibisubizo bibiri bya mbere, n'igisubizo cy'ukuri!");
+            return;
+        }
+
+        let newQ = {
+            id: questionsList.length + 1,
+            question: question,
+            image: image,
+            answer1: answer1,
+            answer2: answer2,
+            answer3: answer3,
+            answer4: answer4,
+            correct: correct
+        };
+
+        questionsList.push(newQ);
+        document.getElementById("jsonOutput").innerText = JSON.stringify(questionsList, null, 4);
         
-        // Gushyira umubare mu gasanduku twakoze haruguru
-        document.getElementById('total-questions-count').innerText = totalCount;
-    });
+        // Hrica iforose ngo wongere wandike ikindi
+        document.getElementById("qText").value = "";
+        document.getElementById("qImage").value = "";
+        document.getElementById("ans1").value = "";
+        document.getElementById("ans2").value = "";
+        document.getElementById("ans3").value = "";
+        document.getElementById("ans4").value = "";
+        document.getElementById("qCorrect").value = "";
+
+        alert("Ikibazo cyongewe neza muri list!");
+    }
+
+    function downloadJSON() {
+        if (questionsList.length === 0) {
+            alert("Nta bibazo birimo byo kumanura!");
+            return;
+        }
+
+        let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(questionsList, null, 4));
+        let downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", "questions.json");
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+    }
 </script>
 
-<footer>
-    <a href="about.html">About</a> | 
-    <a href="contact.html">Contact</a> | 
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms & Conditions</a>
-    <a href="disclaimer.html">Disclaimer</a>
-</footer>
-</form>
+</body>
+</html>
