@@ -1,116 +1,99 @@
-let current = 0;
-let totalTime = 20 * 60; // Iminota 20 y'ikizamini
-let timer;
-let questions = [];
-
-// ================= START INITIALIZATION =================
 document.addEventListener("DOMContentLoaded", function() {
-    questions = document.querySelectorAll(".question");
+    loadQuestions();
+    updateStats();
 
-    if (questions.length > 0) {
-        createPalette();
-        showQuestion();
-        startTimer();
-        setupRadioListeners();
-    } else {
-        console.warn("Nta bibazo bibonetse kuri iyi paji.");
+    const form = document.querySelector("form");
+    if (form) {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            const questionText = document.querySelector('textarea[name="question"]').value;
+            const ans1 = document.querySelector('input[name="answer1"]').value;
+            const ans2 = document.querySelector('input[name="answer2"]').value;
+            const ans3 = document.querySelector('input[name="answer3"]').value;
+            const ans4 = document.querySelector('input[name="answer4"]').value;
+            const correct = document.querySelector('select[name="correct"]').value;
+            
+            const imageInput = document.querySelector('input[name="image"]');
+            let imageUrl = "";
+            
+            if (imageInput && imageInput.files && imageInput.files[0]) {
+                imageUrl = URL.createObjectURL(imageInput.files[0]);
+            }
+
+            const newQuestion = {
+                id: Date.now(),
+                question: questionText,
+                image: imageUrl,
+                answer1: ans1,
+                answer2: ans2,
+                answer3: ans3,
+                answer4: ans4,
+                correct: correct
+            };
+
+            let questions = JSON.parse(localStorage.getItem("provisoire_questions")) || [];
+            questions.unshift(newQuestion);
+            localStorage.setItem("provisoire_questions", JSON.stringify(questions));
+
+            alert("Ikibazo cyongerewe neza!");
+            form.reset();
+            loadQuestions();
+            updateStats();
+        });
     }
 });
 
-// ================= SHOW QUESTION =================
-function showQuestion() {
-    if (questions.length === 0) return;
+function loadQuestions() {
+    const container = document.querySelector(".questions-list");
+    if (!container) return;
 
-    questions.forEach(function(q) {
-        q.classList.remove("active");
-        q.style.display = "none";
-    });
-
-    questions[current].classList.add("active");
-    questions[current].style.display = "block";
-
-    const counter = document.getElementById("counter");
-    if (counter) {
-        counter.innerHTML = `Ikibazo ${current + 1} / ${questions.length}`;
-    }
-
-    let prevBtn = document.getElementById("prevBtn");
-    let nextBtn = document.getElementById("nextBtn");
-    let finishBtn = document.getElementById("finishBtn");
-
-    if (prevBtn) prevBtn.style.display = (current === 0) ? "none" : "block";
-    if (nextBtn) nextBtn.style.display = (current === questions.length - 1) ? "none" : "block";
-    if (finishBtn) finishBtn.style.display = (current === questions.length - 1) ? "block" : "none";
-
-    updatePalette();
-    updateProgress();
-}
-
-// ================= NEXT QUESTION =================
-function nextQuestion() {
-    let answer = questions[current].querySelector("input[type=radio]:checked");
-
-    if (!answer) {
-        alert("Banza uhitemo igisubizo cy'iki kibazo.");
+    let questions = JSON.parse(localStorage.getItem("provisoire_questions")) || [];
+    
+    if (questions.length === 0) {
+        container.innerHTML = "<p>Nta bibazo birimo muri system.</p>";
         return;
     }
 
-    if (current < questions.length - 1) {
-        current++;
-        showQuestion();
+    container.innerHTML = "";
+    questions.forEach((q, index) => {
+        const item = document.createElement("div");
+        item.className = "question-item";
+        item.innerHTML = `
+            <h3><strong>${index + 1}.</strong> ${q.question}</h3>
+            ${q.image ? `<img src="${q.image}" class="question-img" alt="Question Image">` : ''}
+            <div class="options-grid">
+                <div>A. ${q.answer1}</div>
+                <div>B. ${q.answer2}</div>
+                ${q.answer3 ? `<div>C. ${q.answer3}</div>` : ''}
+                ${q.answer4 ? `<div>D. ${q.answer4}</div>` : ''}
+            </div>
+            <span class="correct-ans">✅ Icy'ukuri: ${q.correct === '1' ? 'A' : q.correct === '2' ? 'B' : q.correct === '3' ? 'C' : 'D'}</span>
+            <div class="action-btns">
+                <button onclick="deleteQuestion(${q.id})" class="delete">🗑 Siba</button>
+            </div>
+        `;
+        container.appendChild(item);
+    });
+}
+
+function deleteQuestion(id) {
+    if (confirm("Ese urashaka gusiba iki kibazo koko?")) {
+        let questions = JSON.parse(localStorage.getItem("provisoire_questions")) || [];
+        questions = questions.filter(q => q.id !== id);
+        localStorage.setItem("provisoire_questions", JSON.stringify(questions));
+        loadQuestions();
+        updateStats();
     }
 }
 
-// ================= PREVIOUS QUESTION =================
-function previousQuestion() {
-    if (current > 0) {
-        current--;
-        showQuestion();
+function updateStats() {
+    let questions = JSON.parse(localStorage.getItem("provisoire_questions")) || [];
+    const countSpan = document.getElementById("total-questions-count");
+    if (countSpan) {
+        countSpan.innerText = questions.length;
     }
 }
-
-// ================= FINISH QUIZ (STATIC / LOCALSTORAGE) =================
-function finishQuiz() {
-    clearInterval(timer);
-    let score = 0;
-    let reviewData = [];
-
-    questions.forEach(function(q, index) {
-        let answer = q.querySelector("input[type=radio]:checked");
-        
-        // Fata umutwe w'ikibazo neza
-        let titleEl = q.querySelector(".question-title") || q.querySelector("h3") || q.querySelector("p");
-        let questionTitle = titleEl ? titleEl.innerText : `Ikibazo ${index + 1}`;
-        
-        let selectedValue = answer ? answer.value : null;
-        
-        // Shakisha inyandiko y'igisubizo umukoresha yahisemo (Label text) kugira ngo byandikwe neza kuri Result
-        let userAnsweringText = null;
-        let actualCorrectText = null;
-
-        let allRadios = q.querySelectorAll("input[type=radio]");
-        let actualCorrect = null;
-
-        allRadios.forEach(function(r) {
-            // Reba aho label cyangwa text y'igisubizo iri hafi y'uyu radio button
-            let labelEl = q.querySelector(`label[for='${r.id}']`) || r.parentElement;
-            let labelText = labelEl ? labelEl.innerText.trim() : r.value;
-
-            if (r.checked) {
-                userAnsweringText = labelText;
-            }
-
-            if (r.dataset.correct === "true" || r.hasAttribute("data-correct") || r.dataset.correct === "1") {
-                actualCorrect = r.value;
-                actualCorrectText = labelText;
-            }
-        });
-
-        // Niba data-correct itabonetse kuri dataset, shyiraho uburyo bwo kuyisesengura niba ihari
-        if (!actualCorrect) {
-            allRadios.forEach(function(r) {
-                if (r.dataset.correct) {
-                    actualCorrect = r.dataset.correct;
                     let labelEl = q.querySelector(`label[for='${r.id}']`) || r.parentElement;
                     actualCorrectText = labelEl ? labelEl.innerText.trim() : r.value;
                 }
