@@ -3,142 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Provisoire Rwanda</title>
+    <title>Admin Form - Provisoire Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; background-color: #1a1d24; color: #fff; margin: 0; padding: 20px; }
-        .container { max-width: 800px; background: #212529; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); margin: auto; }
-        h2 { color: #fff; text-align: center; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; font-weight: bold; margin-bottom: 8px; color: #adb5bd; }
-        input[type="text"], textarea, select { width: 100%; padding: 12px; background: #2b3035; border: 1px solid #373b3e; color: #fff; border-radius: 6px; box-sizing: border-box; }
-        textarea { resize: vertical; height: 90px; }
-        .btn-green { background: #198754; color: white; border: none; padding: 14px 20px; font-size: 16px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
-        .btn-green:hover { background: #157347; }
-        .btn-blue { background: #0d6efd; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; font-weight: bold; }
-        .btn-blue:hover { background: #0b5ed7; }
-        .json-box { background: #111315; color: #00ffcc; padding: 15px; border-radius: 6px; font-family: monospace; white-space: pre-wrap; margin-top: 20px; max-height: 250px; overflow-y: auto; border: 1px solid #373b3e; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: #f4f7fc; padding: 20px; color: #2d3748; }
+        .container { max-width: 700px; margin: 0 auto; }
+        .box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        h2 { margin-bottom: 20px; font-size: 18px; }
+        .form-group { margin-bottom: 15px; }
+        textarea, input, select { width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px; outline: none; }
+        textarea:focus, input:focus, select:focus { border-color: #0066ff; }
+        textarea { height: 80px; resize: vertical; }
+        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        button.save { background: #198754; color: white; border: none; padding: 12px; width: 100%; font-size: 15px; font-weight: 600; border-radius: 8px; cursor: pointer; }
+        button.save:hover { opacity: 0.9; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>➕ Ongeramo Ikibazo Gishya</h2>
-    
-    <div class="form-group">
-        <label>Andika umubiri w'ikibazo hano...</label>
-        <textarea id="qText" placeholder="Andika ikibazo..."></textarea>
-    </div>
-
-    <div class="form-group">
-        <label>Ifoto y'ikibazo (Andika izina ryayo ryiganze kuri Cloudinary cyangwa link):</label>
-        <input type="text" id="qImage" placeholder="ikibazo1.jpg (cyangwa ubyireke niba nta yo)">
-    </div>
-
-    <div class="form-group">
-        <label>Igisubizo A</label>
-        <input type="text" id="ans1" placeholder="Igisubizo A">
-    </div>
-
-    <div class="form-group">
-        <label>Igisubizo B</label>
-        <input type="text" id="ans2" placeholder="Igisubizo B">
-    </div>
-
-    <div class="form-group">
-        <label>Igisubizo C (Ona)</label>
-        <input type="text" id="ans3" placeholder="Igisubizo C">
-    </div>
-
-    <div class="form-group">
-        <label>Igisubizo D (Ona)</label>
-        <input type="text" id="ans4" placeholder="Igisubizo D">
-    </div>
-
-    <div class="form-group">
-        <label>Igisubizo cy'ukuri nikihe?</label>
-        <select id="qCorrect">
-            <option value="1">A</option>
-            <option value="2">B</option>
-            <option value="3">C</option>
-            <option value="4">D</option>
-        </select>
-    </div>
-
-    <button class="btn-green" onclick="addQuestion()">💾 Bika Ikibazo muri JSON</button>
-
-    <h3 style="margin-top: 30px;">Ibibazo byakozwe (JSON Code):</h3>
-    <div id="jsonOutput" class="json-box">[ ]</div>
-    
-    <button class="btn-blue" onclick="downloadJSON()">📥 Manura Fayili ya questions.json</button>
-</div>
-
 <script>
-    let questionsList = [];
-
-    function addQuestion() {
-        let question = document.getElementById("qText").value.trim();
-        let image = document.getElementById("qImage").value.trim();
-        let answer1 = document.getElementById("ans1").value.trim();
-        let answer2 = document.getElementById("ans2").value.trim();
-        let answer3 = document.getElementById("ans3").value.trim();
-        let answer4 = document.getElementById("ans4").value.trim();
-        let correct = document.getElementById("qCorrect").value;
-
-        if (!question || !answer1 || !answer2) {
-            alert("Banza wuzuze byibuze ikibazo n'ibisubizo bibiri bya mbere!");
-            return;
-        }
-
-        let newQ = {
-            id: questionsList.length + 1,
-            question: question,
-            image: image,
-            answer1: answer1,
-            answer2: answer2,
-            answer3: answer3,
-            answer4: answer4,
-            correct: correct
-        };
-
-        questionsList.push(newQ);
-        document.getElementById("jsonOutput").innerText = JSON.stringify(questionsList, null, 4);
-        
-        // Gusukura iforose kugira ngo wandikemo ikindi
-        document.getElementById("qText").value = "";
-        document.getElementById("qImage").value = "";
-        document.getElementById("ans1").value = "";
-        document.getElementById("ans2").value = "";
-        document.getElementById("ans3").value = "";
-        document.getElementById("ans4").value = "";
-
-        alert("Ikibazo cyongewe neza mu murongo wa JSON!");
-    }
-
-    function downloadJSON() {
-        if (questionsList.length === 0) {
-            alert("Nta bibazo birimo byo kumanura!");
-            return;
-        }
-
-        let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(questionsList, null, 4));
-        let downloadAnchor = document.createElement('a');
-        downloadAnchor.setAttribute("href", dataStr);
-        downloadAnchor.setAttribute("download", "questions.json");
-        document.body.appendChild(downloadAnchor);
-        downloadAnchor.click();
-        downloadAnchor.remove();
+    // Umutekano w'iyi form nayo
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+        window.location.href = "login.html";
     }
 </script>
 
-<script>
-    // 1. Kugenzura niba umuntu yinjiriye kuri Login page
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
+<div class="container">
+    <div class="box">
+        <h2>➕ Ongeramo Ikibazo Gishya (Admin Form)</h2>
+        <form id="question-form">
+            <div class="form-group">
+                <textarea name="question" placeholder="Andika umubiri w'ikibazo hano..." required></textarea>
+            </div>
+            <div class="form-group">
+                <input type="text" name="image" placeholder="Ifoto URL (Urugero: https://...)">
+            </div>
+            <div class="form-group grid-inputs">
+                <input type="text" name="answer1" placeholder="Igisubizo A" required>
+                <input type="text" name="answer2" placeholder="Igisubizo B" required>
+                <input type="text" name="answer3" placeholder="Igisubizo C (Ona)">
+                <input type="text" name="answer4" placeholder="Igisubizo D (Ona)">
+            </div>
+            <div class="form-group">
+                <label style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 5px;">Igisubizo cy'ukuri nikihe?</label>
+                <select name="correct">
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">C</option>
+                    <option value="4">D</option>
+                </select>
+            </div>
+            <button type="submit" class="save">💾 Bika Ikibazo Muri System</button>
+        </form>
+    </div>
+</div>
 
-    if (isLoggedIn !== "true") {
-        // Niba atarinjiye cyangwa yarasohotse (Logged out), amusubiza kuri Login ako kanya!
-        window.location.href = "login.html";
-    }
-</script>    
+<script>
+    document.getElementById('question-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        let questionsList = JSON.parse(localStorage.getItem("local_questions")) || [];
+
+        let newQ = {
+            id: questionsList.length + 1,
+            question: document.querySelector('textarea[name="question"]').value.trim(),
+            image: document.querySelector('input[name="image"]').value.trim(),
+            answer1: document.querySelector('input[name="answer1"]').value.trim(),
+            answer2: document.querySelector('input[name="answer2"]').value.trim(),
+            answer3: document.querySelector('input[name="answer3"]').value.trim(),
+            answer4: document.querySelector('input[name="answer4"]').value.trim(),
+            correct: document.querySelector('select[name="correct"]').value
+        };
+
+        questionsList.push(newQ);
+        localStorage.setItem("local_questions", JSON.stringify(questionsList));
+
+        this.reset();
+        alert("✅ Ikibazo cyongewe neza kandi cyoherejwe muri Quiz!");
+    });
+</script>
 
 </body>
 </html>
