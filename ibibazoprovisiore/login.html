@@ -3,132 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login | Provisoire Training Online</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="https://fav.farm/🔐" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+    <title>Admin Login - Provisoire Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #0066ff;
-            --bg-color: #f4f7fc;
-            --text-dark: #2d3748;
-            --danger-color: #dc3545;
-            --success-color: #198754;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .login-card {
-            background: white;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .login-card h2 {
-            margin-bottom: 10px;
-            font-size: 24px;
-            color: var(--text-dark);
-        }
-
-        .login-card p {
-            color: #718096;
-            font-size: 14px;
-            margin-bottom: 25px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px 16px;
-            font-size: 15px;
-            border-radius: 10px;
-            border: 2px solid #e2e8f0;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        input:focus {
-            border-color: var(--primary-color);
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        button:hover {
-            background: #0052cc;
-        }
-
-        .alert {
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-bottom: 15px;
-            display: none;
-        }
-
-        .alert.danger {
-            background: #f8d7da;
-            color: var(--danger-color);
-            display: block;
-        }
-
-        .alert.success {
-            background: #d1e7dd;
-            color: var(--success-color);
-            display: block;
-        }
-
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #718096;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .back-link:hover {
-            color: var(--primary-color);
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: #f4f7fc; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .login-card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 100%; max-width: 400px; }
+        h2 { margin-bottom: 8px; color: #2d3748; }
+        p { color: #718096; font-size: 14px; margin-bottom: 24px; }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #4a5568; }
+        input { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px; outline: none; }
+        input:focus { border-color: #0066ff; }
+        button { width: 100%; padding: 12px; background: #0066ff; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; }
+        button:hover { background: #0052cc; }
+        .alert { padding: 10px; border-radius: 6px; font-size: 13px; margin-bottom: 15px; display: none; }
+        .alert.error { background: #f8d7da; color: #dc3545; display: block; }
+        .alert.success { background: #d1e7dd; color: #198754; display: block; }
     </style>
 </head>
 <body>
@@ -141,52 +32,33 @@
 
     <form id="login-form">
         <div class="form-group">
-            <label for="username">Izina ry'ubuyobozi (Username)</label>
+            <label>Izina ry'ubuyobozi (Username)</label>
             <input type="text" id="username" placeholder="Urugero: admin" required>
         </div>
-
         <div class="form-group">
-            <label for="password">Ijambo ry'ibanga (Password)</label>
+            <label>Ijambo ry'ibanga (Password)</label>
             <input type="password" id="password" placeholder="••••••••" required>
         </div>
-
         <button type="submit">Injira Mu Dashibodi 🚀</button>
     </form>
-
-    <a href="index.html" class="back-link">← Subira ku rupapuro rw'ibanze (Quiz)</a>
 </div>
 
 <script>
-    const CORRECT_USERNAME = "admin";
-    const CORRECT_PASSWORD = "password123";
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const user = document.getElementById('username').value.trim();
+        const pass = document.getElementById('password').value;
+        const alertBox = document.getElementById('alert-box');
 
-    const loginForm = document.getElementById('login-form');
-    const alertBox = document.getElementById('alert-box');
-    const usernameInput = document.getElementById('username');
-    const passwordInput = document.getElementById('password');
-
-    loginForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const enteredUsername = usernameInput.value.trim();
-        const enteredPassword = passwordInput.value;
-
-        alertBox.className = "alert";
-        alertBox.textContent = "";
-
-        if (enteredUsername === CORRECT_USERNAME && enteredPassword === CORRECT_PASSWORD) {
-            alertBox.classList.add("success");
+        // Amakuru y'ibanze y'umuyobozi
+        if (user === "admin" && pass === "password123") {
+            alertBox.className = "alert success";
             alertBox.textContent = "✅ Byagenze neza! Winjiye muri dashibodi...";
-            
-            // Kubika ko yemerewe kwinjira
             localStorage.setItem("isLoggedIn", "true");
-
-            setTimeout(() => {
-                window.location.href = "dashboard.html"; 
-            }, 1000);
+            setTimeout(() => { window.location.href = "dashboard.html"; }, 1000);
         } else {
-            alertBox.classList.add("danger");
-            alertBox.textContent = "⚠️ Izina cyangwa ijambo ry'ibanga si byo. Ongera ugerageze.";
+            alertBox.className = "alert error";
+            alertBox.textContent = "⚠️ Izina cyangwa ijambo ry'ibanga si byo!";
         }
     });
 </script>
