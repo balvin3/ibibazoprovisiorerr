@@ -13,9 +13,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Guhindura url_for igahinduka link isanzwe ya CSS -->
     <link rel="stylesheet" href="style.css">
-
+    <script src="https://pl30600128.effectivecpmnetwork.com/00/35/04/00350429f691455db5156209d1c06794.js"></script>
+    <script src="https://quge5.com/88/tag.min.js" data-zone="265417" async data-cfasync="false"></script>  
     <style>
         :root {
             --primary-color: #0066ff;
@@ -268,30 +268,10 @@
             <div id="timer">⏱️ Igihe: 20:00</div>
         </div>
 
-        <!-- Ikibazo cyashyizweho mu buryo bwa Static HTML cyangwa kizajya cyuzuzwa na JavaScript -->
         <form id="quizForm" onsubmit="return false;">
-            <div class="question active" data-index="0">
-                <h2>1. Icyapa cyerekana iki mu mategeko y'umuhanda?</h2>
-
-                <div class="image-container">
-                    <img src="https://res.cloudinary.com/du7r7iqwf/image/upload/sample_sign.png" alt="Quiz Image">
-                </div>
-
-                <label class="option-label">
-                    <span><input type="radio" name="q1" value="1" data-correct="2" onchange="optionSelected(this)"> A. Gutanga inzira</span>
-                </label>
-
-                <label class="option-label">
-                    <span><input type="radio" name="q1" value="2" data-correct="2" onchange="optionSelected(this)"> B. Guhagarara akanya gato</span>
-                </label>
-
-                <label class="option-label">
-                    <span><input type="radio" name="q1" value="3" data-correct="2" onchange="optionSelected(this)"> C. Ahantu haremewe kunyuranaho</span>
-                </label>
-
-                <label class="option-label">
-                    <span><input type="radio" name="q1" value="4" data-correct="2" onchange="optionSelected(this)"> D. Umuhanda w'icyerekezo kimwe</span>
-                </label>
+            <div id="questions-container">
+                <!-- Ahazanywa ibibazo na JavaScript -->
+                <p style="text-align: center; padding: 20px;">Turi gutegura ibibazo by'ikizamini...</p>
             </div>
         </form>
 
@@ -308,15 +288,99 @@
 
 <script>
     let current = 0;
-    let questions = document.querySelectorAll(".question");
-    let totalTime = questions.length * 60; 
+    let questionsData = [];
+    let questions = [];
+    let totalTime = 1200; // Iminota 20
     let timer;
 
     document.addEventListener("DOMContentLoaded", function() {
-        initPalette();
-        showQuestion();
-        startTimer();
+        // Dufata ibibazo byanditswe cyangwa byashyizweho muri localStorage (cyangwa default sample)
+        let savedQuestions = JSON.parse(localStorage.getItem("provisoire_questions"));
+        
+        if (!savedQuestions || savedQuestions.length === 0) {
+            // Sample questions z'ifatizo niba nta zahari
+            questionsData = [
+                {
+                    id: 1,
+                    question: "Ni ikihe cyapa kigaragaza aho umuvuduko utagomba kurenza?",
+                    image: "",
+                    answer1: "Cyapa cy'anga",
+                    answer2: "Cyapa cy'umuvuduko ntarengwa",
+                    answer3: "Cyapa cy'uburyo bwo gutambuka",
+                    answer4: "Cyapa cy'integuza",
+                    correct: "2"
+                },
+                {
+                    id: 2,
+                    question: "Mu masangano aho nta bimenyetso biri, utanga inzira nde?",
+                    image: "",
+                    answer1: "Uwiturutse iburyo",
+                    answer2: "Uwiturutse ibumoso",
+                    answer3: "Imodoka nini ifite uburenganzira",
+                    answer4: "Uyoboye umuvuduko",
+                    correct: "1"
+                }
+            ];
+        } else {
+            // Tureba ibibazo 20 bitunguranye cyangwa byose hamwe
+            questionsData = savedQuestions.sort(() => 0.5 - Math.random()).slice(0, 20);
+        }
+
+        renderQuestions();
+        questions = document.querySelectorAll(".question");
+        totalTime = questions.length * 60;
+        
+        if (questions.length > 0) {
+            initPalette();
+            showQuestion();
+            startTimer();
+        }
     });
+
+    function renderQuestions() {
+        const container = document.getElementById("questions-container");
+        container.innerHTML = "";
+
+        if (questionsData.length === 0) {
+            container.innerHTML = "<p>Nta bibazo bihari. Banza wongeremo ibibazo muri dashboard.</p>";
+            return;
+        }
+
+        questionsData.forEach((q, index) => {
+            let imageHtml = "";
+            if (q.image && q.image !== 'None') {
+                let imgSource = q.image.startsWith('http') || q.image.startsWith('blob') ? q.image : `https://res.cloudinary.com/du7r7iqwf/image/upload/${q.image}`;
+                imageHtml = `<div class="image-container"><img src="${imgSource}" alt="Quiz Image"></div>`;
+            }
+
+            const div = document.createElement("div");
+            div.className = `question ${index === 0 ? 'active' : ''}`;
+            div.setAttribute("data-index", index);
+            div.innerHTML = `
+                <h2>${index + 1}. ${q.question}</h2>
+                ${imageHtml}
+                <label class="option-label">
+                    <input type="radio" name="q${q.id || index}" value="1" data-correct="${q.correct}" onchange="optionSelected(this)">
+                    A. ${q.answer1}
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="q${q.id || index}" value="2" data-correct="${q.correct}" onchange="optionSelected(this)">
+                    B. ${q.answer2}
+                </label>
+                ${q.answer3 ? `
+                <label class="option-label">
+                    <input type="radio" name="q${q.id || index}" value="3" data-correct="${q.correct}" onchange="optionSelected(this)">
+                    C. ${q.answer3}
+                </label>` : ''}
+                ${q.answer4 ? `
+                <label class="option-label">
+                    <input type="radio" name="q${q.id || index}" value="4" data-correct="${q.correct}" onchange="optionSelected(this)">
+                    D. ${q.answer4}
+                </label>` : ''}
+            `;
+            container.appendChild(div);
+        });
+    }
 
     function initPalette() {
         let palette = document.getElementById("palette");
@@ -366,7 +430,10 @@
             }
         });
 
-        questions[current].classList.add("active");
+        if (questions[current]) {
+            questions[current].classList.add("active");
+        }
+        
         let activePaletteBtn = document.getElementById("palette-btn-" + current);
         if (activePaletteBtn) activePaletteBtn.classList.add("active");
 
@@ -391,7 +458,7 @@
         currentQuestionBlock.querySelectorAll(".option-label").forEach(label => {
             label.classList.remove("selected");
         });
-        input.parentElement.parentElement.classList.add("selected");
+        input.parentElement.classList.add("selected");
         
         let paletteBtn = document.getElementById("palette-btn-" + current);
         if (paletteBtn) paletteBtn.classList.add("answered");
@@ -420,28 +487,45 @@
     function finishQuiz() {
         clearInterval(timer);
         let score = 0;
+        let reviewList = [];
 
-        questions.forEach(function(q) {
+        questions.forEach(function(q, index) {
             let answer = q.querySelector("input[type=radio]:checked");
+            let qData = questionsData[index];
+            
             if (answer) {
                 if (answer.value === answer.dataset.correct) {
                     score++;
                 }
             }
+
+            if (qData) {
+                reviewList.push({
+                    question: qData.question,
+                    image: qData.image || '',
+                    answer1: qData.answer1,
+                    answer2: qData.answer2,
+                    answer3: qData.answer3,
+                    answer4: qData.answer4,
+                    correct: qData.correct
+                });
+            }
         });
 
-        localStorage.setItem("score", score);
+        // Kubika amanota n'ibisubizo by'ibyo umunyeshuri yibeshyeho muri localStorage kugira ngo review page ibibone
+        localStorage.setItem("provisoire_score", score);
+        localStorage.setItem("provisoire_total", questions.length);
+        localStorage.setItem("provisoire_last_review", JSON.stringify(reviewList));
 
-        // Kubera ko ari static site, twerekeza kuri page ya result.html aho gukoresha backend route
+        // Kwimura umunyeshuri kuri result page ya static
         window.location.href = "result.html";
     }
 </script>
-
 <footer>
-    <div style="margin-bottom: 12px; text-align: center;">
-        <a href="https://api.whatsapp.com/send?text=Reba%20izi%20quiz%20nziza%20z'amategeko%20y'umuhanda%20https://ibibazoprovisoire.com" target="_blank" style="color: #4ade80 !important; font-weight: 600; text-decoration: none;">📱 Share kuri WhatsApp</a>
+    <div style="margin-bottom: 12px;">
+        <a href="https://api.whatsapp.com/send?text=Reba%20izi%20quiz%20nziza%20z'amategeko%20y'umuhanda%20https://ibibazoprovisoire.com" target="_blank" style="color: #4ade80 !important; font-weight: 600;">📱 Share kuri WhatsApp</a>
     </div>
-    <div style="margin-bottom: 12px; font-size: 13px; text-align: center;">
+    <div style="margin-bottom: 12px; font-size: 13px;">
         <a href="about.html">About</a> • 
         <a href="contact.html">Contact</a> • 
         <a href="privacy.html">Privacy</a> • 
@@ -449,8 +533,9 @@
         <a href="disclaimer.html">Disclaimer</a> • 
         <a href="faq.html">FAQ</a>
     </div>
-    <p style="text-align: center; color: #718096; font-size: 14px;">&copy; 2026 Provisiore Rwanda 🚗 All Rights Reserved.</p>
+    <p>&copy; 2026 Provisiore Rwanda 🚗 All Rights Reserved.</p>
 </footer>
 
 </body>
 </html>
+            
