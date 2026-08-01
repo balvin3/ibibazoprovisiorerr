@@ -157,7 +157,6 @@
 </div>
 
 <script>
-    // Amakuru y'ibanze yo kwinjira (Ushobora kuyahindura uko ubishaka)
     const CORRECT_USERNAME = "admin";
     const CORRECT_PASSWORD = "password123";
 
@@ -167,24 +166,21 @@
     const passwordInput = document.getElementById('password');
 
     loginForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Birinda ko paji yongera kwikora
+        event.preventDefault();
 
         const enteredUsername = usernameInput.value.trim();
         const enteredPassword = passwordInput.value;
 
-        // Gusukura ubutumwa bwa mbere
         alertBox.className = "alert";
         alertBox.textContent = "";
 
-        // Kugenzura niba ibyo wanditse ari byo
         if (enteredUsername === CORRECT_USERNAME && enteredPassword === CORRECT_PASSWORD) {
             alertBox.classList.add("success");
             alertBox.textContent = "✅ Byagenze neza! Winjiye muri dashibodi...";
             
-            // Kubika muri browser ko wemerewe kwinjira
+            // Kubika ko yemerewe kwinjira
             localStorage.setItem("isLoggedIn", "true");
 
-            // Guhita ajyanwa muri Dashboard nyuma y'isase 1
             setTimeout(() => {
                 window.location.href = "dashboard.html"; 
             }, 1000);
