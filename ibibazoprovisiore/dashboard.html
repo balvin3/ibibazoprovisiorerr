@@ -580,5 +580,15 @@
     }
 </script>
 
+<script>
+    // 1. Kugenzura niba umuntu yinjiriye kuri Login page
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+    if (isLoggedIn !== "true") {
+        // Niba atarinjiye cyangwa yarasohotse (Logged out), amusubiza kuri Login ako kanya!
+        window.location.href = "login.html";
+    }
+</script>
+
 </body>
 </html>
