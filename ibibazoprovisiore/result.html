@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Ikizamini Kirangiye | Provisoire Rwanda</title>
     <meta name="description" content="Reba amanota yawe ya Provisoire Rwanda. Witoze ibizamini by'uruhushya rwo gutwara ku buntu.">
 
@@ -11,11 +12,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <link rel="icon" href="https://fav.farm/🚗" />
-    <link rel="stylesheet" href="./style.css">
-
-    <!-- Script z'amamenyekamaza (Ad Scripts) -->
+    <link rel="stylesheet" href="style.css">
     <script src="https://pl30600128.effectivecpmnetwork.com/00/35/04/00350429f691455db5156209d1c06794.js"></script>
-    <script src="https://quge5.com/88/tag.min.js" data-zone="265417" async data-cfasync="false"></script>
+    <script src="https://quge5.com/88/tag.min.js" data-zone="265417" async data-cfasync="false"></script>  
+
 
     <style>
         :root {
@@ -42,13 +42,13 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 40px auto;
         }
 
         .card {
             background: var(--card);
-            padding: 40px 30px;
+            padding: 35px;
             border-radius: 16px;
             text-align: center;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
@@ -60,7 +60,7 @@
         }
 
         .score {
-            font-size: 60px;
+            font-size: 55px;
             font-weight: bold;
             color: var(--primary);
             margin: 20px 0;
@@ -69,7 +69,7 @@
         .feedback {
             font-size: 18px;
             font-weight: 600;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .pass { color: var(--success); }
@@ -78,11 +78,10 @@
         .btn {
             display: block;
             padding: 14px;
-            margin: 12px 0;
+            margin: 10px 0;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
-            text-align: center;
         }
 
         .btn-primary {
@@ -95,6 +94,18 @@
             color: var(--text);
         }
 
+        .btn-review {
+            display: block;
+            padding: 14px;
+            margin: 10px 0;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            background: #e2e8f0;
+            color: var(--text);
+        }
+
+        .btn-review:hover { background: #cbd5e1; }
         .btn-primary:hover { background: #0052cc; }
         .btn-secondary:hover { background: #e2e8f0; }
 
@@ -103,14 +114,10 @@
             display: inline-block;
             background: #25d366;
             color: white;
-            padding: 12px 20px;
+            padding: 10px 18px;
             border-radius: 25px;
             text-decoration: none;
             font-weight: bold;
-        }
-
-        .whatsapp:hover {
-            background: #20ba5a;
         }
 
         footer {
@@ -125,86 +132,80 @@
             text-decoration: none;
             margin: 0 5px;
         }
-
-        footer a:hover {
-            color: var(--primary);
-            text-decoration: underline;
-        }
     </style>
 </head>
 
 <body>
 
 <div class="container">
+
     <div class="card">
 
         <h1>🎉 Ikizamini Kirangiye</h1>
         <p>Reba amanota wagize:</p>
 
-        <!-- Amanota azajya yinjira hano -->
-        <div class="score" id="scoreDisplay">
+        <!-- Amanota azajya azamo binyuze muri JavaScript -->
+        <div class="score" id="score-display">
             0 / 20
         </div>
 
-        <div class="feedback" id="feedbackDisplay">
-            Utegereje amanota...
+        <div class="feedback" id="feedback-display">
+            Turi kubara amanota yawe...
         </div>
 
-        <!-- Utubuto (Buttons) -->
-        <a href="./quiz.html" class="btn btn-primary">🔄 Subiramo Ikizamini</a>
-        <a href="./index.html" class="btn btn-secondary">🏠 Subira Ahabanza</a>
+        <a href="review.html" class="btn-review">
+            🔍 Reba ibyo wibeshyeho
+        </a>
+        <a href="quiz.html" class="btn btn-primary">🔄 Subiramo Ikizamini</a>
+        
+        <a href="index.html" class="btn btn-secondary">🏠 Subira Ahabanza</a>
 
         <!-- WhatsApp SHARE -->
         <a class="whatsapp"
-           href="https://wa.me/?text=Ese watsinze Provisoire? Jya kwitoreza ku rubuga rwa Provisoire Rwanda."
+           href="https://wa.me/?text=Ese watsinze Provisoire? Jya kuri https://ibibazoprovisoire.com"
            target="_blank">
-            📱 Tumira inshuti kuri WhatsApp
+           📱 Tumira inshuti kuri WhatsApp
         </a>
 
     </div>
+
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // 1. Fata amanota na total muri localStorage
-        let score = parseInt(localStorage.getItem('quiz_score'));
-        let total = parseInt(localStorage.getItem('quiz_total'));
+    // Gusoma amanota y'umunyeshuri muri localStorage
+    document.addEventListener("DOMContentLoaded", function() {
+        const score = parseInt(localStorage.getItem("provisoire_score")) || 0;
+        const total = parseInt(localStorage.getItem("provisoire_total")) || 20;
 
-        if (isNaN(score)) score = 0;
-        if (isNaN(total) || total === 0) total = 20;
+        const scoreDisplay = document.getElementById("score-display");
+        const feedbackDisplay = document.getElementById("feedback-display");
 
-        // 2. Shyira amanota mu mwanya wayo
-        const scoreDisplay = document.getElementById('scoreDisplay');
-        if (scoreDisplay) {
-            scoreDisplay.innerText = `${score} / ${total}`;
-        }
+        scoreDisplay.innerText = `${score} / ${total}`;
 
-        // 3. Kubara ubutumwa bw'uko yatsinze cyangwa yatsinzwe (60% cyangwa kurenza)
-        const feedbackDisplay = document.getElementById('feedbackDisplay');
-        let passingMark = Math.ceil(total * 0.6);
-
-        if (feedbackDisplay) {
-            if (score >= passingMark) {
-                feedbackDisplay.className = "feedback pass";
-                feedbackDisplay.innerHTML = "🎉 Watsinze neza cyane! Uratandukanye!";
-            } else {
-                feedbackDisplay.className = "feedback fail";
-                feedbackDisplay.innerHTML = "❌ Ntibyakunze ku nshuro ya mbere. Ongera witoze uzatsinda!";
-            }
+        if (score >= 12) {
+            feedbackDisplay.innerHTML = "🎉 Watsinze neza! Uratandukanye cyane!";
+            feedbackDisplay.className = "feedback pass";
+        } else {
+            feedbackDisplay.innerHTML = "❌ Ntibyakunze. Ongera witoze ube better!";
+            feedbackDisplay.className = "feedback fail";
         }
     });
 </script>
 
 <footer>
     <div class="footer-links">
-        <a href="./about.html">About</a> • 
-        <a href="./contact.html">Contact</a> • 
-        <a href="./privacy.html">Privacy</a> • 
-        <a href="./terms.html">Terms</a> • 
-        <a href="./disclaimer.html">Disclaimer</a>
+        <a href="about.html">About</a> • 
+        <a href="contact.html">Contact</a> • 
+        <a href="privacy.html">Privacy</a> • 
+        <a href="terms.html">Terms</a> • 
+        <a href="disclaimer.html">Disclaimer</a> • 
+        <a href="faq.html">FAQ</a>
     </div>
     <p>© 2026 Provisoire Rwanda | All Rights Reserved.</p>
 </footer>
 
 </body>
 </html>
+        
+
+
