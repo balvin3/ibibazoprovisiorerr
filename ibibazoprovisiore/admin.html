@@ -1,205 +1,33 @@
-<!DOCTYPE html>
-<html lang="rw">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | Provisoire Rwanda</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="icon" href="https://fav.farm/🚗" />
-
-  
-
-    <style>
-        :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --bg: #f4f7fc;
-            --card: #ffffff;
-            --text: #0f172a;
-            --muted: #475569;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--text);
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-
-        .admin-card {
-            background: var(--card);
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-            margin-bottom: 30px;
-        }
-
-        h2 {
-            margin-bottom: 20px;
-            color: var(--text);
-            font-size: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: var(--muted);
-        }
-
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-
-        button[type="submit"] {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1rem;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        button[type="submit"]:hover {
-            background: var(--primary-hover);
-        }
-
-        .question-item {
-            padding: 12px 15px;
-            border-bottom: 1px solid #f1f5f9;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px 0;
-            font-size: 14px;
-            color: var(--muted);
-            border-top: 1px solid #e2e8f0;
-        }
-
-        footer a {
-            color: var(--muted);
-            text-decoration: none;
-            margin: 0 8px;
-            font-weight: 500;
-        }
-
-        footer a:hover {
-            color: var(--primary);
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-
-    <!-- Umubare w'ibibazo byose (Total Questions Counter Box) -->
-    <div style="background-color: #e2f0ff; border-left: 5px solid #007bff; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
-        <h3 style="margin: 0; color: #0056b3;">
-            📊 Umubare w'ibibazo byose biri muri sisitemu: 
-            <span id="total-questions-count" style="font-size: 24px; font-weight: bold; color: #000;">0</span>
-        </h3>
-    </div>
-
-    <!-- Form yo kongera ikibazo (Yahinduwe ya static cyangwa yohereza ahandi hagenewe) -->
-    <div class="admin-card">
-        <h2>➕ Ongera Ikibazo Gishya</h2>
-        
-        <form action="#" method="POST">
-            <div class="form-group">
-                <label for="question_text">Ikibazo:</label>
-                <textarea id="question_text" name="question_text" rows="3" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Amahitamo (Options):</label>
-                <input type="text" name="option_a" placeholder="Hitamo A" required style="margin-bottom: 8px;">
-                <input type="text" name="option_b" placeholder="Hitamo B" required style="margin-bottom: 8px;">
-                <input type="text" name="option_c" placeholder="Hitamo C" required style="margin-bottom: 8px;">
-                <input type="text" name="option_d" placeholder="Hitamo D" required style="margin-bottom: 8px;">
-            </div>
-
-            <div class="form-group">
-                <label for="correct_answer">Igisubizo Nyacyo (Urugero: A, B, C, cyangwa D):</label>
-                <input type="text" id="correct_answer" name="correct_answer" maxlength="1" required style="width: 100px; text-transform: uppercase;">
-            </div>
-
-            <button type="submit">💾 Bika Ikibazo</button>
-        </form>
-    </div>
-
-    <!-- Urutonde rw'ibibazo (Aho JavaScript ibarira ifashishije class yiswe 'question-item') -->
-    <div class="admin-card">
-        <h2>📋 Urutonde rw'Ibibazo Bihari</h2>
-        
-        <div class="question-item">
-            <span>1. Uburenganzira bw'ibanze ku muhanda niubuhe?</span>
-            <span style="font-size: 0.85rem; color: #64748b;">ID: #01</span>
-        </div>
-
-        <div class="question-item">
-            <span>2. Ni ryari umushoferi agomba kwitwararika ku cyapa cy'umuvuduko?</span>
-            <span style="font-size: 0.85rem; color: #64748b;">ID: #02</span>
-        </div>
-    </div>
-
+<form action="index.html" method="POST">
+<div style="background-color: #e2f0ff; border-left: 5px solid #007bff; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+    <h3 style="margin: 0; color: #0056b3;">
+        📊 Umubare w'ibibazo byose biri muri sisitemu: 
+        <span id="total-questions-count" style="font-size: 24px; font-weight: bold; color: #000;">0</span>
+    </h3>
 </div>
 
-<!-- JavaScript yo kubara ibibazo yashyizwe ku murongo -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Hano JavaScript iri gushaka ibintu byose bifite class yitwa 'question-item', 'question-block' cyangwa 'tr.question-row'
+        // Hano JavaScript iri gushaka ibintu byose bifite class yitwa 'question-item' cyangwa 'question-block'
+        // Changwa niba ukoresha Table, ushobora gushyiramo ibisebe byose bya Table (rows)
+        // Kuri iyi nshuro, reba niba ibibazo byawe bishya bifite aho bihuriye nka class:
         const questions = document.querySelectorAll('.question-block, .question-item, tr.question-row');
         
+        // Niba nta class ziriho, niba ibibazo biza bimeze nka <h3>, twabara ama <h3> yose:
+        // const questions = document.querySelectorAll('h3'); 
+
         const totalCount = questions.length;
         
         // Gushyira umubare mu gasanduku twakoze haruguru
-        const counterElement = document.getElementById('total-questions-count');
-        if (counterElement) {
-            counterElement.innerText = totalCount;
-        }
+        document.getElementById('total-questions-count').innerText = totalCount;
     });
 </script>
 
 <footer>
-    <a href="./about.html">About</a> | 
-    <a href="./contact.html">Contact</a> | 
-    <a href="./privacy.html">Privacy Policy</a> | 
-    <a href="./terms.html">Terms & Conditions</a> | 
-    <a href="./disclaimer.html">Disclaimer</a>
+    <a href="about.html">About</a> | 
+    <a href="contact.html">Contact</a> | 
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms & Conditions</a>
+    <a href="disclaimer.html">Disclaimer</a>
 </footer>
-
-</body>
-</html>
+</form>
