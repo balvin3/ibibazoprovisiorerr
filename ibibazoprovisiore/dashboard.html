@@ -472,41 +472,112 @@
 </div>
 
 <script>
-    // Mock Admin Credentials (replace with real authentication logic if connecting to an API)
-    const CORRECT_USERNAME = "admin";
-    const CORRECT_PASSWORD = "password123";
+    // Fata ibibazo bisanzwe bihari cyangwa utangire list nshya
+    let questionsList = JSON.parse(localStorage.getItem("local_questions")) || [];
+    updateQuestionDisplay();
 
-    const loginForm = document.getElementById('login-form');
-    const alertBox = document.getElementById('alert-box');
-    const usernameInput = document.getElementById('username');
-    const passwordInput = document.getElementById('password');
-
-    loginForm.addEventListener('submit', function(event) {
-        // Prevent default form submission reload
+    // Igikorwa cyo kubika ikibazo gishya
+    function handleAddQuestion(event) {
         event.preventDefault();
 
-        const enteredUsername = usernameInput.value.trim();
-        const enteredPassword = passwordInput.value;
+        let question = document.querySelector('textarea[name="question"]').value.trim();
+        let image = document.querySelector('input[name="image"]').value.trim() || "https://via.placeholder.com/180";
+        let answer1 = document.querySelector('input[name="answer1"]').value.trim();
+        let answer2 = document.querySelector('input[name="answer2"]').value.trim();
+        let answer3 = document.querySelector('input[name="answer3"]').value.trim();
+        let answer4 = document.querySelector('input[name="answer4"]').value.trim();
+        let correct = document.querySelector('select[name="correct"]').value;
 
-        // Clear previous alert states
-        alertBox.className = "alert";
-        alertBox.textContent = "";
-
-        // Simple validation check
-        if (enteredUsername === CORRECT_USERNAME && enteredPassword === CORRECT_PASSWORD) {
-            alertBox.classList.add("success");
-            alertBox.textContent = "✅ Byagenze neza! Winjiye muri dashibodi...";
-            
-            // Simulate redirection after successful login
-            setTimeout(() => {
-                alert("Welcome to the Admin Dashboard!");
-                // window.location.href = "dashboard.html"; // Redirect link here
-            }, 1000);
-        } else {
-            alertBox.classList.add("danger");
-            alertBox.textContent = "⚠️ Izina cyangwa ijambo ry'ibanga si ryo. Ongera ugerageze.";
+        if (!question || !answer1 || !answer2) {
+            alert("Banza wuzuze byibuze umubiri w'ikibazo n'ibisubizo bibiri bya mbere!");
+            return;
         }
+
+        let newQ = {
+            id: questionsList.length + 1,
+            question: question,
+            image: image,
+            answer1: answer1,
+            answer2: answer2,
+            answer3: answer3,
+            answer4: answer4,
+            correct: correct
+        };
+
+        questionsList.push(newQ);
+        
+        // Kubibika muri localStorage kugira ngo Quiz ihite ibibona ako kanya
+        localStorage.setItem("local_questions", JSON.stringify(questionsList));
+        
+        updateQuestionDisplay();
+        
+        // Gusukura form (Inputs)
+        document.querySelector('textarea[name="question"]').value = "";
+        document.querySelector('input[name="image"]').value = "";
+        document.querySelector('input[name="answer1"]').value = "";
+        document.querySelector('input[name="answer2"]').value = "";
+        document.querySelector('input[name="answer3"]').value = "";
+        document.querySelector('input[name="answer4"]').value = "";
+
+        alert("✅ Ikibazo cyongewe neza kandi cyoherejwe muri Quiz!");
+    }
+
+    // Gushyira ibibazo bifatika muri List ya HTML no kubara umubare wabyo
+    function updateQuestionDisplay() {
+        const listContainer = document.querySelector('.questions-list');
+        const countDisplay = document.getElementById('total-questions-count');
+        
+        if (countDisplay) {
+            countDisplay.innerText = questionsList.length;
+        }
+
+        if (!listContainer) return;
+
+        if (questionsList.length === 0) {
+            listContainer.innerHTML = "<p>Nta bibazo birimo muri system.</p>";
+            return;
+        }
+
+        let htmlContent = "";
+        questionsList.forEach((q, index) => {
+            let correctLetter = q.correct == 1 ? "A" : q.correct == 2 ? "B" : q.correct == 3 ? "C" : "D";
+            htmlContent += `
+                <div class="question-item">
+                    <h3><strong>${index + 1}.</strong> ${q.question}</h3>
+                    ${q.image ? `<img src="${q.image}" class="question-img" alt="Image">` : ''}
+                    <div class="options-grid">
+                        <div>A. ${q.answer1}</div>
+                        <div>B. ${q.answer2}</div>
+                        ${q.answer3 ? `<div>C. ${q.answer3}</div>` : ''}
+                        ${q.answer4 ? `<div>D. ${q.answer4}</div>` : ''}
+                    </div>
+                    <span class="correct-ans">✅ Icy'ukuri: ${correctLetter}</span>
+                    <div class="action-btns">
+                        <button onclick="deleteQuestion(${index})" class="delete">🗑 Siba</button>
+                    </div>
+                </div>
+            `;
+        });
+        listContainer.innerHTML = htmlContent;
+    }
+
+    // Gushyira EventListener kuri Form yawe yo kongeramo ikibazo
+    document.addEventListener("DOMContentLoaded", function() {
+        const questionForm = document.querySelector('.box form');
+        if (questionForm) {
+            questionForm.addEventListener("submit", handleAddQuestion);
+        }
+        updateQuestionDisplay();
     });
+
+    // Gushobora gusiba ikibazo
+    function deleteQuestion(index) {
+        if (confirm("Ese urashaka gusiba iki kibazo?")) {
+            questionsList.splice(index, 1);
+            localStorage.setItem("local_questions", JSON.stringify(questionsList));
+            updateQuestionDisplay();
+        }
+    }
 </script>
 
 </body>
