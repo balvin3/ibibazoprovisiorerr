@@ -3,216 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genzura Ibisubizo | Provisoire Training</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="https://fav.farm/🚗" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+    <title>Ibisubizo by'Ikizamini | Provisoire Rwanda</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --primary-color: #0066ff;
-            --bg-color: #f4f7fc;
-            --text-dark: #2d3748;
-            --text-light: #718096;
-            --card-bg: #ffffff;
-            --success-color: #198754;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            line-height: 1.6;
-            padding: 30px 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #0066ff, #0044cc);
-            color: white;
-            padding: 25px;
-            border-radius: 16px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0, 68, 204, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header h1 {
-            font-size: 22px;
-        }
-
-        .back-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-
-        .back-btn:hover {
-            background: white;
-            color: var(--primary-color);
-        }
-
-        .review-box {
-            background: var(--card-bg);
-            border: 1px solid #e2e8f0;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-radius: 14px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-        }
-
-        .review-box p {
-            font-size: 16px;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        .question-img {
-            max-width: 100%;
-            max-height: 250px;
-            border-radius: 8px;
-            display: block;
-            margin: 12px 0;
-            object-fit: contain;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        .options-list {
-            list-style-type: none;
-            padding-left: 0;
-            margin: 15px 0;
-        }
-
-        .options-list li {
-            padding: 10px 14px;
-            margin-bottom: 8px;
-            background: #f8fafc;
-            border-radius: 8px;
-            font-size: 15px;
-            border: 1px solid #edf2f7;
-        }
-
-        .options-list li.correct-highlight {
-            background: #e8f5e9;
-            border-color: #c8e6c9;
-            color: var(--success-color);
-            font-weight: 600;
-        }
-
-        .correct-ans {
-            color: var(--success-color);
-            font-weight: 600;
-            background: #e8f5e9;
-            padding: 8px 14px;
-            border-radius: 8px;
-            display: inline-block;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        .no-data {
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border-radius: 14px;
-            color: var(--text-light);
-            font-size: 16px;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #f4f7fc; color: #2d3748; padding: 20px; line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        h2 { color: #0066ff; margin-bottom: 20px; border-left: 4px solid #0066ff; padding-left: 12px; }
+        .review-box { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 8px; background: #f8fafc; }
+        .review-img { max-width: 200px; display: block; margin: 10px 0; border-radius: 8px; }
+        ul { list-style-type: none; padding-left: 0; margin: 10px 0; }
+        li { padding: 4px 0; color: #4a5568; }
+        .correct-ans { color: green; font-weight: bold; margin-top: 10px; display: inline-block; }
+        .back-btn { display: inline-block; margin-top: 25px; padding: 12px 24px; background: #0066ff; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; }
+        .back-btn:hover { background: #0052cc; }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <h2>Ibisubizo by'ikizamini</h2>
 
-    <div class="header">
-        <h1>🔍 Genzura Ibibazo (Review)</h1>
-        <a href="dashboard.html" class="back-btn">← Dashboard</a>
+    <div id="review-container">
+        <!-- Ahazanywa ibisubizo na JavaScript -->
+        <p>Turi gushaka amakuru y'ibisubizo...</p>
     </div>
 
-    <!-- Aho ibibazo bizajya byizana na JavaScript -->
-    <div id="reviewContainer">
-        <div class="no-data">Tegereza gato...</div>
-    </div>
-
+    <a href="index.html" class="back-btn">Subira ahabanza</a>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        let reviewContainer = document.getElementById("reviewContainer");
-        
-        // Dufata amakuru y'ibibazo muri localStorage
-        let reviewData = JSON.parse(localStorage.getItem("adminQuestions")) || JSON.parse(localStorage.getItem("quizQuestions")) || [];
-
-        reviewContainer.innerHTML = "";
+        const container = document.getElementById("review-container");
+        let reviewData = JSON.parse(localStorage.getItem("provisoire_last_review")) || [];
 
         if (reviewData.length === 0) {
-            reviewContainer.innerHTML = `<div class="no-data">Nta bibazo bihari byo kugenzura kugeza ubu.</div>`;
+            container.innerHTML = "<p>Nta bisubizo by'ikizamini bihari. Banza ukore ikizamini!</p>";
             return;
         }
 
+        container.innerHTML = "";
         reviewData.forEach((item, index) => {
-            let box = document.createElement("div");
+            const box = document.createElement("div");
             box.className = "review-box";
             
-            // Gutunganya ifoto y'ikibazo (niba ihari)
-            let imageTag = "";
-            if (item.image && item.image !== "None" && item.image.trim() !== "") {
-                let imgSrc = item.image.startsWith("http") || item.image.startsWith("data:") 
-                    ? item.image 
-                    : `https://res.cloudinary.com/du7r7iqwf/image/upload/${item.image}`;
-                
-                imageTag = `<img src="${imgSrc}" class="question-img" alt="Ifoto y'ikibazo">`;
+            let imageHtml = "";
+            if (item.image && item.image !== 'None') {
+                let imgSource = item.image.startsWith('http') ? item.image : `https://res.cloudinary.com/du7r7iqwf/image/upload/${item.image}`;
+                imageHtml = `<img src="${imgSource}" class="review-img" alt="Question Image">`;
             }
 
-            // Gutegura lisiti y'uburyo bw'ibisubizo (Options)
-            let optionsHtml = "";
-            let answersList = [item.answer1, item.answer2, item.answer3, item.answer4];
-            
-            answersList.forEach((ans, i) => {
-                if (ans && ans.trim() !== "") {
-                    let optionNumber = i + 1;
-                    // Reba niba iki gisubizo ari cyo cy'ukuri (uhereye kuri item.correct)
-                    let isCorrectOption = (String(item.correct) === String(optionNumber)) || (String(item.correct).toLowerCase() === String(optionNumber));
-                    
-                    let liClass = isCorrectOption ? "correct-highlight" : "";
-                    let checkIcon = isCorrectOption ? " ✅" : "";
-                    
-                    optionsHtml += `<li class="${liClass}">${optionNumber}. ${ans}${checkIcon}</li>`;
-                }
-            });
-
             box.innerHTML = `
-                <p>${index + 1}. ${item.question || item.questionText || "Ikibazo kitagira mutwe"}</p>
-                ${imageTag}
-                <ul class="options-list">
-                    ${optionsHtml}
+                <p><strong>Ikibazo cya ${index + 1}:</strong> ${item.question}</p>
+                ${imageHtml}
+                <ul>
+                    <li>1: ${item.answer1}</li>
+                    <li>2: ${item.answer2}</li>
+                    ${item.answer3 ? `<li>3: ${item.answer3}</li>` : ''}
+                    ${item.answer4 ? `<li>4: ${item.answer4}</li>` : ''}
                 </ul>
-                <div class="correct-ans">
-                    ✅ Igisubizo cy'ukuri: Option ${item.correct}
-                </div>
+                <p class="correct-ans">Igisubizo cy'ukuri: Option ${item.correct}</p>
             `;
-
-            reviewContainer.appendChild(box);
+            container.appendChild(box);
         });
     });
 </script>
