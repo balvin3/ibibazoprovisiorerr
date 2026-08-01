@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Provisiore Rwanda | Only Admin Login</title>
+    <title>Admin Dashboard | Ibizamini bya Provisoire Training Online</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="https://fav.farm/🚗" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="style.css">
+
     <style>
         :root {
             --primary-color: #0066ff;
@@ -18,12 +20,9 @@
             --text-dark: #2d3748;
             --text-light: #718096;
             --card-bg: #ffffff;
-            --danger-bg: #fff5f5;
-            --danger-text: #e53e3e;
-            --danger-border: #fed7d7;
-            --success-bg: #f0fff4;
-            --success-text: #38a169;
-            --success-border: #c6f6d5;
+            --success-color: #198754;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
         }
 
         * {
@@ -36,151 +35,424 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            line-height: 1.6;
             padding: 20px;
         }
 
-        .login-container {
+        .dashboard {
             width: 100%;
-            max-width: 420px;
+            max-width: 1200px;
+            margin: 20px auto;
         }
 
-        .card {
-            background: var(--card-bg);
-            padding: 40px 30px;
+        /* Header Navigation */
+        .header {
+            background: linear-gradient(135deg, #0066ff, #0044cc);
+            color: white;
+            padding: 30px;
             border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.02);
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--text-dark);
-        }
-
-        h2 {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(0, 68, 204, 0.1);
             margin-bottom: 30px;
         }
 
-        .form-group {
+        .header h1 {
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.85);
+            margin-top: 5px;
+            font-size: 15px;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background: white;
+            color: var(--danger-color);
+        }
+
+        /* Statistics Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.01);
+        }
+
+        .stat h1 {
+            font-size: 36px;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .stat p {
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Content Boxes */
+        .box {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .box h2 {
+            font-size: 20px;
             margin-bottom: 20px;
-            text-align: left;
+            color: var(--text-dark);
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+        }
+
+        /* Form Inputs */
+        .form-group {
+            margin-bottom: 15px;
         }
 
         label {
             display: block;
             font-size: 14px;
             font-weight: 600;
-            color: var(--text-dark);
             margin-bottom: 8px;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px 16px;
-            font-size: 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            background-color: #f8fafc;
             color: var(--text-dark);
-            transition: all 0.2s ease;
-            outline: none;
         }
 
-        input:focus {
+        textarea, input[type="text"], select {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 15px;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            background-color: #f8fafc;
+            outline: none;
+            margin-bottom: 15px;
+            transition: all 0.2s ease;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        textarea:focus, input[type="text"]:focus, select:focus {
             border-color: var(--primary-color);
             background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
         }
 
-        /* Alert Messages handled via JS */
-        .alert {
-            display: none;
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .alert.danger {
-            background-color: var(--danger-bg);
-            color: var(--danger-text);
-            border: 1px solid var(--danger-border);
-            display: block;
-        }
-
-        .alert.success {
-            background-color: var(--success-bg);
-            color: var(--success-text);
-            border: 1px solid var(--success-border);
-            display: block;
-        }
-
+        /* Buttons */
         button {
-            width: 100%;
-            padding: 15px;
+            padding: 12px 24px;
             border: none;
-            border-radius: 10px;
-            background: var(--primary-color);
-            color: white;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s ease;
-            margin-top: 10px;
+            transition: all 0.2s ease;
         }
 
-        button:hover {
-            background: var(--primary-hover);
+        .save {
+            background: var(--success-color);
+            color: white;
+            width: 100%;
         }
 
-        .back-link {
+        .save:hover { background: #146c43; }
+
+        .edit {
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 14px;
+            font-size: 13px;
+            text-decoration: none;
+            border-radius: 6px;
             display: inline-block;
-            margin-top: 25px;
+        }
+
+        .edit:hover { background: var(--primary-hover); }
+
+        .delete {
+            background: var(--danger-color);
+            color: white;
+            padding: 8px 14px;
+            font-size: 13px;
+            text-decoration: none;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .delete:hover { background: #b02a37; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: var(--text-light);
+            font-weight: 600;
+            padding: 14px;
+            font-size: 14px;
+            border-bottom: 2px solid #edf2f7;
+            text-align: left;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 15px;
+            text-align: left;
+        }
+
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        /* Question List View */
+        .question-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .question-item:last-child {
+            border-bottom: none;
+        }
+
+        .question-item h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .question-img {
+            max-width: 180px;
+            border-radius: 8px;
+            margin: 10px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
             font-size: 14px;
             color: var(--text-light);
-            text-decoration: none;
-            transition: color 0.2s ease;
         }
 
-        .back-link:hover {
-            color: var(--primary-color);
+        .correct-ans {
+            display: inline-block;
+            margin-top: 5px;
+            background: #e8f5e9;
+            color: var(--success-color);
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 6px;
+        }
+
+        .action-btns {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header { flex-direction: column; text-align: center; gap: 15px; }
+            td, th { padding: 10px; font-size: 13px; }
         }
     </style>
 </head>
 <body>
 
-<div class="login-container">
-    <div class="card">
-        <h1>🚗 Provisiore Rwanda</h1>
-        <h2>Admin Dashboard</h2>
+<div class="dashboard">
 
-        <!-- Dynamic Alert Message Container -->
-        <div id="alert-box" class="alert"></div>
+    <div class="header">
+        <div>
+            <h1>🔐 Admin Dashboard</h1>
+            <p>Provisions Rwanda Management Panel</p>
+        </div>
+        <a href="login.html" class="logout-btn">Sohoka (Logout)</a>
+    </div>
 
-        <form id="login-form">
+    <div class="cards">
+        <div class="stat">
+            <h1>0</h1>
+            <p>Abakoze Quiz</p>
+        </div>
+        <div class="stat">
+            <h1 style="color: var(--success-color);">0</h1>
+            <p>Pass 🎉</p>
+        </div>
+        <div class="stat">
+            <h1 style="color: var(--danger-color);">0</h1>
+            <p>Fail ❌</p>
+        </div>
+        <div class="stat">
+            <h1 style="color: var(--warning-color);">0%</h1>
+            <p>Average Score</p>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2>➕ Ongeramo Ikibazo Gishya</h2>
+        <form action="#" method="POST" enctype="multipart/form-data">
+            
             <div class="form-group">
-                <label for="username">Izina ry'ukoresha (Username)</label>
-                <input 
-                    type="text" 
-                    id="username"
-                    name="username" 
-                    placeholder="Andika username yawe" 
-                    required>
+                <textarea name="question" placeholder="Andika umubiri w'ikibazo hano..." required></textarea>
             </div>
+
+            <div class="form-group">
+                <label>Ifoto y'ikibazo (Byatoranywa):</label>
+                <input type="file" name="image" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="answer1" placeholder="Igisubizo A" required>
+                <input type="text" name="answer2" placeholder="Igisubizo B" required>
+                <input type="text" name="answer3" placeholder="Igisubizo C (Ona)">
+                <input type="text" name="answer4" placeholder="Igisubizo D (Ona)">
+            </div>
+
+            <div class="form-group">
+                <label for="correct">Igisubizo cy'ukuri nikihe?</label>
+                <select name="correct" id="correct">
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">C</option>
+                    <option value="4">D</option>
+                </select>
+            </div>
+
+            <button type="submit" class="save">💾 Bika Ikibazo Muri Database</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <h2>📚 Ibibazo Biriho Muri System</h2>
+        
+        <div class="questions-list">
+            <!-- Urugero rw'ikibazo cya static -->
+            <div class="question-item">
+                <h3><strong>1.</strong> Ikimenyetso cy'umuhanda cyerekana iki?</h3>
+                
+                <img src="https://via.placeholder.com/180" class="question-img" alt="Question Image">
+
+                <div class="options-grid">
+                    <div>A. Gutambuka</div>
+                    <div>B. Guhagarara</div>
+                    <div>C. Kuyoboka</div>
+                    <div>D. Kuyora</div>
+                </div>
+
+                <span class="correct-ans">✅ Icy'ukuri: B</span>
+
+                <div class="action-btns">
+                    <a href="#" class="edit">✏️ Hindura</a>
+                    <a href="#" onclick="return confirm('Ese urashaka gusiba iki kibazo koko?');" class="delete">🗑 Siba</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2>🏆 Urutonde rw'Abakoze Ikizamini</h2>
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 10%;"># No.</th>
+                        <th style="width: 60%;">Amazina Yombi</th>
+                        <th style="width: 30%;">Amanota Yagize</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1</strong></td>
+                        <td>Urugero Izina</td>
+                        <td><span style="font-weight: 600; color: var(--primary-color);">18 / 20</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <a href="about.html">About</a> | 
+    <a href="contact.html">Contact</a> | 
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms & Conditions</a>
+    <a href="disclaimer.html">Disclaimer</a>
+</footer>
+
+</body>
+</html>
+<form action="index.html" method="POST">
+<div style="background-color: #e2f0ff; border-left: 5px solid #007bff; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+    <h3 style="margin: 0; color: #0056b3;">
+        📊 Umubare w'ibibazo byose biri muri sisitemu: 
+        <span id="total-questions-count" style="font-size: 24px; font-weight: bold; color: #000;">0</span>
+    </h3>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Hano JavaScript iri gushaka ibintu byose bifite class yitwa 'question-item' cyangwa 'question-block'
+        // Changwa niba ukoresha Table, ushobora gushyiramo ibisebe byose bya Table (rows)
+        // Kuri iyi nshuro, reba niba ibibazo byawe bishya bifite aho bihuriye nka class:
+        const questions = document.querySelectorAll('.question-block, .question-item, tr.question-row');
+        
+        // Niba nta class ziriho, niba ibibazo biza bimeze nka <h3>, twabara ama <h3> yose:
+        // const questions = document.querySelectorAll('h3'); 
+
+        const totalCount = questions.length;
+        
+        // Gushyira umubare mu gasanduku twakoze haruguru
+        document.getElementById('total-questions-count').innerText = totalCount;
+    });
+</script>
+
+<footer>
+    <a href="about.html">About</a> | 
+    <a href="contact.html">Contact</a> | 
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms & Conditions</a>
+    <a href="disclaimer.html">Disclaimer</a>
+</footer>
+</form>
 
             <div class="form-group">
                 <label for="password">Ijambo ry'ibanga (Password)</label>
