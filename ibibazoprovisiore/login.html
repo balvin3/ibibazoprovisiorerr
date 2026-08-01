@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Provisoire Training Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="https://fav.farm/🔐" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #0066ff;
+            --bg-color: #f4f7fc;
+            --text-dark: #2d3748;
+            --danger-color: #dc3545;
+            --success-color: #198754;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-card h2 {
+            margin-bottom: 10px;
+            font-size: 24px;
+            color: var(--text-dark);
+        }
+
+        .login-card p {
+            color: #718096;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 15px;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #0052cc;
+        }
+
+        .alert {
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .alert.danger {
+            background: #f8d7da;
+            color: var(--danger-color);
+            display: block;
+        }
+
+        .alert.success {
+            background: #d1e7dd;
+            color: var(--success-color);
+            display: block;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #718096;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <h2>🔐 Injira mu Buyobozi</h2>
+    <p>Andika umwirondoro wawe kugira ngo winjire muri Dashboard.</p>
+
+    <div id="alert-box" class="alert"></div>
+
+    <form id="login-form">
+        <div class="form-group">
+            <label for="username">Izina ry'ubuyobozi (Username)</label>
+            <input type="text" id="username" placeholder="Urugero: admin" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Ijambo ry'ibanga (Password)</label>
+            <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit">Injira Mu Dashibodi 🚀</button>
+    </form>
+
+    <a href="index.html" class="back-link">← Subira ku rupapuro rw'ibanze (Quiz)</a>
+</div>
+
+<script>
+    // Amakuru y'ibanze yo kwinjira (Ushobora kuyahindura uko ubishaka)
+    const CORRECT_USERNAME = "admin";
+    const CORRECT_PASSWORD = "password123";
+
+    const loginForm = document.getElementById('login-form');
+    const alertBox = document.getElementById('alert-box');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+
+    loginForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Birinda ko paji yongera kwikora
+
+        const enteredUsername = usernameInput.value.trim();
+        const enteredPassword = passwordInput.value;
+
+        // Gusukura ubutumwa bwa mbere
+        alertBox.className = "alert";
+        alertBox.textContent = "";
+
+        // Kugenzura niba ibyo wanditse ari byo
+        if (enteredUsername === CORRECT_USERNAME && enteredPassword === CORRECT_PASSWORD) {
+            alertBox.classList.add("success");
+            alertBox.textContent = "✅ Byagenze neza! Winjiye muri dashibodi...";
+            
+            // Kubika muri browser ko wemerewe kwinjira
+            localStorage.setItem("isLoggedIn", "true");
+
+            // Guhita ajyanwa muri Dashboard nyuma y'isase 1
+            setTimeout(() => {
+                window.location.href = "dashboard.html"; 
+            }, 1000);
+        } else {
+            alertBox.classList.add("danger");
+            alertBox.textContent = "⚠️ Izina cyangwa ijambo ry'ibanga si byo. Ongera ugerageze.";
+        }
+    });
+</script>
+
+</body>
+</html>
