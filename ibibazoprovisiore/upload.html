@@ -2,158 +2,33 @@
 <html lang="rw">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shyiraho Ifoto | Provisoire Rwanda</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="https://fav.farm/🚗" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="./style.css">
-
-    <!-- Script z'amamenyekamaza (Ad Scripts) -->
-
-
+    <title>Shyiraho Ifoto</title>
     <style>
-        :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --bg: #f4f7fc;
-            --card: #ffffff;
-            --text: #0f172a;
-            --muted: #475569;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .card {
-            background: var(--card);
-            padding: 35px 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--muted);
-            font-size: 0.95rem;
-        }
-
-        input[type="text"], input[type="file"] {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #cbd5e1;
-            border-radius: 10px;
-            font-size: 1rem;
-            background-color: #f8fafc;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        input[type="text"]:focus, input[type="file"]:focus {
-            border-color: var(--primary);
-            background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s ease, transform 0.1s ease;
-            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background-color: #218838;
-            transform: translateY(-1px);
-        }
-
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 25px;
-            font-size: 0.95rem;
-            color: var(--muted);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        .back-link:hover {
-            color: var(--primary);
-        }
+        body { font-family: Arial, sans-serif; margin: 50px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="file"] { width: 100%; padding: 8px; }
+        button { padding: 10px 15px; background-color: #28a745; color: white; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="card">
-            <h2>📸 Ongeraho Ikibazo n'Ifoto yacyo</h2>
-            
-            <!-- Yahinduwe ya static ikoresha '#' cyangwa aho yohereza -->
-            <form action="#" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="question">Andika Ikibazo:</label>
-                    <input type="text" id="question" name="question" required placeholder="Urugero: Ni ikihe cyapa cyerekana ko…">
-                </div>
-                
-                <div class="form-group">
-                    <label for="image">Hitamo Ifoto (PNG, JPG):</label>
-                    <input type="file" id="image" name="image" accept="image/*" required>
-                </div>
-                
-                <button type="submit">💾 Bika Ikibazo n'Ifoto</button>
-            </form>
-
-            <a href="./index.html" class="back-link">← Subira ahabanza</a>
+    <h2>Ongeraho Ikibazo n'Ifoto yacyo</h2>
+    
+    <form action="upload-quiz.html" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="question">Andika Ikibazo:</label>
+            <input type="text" id="question" name="question" required placeholder="Urugero: Ni ikihe biribwa birimo vitamine C?">
         </div>
-    </div>
+        
+        <div class="form-group">
+            <label for="image">Hitamo Ifoto (PNG, JPG):</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+        </div>
+        
+        <button type="submit">Bika kuri Cloudinary & DB</button>
+    </form>
 
 </body>
 </html>
+            
