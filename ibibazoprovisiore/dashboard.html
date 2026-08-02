@@ -4,15 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Provisoire Online</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { background-color: #f4f7fc; padding: 20px; color: #2d3748; }
-        .container { max-width: 800px; margin: 0 auto; }
+        .container { max-width: 900px; margin: 0 auto; }
         header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .logout-btn { background: #dc3545; color: white; padding: 8px 14px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 13px; }
-        .box { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        h2 { font-size: 18px; margin-bottom: 15px; }
+        header h1 { font-size: 20px; color: #1a202c; }
+        .logout-btn { background: #dc3545; color: white; padding: 8px 14px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 13px; transition: background 0.2s; }
+        .logout-btn:hover { background: #bb2d3b; }
+        
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        h2 { font-size: 18px; margin-bottom: 15px; color: #2d3748; border-bottom: 2px solid #edf2f7; padding-bottom: 8px; }
+        
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #4a5568; }
+        input[type="text"], textarea, select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; outline: none; transition: border-color 0.2s; }
+        input[type="text"]:focus, textarea:focus, select:focus { border-color: #0066ff; }
+        textarea { resize: vertical; height: 80px; }
+        
+        .btn-submit { background: #0066ff; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.2s; }
+        .btn-submit:hover { background: #0052cc; }
+
+        /* Ibibazo biri muri list */
+        .question-item { background: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; }
+        .question-info h4 { font-size: 15px; margin-bottom: 5px; color: #1e293b; }
+        .question-info p { font-size: 13px; color: #64748b; margin-bottom: 3px; }
+        .btn-delete { background: #fee2e2; color: #dc3545; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer; transition: background 0.2s; }
+        .btn-delete:hover { background: #fecaca; }
+        
+        .empty-text { text-align: center; color: #94a3b8; padding: 20px; font-size: 14px; }
     </style>
 </head>
 <body>
@@ -30,9 +51,53 @@
         <a href="#" onclick="logout(event)" class="logout-btn">Sohoka (Logout)</a>
     </header>
 
-    <div class="box">
-        <h2>Murakaza neza mu buyobozi!</h2>
-        <p>Kuri iyi paji ni ho ugenzura urubuga rwawe. Koresha Admin Form yo kongeramo ibibazo bishya bizahita bijya kuri Quiz yawe.</p>
+    <!-- Kongeramo Ikibazo Gishya -->
+    <div class="card">
+        <h2>➕ Kongeramo Ikibazo Gishya</h2>
+        <form id="questionForm" onsubmit="addQuestion(event)">
+            <div class="form-group">
+                <label>Ikibazo (Question):</label>
+                <textarea id="qText" placeholder="Andika ikibazo hano..." required></textarea>
+            </div>
+            <div class="form-group">
+                <label>Ifoto (Cloudinary URL cyangwa izina ry'ifoto):</label>
+                <input type="text" id="qImage" placeholder="Urugero: sign1.jpg (ushobora kubireka niba nta ifoto ifite)">
+            </div>
+            <div class="form-group">
+                <label>Igisubizo A:</label>
+                <input type="text" id="qAns1" required>
+            </div>
+            <div class="form-group">
+                <label>Igisubizo B:</label>
+                <input type="text" id="qAns2" required>
+            </div>
+            <div class="form-group">
+                <label>Igisubizo C (Bitari ngombwa):</label>
+                <input type="text" id="qAns3">
+            </div>
+            <div class="form-group">
+                <label>Igisubizo D (Bitari ngombwa):</label>
+                <input type="text" id="qAns4">
+            </div>
+            <div class="form-group">
+                <label>Hitamo Igisubizo Nyacyo (Correct Answer):</label>
+                <select id="qCorrect" required>
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">C</option>
+                    <option value="4">D</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-submit">Emeza Ubike Ikibazo</button>
+        </form>
+    </div>
+
+    <!-- Urutonde rw'Ibibazo bihari -->
+    <div class="card">
+        <h2>📋 Urutonde rw'Ibibazo Biri muri System (<span id="totalQuestionsCount">0</span>)</h2>
+        <div id="adminQuestionsList">
+            <p class="empty-text">Turi gushaka ibibazo...</p>
+        </div>
     </div>
 </div>
 
@@ -41,6 +106,80 @@
         e.preventDefault();
         localStorage.removeItem("isLoggedIn");
         window.location.href = "login.html";
+    }
+
+    // Gusoma no kwerekana ibibazo biri muri localStorage igihe paji ifungutse
+    document.addEventListener("DOMContentLoaded", function() {
+        loadAdminQuestions();
+    });
+
+    function loadAdminQuestions() {
+        let savedQuestions = JSON.parse(localStorage.getItem("provisoire_questions")) || [];
+        const container = document.getElementById("adminQuestionsList");
+        document.getElementById("totalQuestionsCount").innerText = savedQuestions.length;
+
+        if (savedQuestions.length === 0) {
+            container.innerHTML = `<p class="empty-text">Nta bibazo birashyirwamo. Koresha fomu iri hejuru wongeremo ikibazo cya mbere.</p>`;
+            return;
+        }
+
+        container.innerHTML = "";
+        savedQuestions.forEach((q, index) => {
+            const div = document.createElement("div");
+            div.className = "question-item";
+            div.innerHTML = `
+                <div class="question-info">
+                    <h4>${index + 1}. ${q.question}</h4>
+                    <p><strong>A:</strong> ${q.answer1} | <strong>B:</strong> ${q.answer2} ${q.answer3 ? '| <strong>C:</strong> ' + q.answer3 : ''} ${q.answer4 ? '| <strong>D:</strong> ' + q.answer4 : ''}</p>
+                    <p style="color: #059669; font-weight: 600;">Igisubizo nyacyo: ${q.correct}</p>
+                </div>
+                <button class="btn-delete" onclick="deleteQuestion(${index})">Siba ❌</button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    // Kongeramo ikibazo gishya
+    function addQuestion(e) {
+        e.preventDefault();
+
+        let questionText = document.getElementById("qText").value.trim();
+        let questionImage = document.getElementById("qImage").value.trim();
+        let ans1 = document.getElementById("qAns1").value.trim();
+        let ans2 = document.getElementById("qAns2").value.trim();
+        let ans3 = document.getElementById("qAns3").value.trim();
+        let ans4 = document.getElementById("qAns4").value.trim();
+        let correctAns = document.getElementById("qCorrect").value;
+
+        let newQuestion = {
+            id: Date.now(),
+            question: questionText,
+            image: questionImage || "",
+            answer1: ans1,
+            answer2: ans2,
+            answer3: ans3,
+            answer4: ans4,
+            correct: correctAns
+        };
+
+        let savedQuestions = JSON.parse(localStorage.getItem("provisoire_questions")) || [];
+        savedQuestions.push(newQuestion);
+        localStorage.setItem("provisoire_questions", JSON.stringify(savedQuestions));
+
+        // Gusukura form no kongera kugaragaza list nshya
+        document.getElementById("questionForm").reset();
+        loadAdminQuestions();
+        alert("🎉 Ikibazo cyongeweho neza!");
+    }
+
+    // Gusiba ikibazo kimwe
+    function deleteQuestion(index) {
+        if (confirm("Udemejeyeko ushaka gusiba iki kibazo?")) {
+            let savedQuestions = JSON.parse(localStorage.getItem("provisoire_questions")) || [];
+            savedQuestions.splice(index, 1);
+            localStorage.setItem("provisoire_questions", JSON.stringify(savedQuestions));
+            loadAdminQuestions();
+        }
     }
 </script>
 
